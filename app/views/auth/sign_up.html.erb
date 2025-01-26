@@ -1,0 +1,29 @@
+<div class="section">
+  <h1 class="title barlow-condensed-bold">Welcome to <span class="has-text-primary">PowerUser</span></h1>
+</div>
+
+<div class="section">
+    <%= form_with do |f| %>
+    <h2 class="title is-4">Sign up</h2>
+    <div class="field">
+      <%= f.label :username, class: "label" %>
+      <div class="control">
+        <%= f.text_field :username, class: "input" %>
+      </div>
+    </div>
+    <div class="field">
+      <%= f.label :name, class: "label" %>
+      <div class="control">
+        <%= f.text_field :name, class: "input" %>
+      </div>
+    </div>
+    <div class="field">
+      <%= f.label :password, class: "label" %>
+      <div class="control">
+        <%= f.password_field :password, class: "input" %>
+      </div>
+    </div>
+
+    <%= f.submit "Continue", class: "button is-primary" %>
+  <% end %>
+</div>
