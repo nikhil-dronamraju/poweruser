@@ -8,16 +8,24 @@ class DashboardController < ApplicationController
 
   def fitness_tracking
     @user = User.find(session[:user_id])
+
+  end
+
+  def new_workout
+    @workout = Workout.new(gym_lifts: [GymLift.new])
     @last_two_weeks = (Date.today - 14..Date.today).to_a
+    @workout_types = Workout.workout_types.to_a
+  end
+
+  def create_workout
+
   end
 
   def add_lift_to_workout
-    @exercise = Exercise.find_by(title: params[:lift])
-    @reps = params[:reps].to_i
-    @sets = params[:reps].to_i
-    respond_to do |format|
-      format.html { fitness_tracking_path }
-      format.turbo_stream
-    end
+    # @all_lifts = Exercise.all.select(:title).map(&:title).to_a.sort
+  end
+
+  def delete_lift_from_workout
+
   end
 end

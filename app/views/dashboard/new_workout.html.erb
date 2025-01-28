@@ -1,0 +1,32 @@
+<section class="hero">
+  <div class="hero-body">
+    <h1 class="title has-text-primary">Let's add a workout</h1>
+    <h2 class="subtitle has-text-warning">To proceed, fill out the form below</h2>
+  </div>
+</section>
+
+<section class="section">
+  <%= turbo_frame_tag "gym_lift" do %>
+    <%= form_with model: @workout, url: :dashboard_create_workout do |f| %>
+      <div class="field">
+        <%= f.label "Date:", class: "label" %>
+        <div class="select">
+          <%= f.select :date, options_from_collection_for_select(@last_two_weeks, :to_s, :to_s) %>
+        </div>
+      </div>
+
+      <div class="field">
+        <%= f.label "Type:", class: "label" %>
+        <div class="select">
+          <%= f.select :workout_type, options_for_select(Workout.workout_types.map{ |k, v| [k.capitalize, v]}) %>
+        </div>
+      </div>
+
+      <%= button_tag "Add Lift", formaction: dashboard_add_lift_to_workout_path, formmethod: :post, data: { turbo_stream: true }, class: "button is-warning" %>
+      <%#= f.submit "Continue", class: "button is-primary" %>
+      <%#= turbo_frame_tag "workout_lift_form_frame" do %>
+
+      <%# end %>
+    <% end %>
+  <% end %>
+</section>

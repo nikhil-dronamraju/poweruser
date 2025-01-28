@@ -1,2 +1,22 @@
-<% p "Some new shit" %>
-<%= turbo_stream.prepend "current_workouts", partial: "exercise_workout", locals: { exercise: @exercise, reps: @reps, sets: @sets } %>
+<%= turbo_stream.append "gym_lift" do %>
+      <%= fields_for 'workout[gym_lift_attributes][]', GymLift.new, index: Time.current.to_i do |form| %>
+      <div class="field">
+        <%= form.label :lift, class: "label" %>
+        <div class="select">
+          <%= form.select :exercise, options_from_collection_for_select(Exercise.all.select(:title).to_a.map(&:title).sort, :to_s, :to_s ), class: "label" %>
+        </div>
+      </div>
+      <div class="field">
+        <%= form.label :reps, class: "label" %>
+        <%= form.number_field :reps, class: "input" %>
+      </div>
+      <div class="field">
+        <%= form.label :weight, class: "label" %>
+        <%= form.number_field :weight, class: "input" %>
+      </div>
+    <%= form.submit "destroy task",
+                    formaction: dashboard_delete_lift_from_workout_path,
+                    formmethod: :delete,
+                    data: { turbo_frame: "task_#{form.index}" } %>
+  <% end %>
+<% end %>

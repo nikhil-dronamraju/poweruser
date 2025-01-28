@@ -14,5 +14,8 @@ Rails.application.routes.draw do
   post "auth/create_or_login_user", as: :create_or_login_user
   get "dashboard/home"
   get "dashboard/fitness_tracking"
+  get "dashboard/new_workout"
+  post "dashboard/create_workout"
   post "dashboard/add_lift_to_workout"
+  post "dashboard/delete_lift_from_workout"
 end
