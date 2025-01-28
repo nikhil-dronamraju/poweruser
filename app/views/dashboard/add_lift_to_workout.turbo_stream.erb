@@ -1,0 +1,2 @@
+<% p "Some new shit" %>
+<%= turbo_stream.prepend "current_workouts", partial: "exercise_workout", locals: { exercise: @exercise, reps: @reps, sets: @sets } %>

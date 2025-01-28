@@ -3,22 +3,25 @@
 </div>
 
 <div class="section">
-    <%= form_with do |f| %>
-    <h2 class="title is-4">Sign up</h2>
+    <%= form_with model: @user, url: :create_or_login_user do |f| %>
+    <h2 class="is-size-3 has-text-weight-medium">Sign up</h2>
     <div class="field">
-      <%= f.label :username, class: "label" %>
+      <%= f.label :username, class: "label has-text-weight-normal" %>
       <div class="control">
         <%= f.text_field :username, class: "input" %>
       </div>
+      <% if flash[:notice] %>
+        <span class="has-text-danger"><%= notice %></span>
+      <% end %>
     </div>
     <div class="field">
-      <%= f.label :name, class: "label" %>
+      <%= f.label :name, class: "label has-text-weight-normal" %>
       <div class="control">
         <%= f.text_field :name, class: "input" %>
       </div>
     </div>
     <div class="field">
-      <%= f.label :password, class: "label" %>
+      <%= f.label :password, class: "label has-text-weight-normal" %>
       <div class="control">
         <%= f.password_field :password, class: "input" %>
       </div>

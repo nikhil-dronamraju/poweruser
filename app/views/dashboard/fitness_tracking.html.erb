@@ -1,0 +1,67 @@
+<%= render partial: "fitness_tracking_javascript" %>
+<div class="section">
+
+  <%= form_with url: :dashboard_add_lift_to_workout do |f| %>
+    <div class="field">
+      <%= f.label :date, class: "label has-text-weight-normal" %>
+      <div class="control">
+        <div class="select">
+          <%= f.select :date, options_from_collection_for_select(@last_two_weeks, :to_s, :to_s), prompt: "Choose a date" %>
+        </div>
+      </div>
+    </div>
+
+    <div class="field">
+      <div class="control">
+        <%= f.label :lift, class: "label has-text-weight-normal" %>
+        <div class="select">
+          <%= f.select :lift, options_from_collection_for_select(Exercise.all.select(:title).to_a.map(&:title).sort, :to_s, :to_s), prompt: "Add lift" %>
+        </div>
+        <%= f.label :weight, class: "label has-text-weight-normal" %>
+        <%= f.number_field :weight, class: "input" %>
+        <%= f.label :reps, class: "label has-text-weight-normal" %>
+        <%= f.number_field :reps, class: "input" %>
+        <%= f.label :sets, class: "label has-text-weight-normal" %>
+        <%= f.number_field :sets, class: "input" %>
+      </div>
+    </div>
+    <%= f.submit "Continue", class: "button is-primary" %>
+  <% end %>
+  <%= turbo_frame_tag "current_workouts" do  %>
+
+  <% end %>
+
+  <h4 class="title is-4 barlow-condensed-medium">Progress</h4>
+  <progress class="progress is-primary" value="0" max="100"></progress>
+</div>
+
+<div id="add-lift-modal" class="modal">
+  <div class="modal-background"></div>
+
+  <div class="modal-content">
+    <div class="box">
+      <span class="title is-6">Add Lift</span>
+      <%= form_with url: :dashboard_add_lift_to_workout, local: false do |f| %>
+        <%= f.label :lift, class: "label has-text-weight-normal" %>
+        <div class="select">
+          <%= f.select :lift, options_from_collection_for_select(Exercise.all.select(:title).to_a.map(&:title).sort, :to_s, :to_s), prompt: "Add lift", class: "select" %>
+        </div>
+        <div class="control">
+          <%= f.label :reps, class: "label has-text-weight-normal" %>
+          <%= f.number_field :reps, class: "input" %>
+        </div>
+        <div class="control">
+          <%= f.label :weight, class: "label has-text-weight-normal" %>
+          <%= f.number_field :weight, class: "input" %>
+        </div>
+        <div class="control">
+          <%= f.label :sets, class: "label has-text-weight-normal" %>
+          <%= f.number_field :sets, class: "input" %>
+        </div>
+        <%= f.submit "Add", class: "button is-light" %>
+      <% end %>
+    </div>
+  </div>
+
+  <button class="modal-close is-large" aria-label="close"></button>
+</div>

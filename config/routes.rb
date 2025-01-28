@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  root "auth#sign_up"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
@@ -11,5 +10,9 @@ Rails.application.routes.draw do
   get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
 
   # Defines the root path route ("/")
-  # root "posts#index"
+  root "auth#sign_up"
+  post "auth/create_or_login_user", as: :create_or_login_user
+  get "dashboard/home"
+  get "dashboard/fitness_tracking"
+  post "dashboard/add_lift_to_workout"
 end
