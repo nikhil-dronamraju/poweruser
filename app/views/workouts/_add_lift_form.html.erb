@@ -1,23 +1,34 @@
+<hr>
 <%= turbo_frame_tag "#{@frame_id}" do %>
   <%= fields_for :gym_lift do |ff| %>
     <%= ff.hidden_field :frame_id, value: "#{@frame_id}" %>
-    <div class="field">
-      <%= ff.label :lift, class: "label"  %>
-      <div class="select">
-        <%= ff.select :exercise_id, options_for_select(@all_exercises) %>
+    <div class="block">
+      <div class="columns">
+        <div class="column is-one-fifth">
+          <%= ff.label "Lift:", class: "label"  %>
+          <div class="select">
+            <%= ff.select :exercise_id, options_for_select(@all_exercises) %>
+          </div>
+        </div>
+
+        <div class="column is-one-fifth">
+          <%= ff.label "Reps:", class: "label" %>
+          <%= ff.number_field :reps, class: "input" %>
+        </div>
+
+        <div class="column is-one-fifth">
+          <%= ff.label "Sets:", class: "label" %>
+          <%= ff.number_field :sets, class: "input" %>
+        </div>
+
+        <div class="column is-one-fifth">
+          <%= ff.label "Weight:", class: "label" %>
+          <%= ff.number_field :weight, class: "input" %>
+        </div>
       </div>
     </div>
-
-    <div class="field">
-      <%= ff.label :reps, class: "label" %>
-      <%= ff.number_field :reps, class: "input" %>
+    <div class="block">
+      <%= button_to "Remove", delete_lift_form_workouts_path(frame_id: @frame_id), formmethod: :delete, data: { turbo_stream: true }, class: "button is-danger" %>
     </div>
-
-    <div class="field">
-      <%= ff.label :weight, class: "label" %>
-      <%= ff.number_field :weight, class: "input" %>
-    </div>
-
-    <%= button_to "Remove", delete_lift_form_workouts_path(frame_id: @frame_id), formmethod: :delete, data: { turbo_stream: true }, class: "button is-danger" %>
   <% end %>
 <% end %>

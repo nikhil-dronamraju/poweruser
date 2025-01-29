@@ -7,6 +7,7 @@ class WorkoutsController < ApplicationController
     @workout = Workout.new(gym_lifts: [GymLift.new])
     @last_two_weeks = (Date.today - 14..Date.today).to_a
     @workout_types = Workout.workout_types
+    @all_exercises = Exercise.all.select(:title).to_a.map(&:title).sort
     # @all_exercises = Exercise.all.select(:title).to_a.map(&:title).sort
   end
 

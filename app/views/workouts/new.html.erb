@@ -23,17 +23,18 @@
         </div>
         <div class="column is-flex">
           <%= button_tag "Add Lift", formaction: add_lift_form_workouts_path, formmethod: :post, data: { turbo_stream: true }, class: "button is-warning my-auto ml-auto" %>
+          <%= f.submit "Continue", class: "button is-primary ml-2" %>
         </div>
       </div>
 
       <div class="field">
         <%= turbo_frame_tag "add_lift_form" do %>
-
+          <%= render partial: "add_lift_form" %>
         <% end %>
       </div>
 
 
-      <%#= f.submit "Continue", class: "button is-primary" %>
+
       <%#= turbo_frame_tag "workout_lift_form_frame" do %>
 
       <%# end %>
