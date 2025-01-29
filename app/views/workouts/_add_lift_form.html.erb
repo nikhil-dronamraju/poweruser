@@ -27,8 +27,8 @@
         </div>
       </div>
     </div>
-    <div class="block">
-      <%= button_to "Remove", delete_lift_form_workouts_path(frame_id: @frame_id), formmethod: :delete, data: { turbo_stream: true }, class: "button is-danger" %>
-    </div>
   <% end %>
+  <div class="block">
+    <%= link_to "Remove", delete_lift_form_workouts_path(frame_id: @frame_id), data: { "turbo-method": :delete }, class: "button is-danger" %>
+  </div>
 <% end %>
