@@ -7,7 +7,7 @@
 
 <section class="section">
   <%= turbo_frame_tag "gym_lift" do %>
-    <%= form_with model: @workout, url: :dashboard_create_workout do |f| %>
+    <%= form_with model: @workout do |f| %>
       <div class="field">
         <%= f.label "Date:", class: "label" %>
         <div class="select">
@@ -18,11 +18,17 @@
       <div class="field">
         <%= f.label "Type:", class: "label" %>
         <div class="select">
-          <%= f.select :workout_type, options_for_select(Workout.workout_types.map{ |k, v| [k.capitalize, v]}) %>
+          <%= f.select :workout_type, options_for_select(@workout_types.map{ |k, v| [k.capitalize, v]}) %>
         </div>
       </div>
 
-      <%= button_tag "Add Lift", formaction: dashboard_add_lift_to_workout_path, formmethod: :post, data: { turbo_stream: true }, class: "button is-warning" %>
+      <div class="field">
+        <%= turbo_frame_tag "add_lift_form" do %>
+
+        <% end %>
+      </div>
+
+      <%= button_tag "Add Lift", formaction: add_lift_form_workouts_path, formmethod: :post, data: { turbo_stream: true }, class: "button is-warning" %>
       <%#= f.submit "Continue", class: "button is-primary" %>
       <%#= turbo_frame_tag "workout_lift_form_frame" do %>
 

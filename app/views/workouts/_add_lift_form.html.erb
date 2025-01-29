@@ -1,0 +1,23 @@
+<%= turbo_frame_tag "#{@frame_id}" do %>
+  <%= fields_for :gym_lift do |ff| %>
+    <%= ff.hidden_field :frame_id, value: "#{@frame_id}" %>
+    <div class="field">
+      <%= ff.label :lift, class: "label"  %>
+      <div class="select">
+        <%= ff.select :exercise_id, options_for_select(@all_exercises) %>
+      </div>
+    </div>
+
+    <div class="field">
+      <%= ff.label :reps, class: "label" %>
+      <%= ff.number_field :reps, class: "input" %>
+    </div>
+
+    <div class="field">
+      <%= ff.label :weight, class: "label" %>
+      <%= ff.number_field :weight, class: "input" %>
+    </div>
+
+    <%= button_to "Remove", delete_lift_form_workouts_path(frame_id: @frame_id), formmethod: :delete, data: { turbo_stream: true }, class: "button is-danger" %>
+  <% end %>
+<% end %>

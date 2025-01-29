@@ -13,9 +13,8 @@ Rails.application.routes.draw do
   root "auth#sign_up"
   post "auth/create_or_login_user", as: :create_or_login_user
   get "dashboard/home"
-  get "dashboard/fitness_tracking"
-  get "dashboard/new_workout"
-  post "dashboard/create_workout"
-  post "dashboard/add_lift_to_workout"
-  post "dashboard/delete_lift_from_workout"
+  resources :workouts do
+    post "add_lift_form", on: :collection, as: :add_lift_form
+    delete "delete_lift_form", on: :collection, as: :delete_lift_form
+  end
 end

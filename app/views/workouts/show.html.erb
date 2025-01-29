@@ -1,4 +1,4 @@
-<%= render partial: "fitness_tracking_javascript" %>
+<%#= render partial: "fitness_tracking_javascript" %>
 <section class="hero">
   <div class="hero-body">
     <h1 class="title">Welcome to your fitness dashboard, <span class="has-text-primary"><%= @user.name.split(" ")[0] %></span></h1>
@@ -38,6 +38,6 @@
 </div>
 
 <div class="section">
-  <%= link_to "Add a workout", dashboard_new_workout_path, class: "button is-primary" %>
+  <%= link_to "Add a workout", new_workouts_path, class: "button is-primary" %>
   <%= link_to "Log Food", "#", class: "button is-light" %>
 </div>
