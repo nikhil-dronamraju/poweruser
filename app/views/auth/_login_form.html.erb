@@ -1,4 +1,4 @@
-<%= form_with model: User.new, url: :create_or_login_user do |f| %>
+<%= form_with model: user, url: :create_or_login_user do |f| %>
   <div class="field">
     <%= f.label :username, class: "label has-text-weight-normal" %>
     <div class="control">
@@ -30,3 +30,13 @@
 
   <%= f.submit "Continue", class: "button is-primary" %>
 <% end %>
+<hr>
+<div>
+  <% flash[:messages]&.uniq&.each do |message| %>
+    <% p flash[:messages] %>
+    <div class="notification is-danger">
+      <button class="delete"></button>
+      <%= message %>
+    </div>
+  <% end %>
+</div>
