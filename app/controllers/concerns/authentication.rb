@@ -21,7 +21,6 @@ module Authentication
     else
       log_out
     end
-
   end
 
   def check_login

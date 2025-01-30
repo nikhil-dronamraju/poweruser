@@ -18,7 +18,7 @@
         <div class="column is-one-fifth is-flex">
           <%= f.label "Type:", class: "label my-auto" %>
           <div class="select my-auto ml-2">
-            <%= f.select :workout_type, options_for_select(@workout_types.map{ |k, v| [k.capitalize, v]}) %>
+            <%= f.select :workout_type, options_for_select(@workout_types.map{ |k, v| [k.capitalize, k]}) %>
           </div>
         </div>
         <div class="column is-flex">
@@ -28,16 +28,38 @@
       </div>
 
       <div class="field">
-        <%= turbo_frame_tag "add_lift_form" do %>
-          <%= render partial: "add_lift_form" %>
+        <%= f.fields_for :gym_lifts do |ff| %>
+          <div class="block">
+            <div class="columns">
+              <div class="column is-one-fifth">
+                <%= ff.label "Lift:", class: "label"  %>
+                <div class="select">
+                  <%= ff.select :exercise_id, options_from_collection_for_select(@all_exercises, :id, :title) %>
+                </div>
+              </div>
+
+              <div class="column is-one-fifth">
+                <%= ff.label "Reps:", class: "label" %>
+                <%= ff.number_field :reps, class: "input" %>
+              </div>
+
+              <div class="column is-one-fifth">
+                <%= ff.label "Sets:", class: "label" %>
+                <%= ff.number_field :sets, class: "input" %>
+              </div>
+
+              <div class="column is-one-fifth">
+                <%= ff.label "Weight:", class: "label" %>
+                <%= ff.number_field :weight, class: "input" %>
+              </div>
+            </div>
+          </div>
         <% end %>
       </div>
 
+      <%= turbo_frame_tag "workout_lifts" do %>
 
-
-      <%#= turbo_frame_tag "workout_lift_form_frame" do %>
-
-      <%# end %>
+      <% end %>
     <% end %>
   <% end %>
 </section>

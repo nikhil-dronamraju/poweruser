@@ -1,34 +1,31 @@
-<hr>
-<%= turbo_frame_tag "#{@frame_id}" do %>
-  <%= fields_for :gym_lift do |ff| %>
-    <%= ff.hidden_field :frame_id, value: "#{@frame_id}" %>
-    <div class="block">
-      <div class="columns">
-        <div class="column is-one-fifth">
-          <%= ff.label "Lift:", class: "label"  %>
-          <div class="select">
-            <%= ff.select :exercise_id, options_for_select(@all_exercises) %>
-          </div>
-        </div>
-
-        <div class="column is-one-fifth">
-          <%= ff.label "Reps:", class: "label" %>
-          <%= ff.number_field :reps, class: "input" %>
-        </div>
-
-        <div class="column is-one-fifth">
-          <%= ff.label "Sets:", class: "label" %>
-          <%= ff.number_field :sets, class: "input" %>
-        </div>
-
-        <div class="column is-one-fifth">
-          <%= ff.label "Weight:", class: "label" %>
-          <%= ff.number_field :weight, class: "input" %>
+<%= fields_for "workout[gym_lifts_attributes][]", GymLift.new, index: Time.current.to_i do |ff| %>
+  <%= ff.hidden_field :frame_id, value: "#{@frame_id}" %>
+  <div class="block">
+    <div class="columns">
+      <div class="column is-one-fifth">
+        <%= ff.label "Lift:", class: "label"  %>
+        <div class="select">
+          <%= ff.select :exercise_id, options_for_select(@all_exercises) %>
         </div>
       </div>
+
+      <div class="column is-one-fifth">
+        <%= ff.label "Reps:", class: "label" %>
+        <%= ff.number_field :reps, class: "input" %>
+      </div>
+
+      <div class="column is-one-fifth">
+        <%= ff.label "Sets:", class: "label" %>
+        <%= ff.number_field :sets, class: "input" %>
+      </div>
+
+      <div class="column is-one-fifth">
+        <%= ff.label "Weight:", class: "label" %>
+        <%= ff.number_field :weight, class: "input" %>
+      </div>
     </div>
-  <% end %>
-  <div class="block">
-    <%= link_to "Remove", delete_lift_form_workouts_path(frame_id: @frame_id), data: { "turbo-method": :delete }, class: "button is-danger" %>
   </div>
 <% end %>
+<div class="block">
+  <%= link_to "Remove", delete_lift_form_workouts_path(frame_id: @frame_id), data: { "turbo-method": :delete }, class: "button is-danger" %>
+</div>
