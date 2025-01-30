@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_01_28_162138) do
+ActiveRecord::Schema[7.2].define(version: 2025_01_30_201706) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -38,12 +38,12 @@ ActiveRecord::Schema[7.2].define(version: 2025_01_28_162138) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.text "name"
-    t.text "username"
-    t.text "password_digest"
+    t.text "name", null: false
+    t.text "username", null: false
+    t.text "password_digest", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "workout_streak"
+    t.integer "workout_streak", default: 0
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 

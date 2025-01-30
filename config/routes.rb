@@ -10,7 +10,8 @@ Rails.application.routes.draw do
   get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
 
   # Defines the root path route ("/")
-  root "auth#sign_up"
+  root "auth#log_in"
+  get "auth/sign_up"
   post "auth/create_or_login_user", as: :create_or_login_user
   get "dashboard/home"
   resources :workouts do
