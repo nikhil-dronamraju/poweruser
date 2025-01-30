@@ -1,35 +1,27 @@
 module Authentication
   extend ActiveSupport::Concern
-  # How do I notify the user of any errors?
-  def log_in(user_params)
-    user = User.find_by(username: user_params[:username])
-    case
-    when user.nil?
-      user = User.create(user_params)
-      if user.valid?
-        session[:user_id] = user.id
-        redirect_to controller: :dashboard, action: :home
-      end
-    when user.present?
-      if user.authenticate(user_params[:password])
-        session[:user_id] = user.id
-        redirect_to controller: :dashboard, action: :home
-      else
-        flash[:notice] = "Authentication failed. Please try again."
-        log_out
-      end
+
+  def log_user_in(user_params)
+    username = user_params[:username]
+    password = user_params[:password]
+    user = User.find_by(username: username)
+    authentication = user.authenticate(password)
+    if authentication == false
+      log_user_out
     else
-      log_out
+      session[:user_id] = user.id
+      redirect_to dashboard_home_path
     end
   end
 
-  def check_login
-    session[:user_id].nil?
-    log_out if !session[:user_id]
+  def check_logged_in
+    user = User.find_by(id: session[:user_id])
+    p user
+    redirect_to root_path if user.nil?
   end
 
-  def log_out
+  def log_user_out
     session[:user_id] = nil
-    redirect_to controller: :auth, action: :sign_up
+    redirect_to root_path
   end
 end
