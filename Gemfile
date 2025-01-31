@@ -48,14 +48,20 @@ end
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
+  gem "rspec", "~> 3.13"
+  gem "rspec-rails", "~> 7.1"
 end
 
 group :test do
-  # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
-  gem "capybara"
+  gem "rspec", "~> 3.13"
+  gem "rspec-rails", "~> 7.1"
   gem "selenium-webdriver"
 end
 
 
 
 gem "dotenv", "~> 3.1"
+
+gem "factory_bot_rails", "~> 6.4"
+
+gem "faker", "~> 3.5"

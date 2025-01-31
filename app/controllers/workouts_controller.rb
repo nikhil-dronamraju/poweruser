@@ -40,7 +40,7 @@ class WorkoutsController < ApplicationController
     workout.save!
   rescue
     messages = workout.errors.full_messages
-    render turbo_stream: turbo_stream.replace('err_messages', partial: 'error_messages', locals: { messages: messages })
+    render turbo_stream: turbo_stream.replace("err_messages", partial: "error_messages", locals: { messages: messages })
   end
   def show; end
   def update; end
