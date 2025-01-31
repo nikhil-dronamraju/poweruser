@@ -33,7 +33,6 @@
 <hr>
 <div>
   <% flash[:messages]&.uniq&.each do |message| %>
-    <% p flash[:messages] %>
     <div class="notification is-danger">
       <button class="delete"></button>
       <%= message %>

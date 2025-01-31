@@ -27,16 +27,20 @@ class WorkoutsController < ApplicationController
   def edit; end
   def create
     @user = User.find(session[:user_id])
+    gym_lifts = []
     workout = Workout.new(workout_type: Workout.workout_types[params[:workout][:workout_type]], user: @user)
     params[:workout][:gym_lifts_attributes].each do |attribute|
-      p attribute[1]
       exercise_id = attribute[1][:exercise_id]
       reps = attribute[1][:reps]
       weight = attribute[1][:weight]
       sets = attribute[1][:sets]
-      gym_lift = GymLift.create(exercise_id: exercise_id, workout: workout, reps: reps, sets: sets, weight: weight)
+      gym_lifts << GymLift.new(exercise_id: exercise_id, reps: reps, sets: sets, weight: weight)
     end
+    workout.gym_lifts = gym_lifts
     workout.save!
+  rescue
+    messages = workout.errors.full_messages
+    render turbo_stream: turbo_stream.replace('err_messages', partial: 'error_messages', locals: { messages: messages })
   end
   def show; end
   def update; end

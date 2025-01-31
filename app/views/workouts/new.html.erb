@@ -63,3 +63,13 @@
     <% end %>
   <% end %>
 </section>
+<%= turbo_frame_tag "err_messages" do %>
+  <div class="section">
+    <% flash[:messages]&.each do |message| %>
+      <div class="notification is-danger">
+        <button class="delete"></button>
+        <%= message %>
+      </div>
+    <% end %>
+  </div>
+<% end %>

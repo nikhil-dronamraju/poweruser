@@ -1,6 +1,8 @@
 class GymLift < ApplicationRecord
   belongs_to :exercise
   belongs_to :workout
-  validates_presence_of :reps, message: "Can't be blank"
-  validates_presence_of :weight, message: "Can't be blank"
+  validates_numericality_of :reps, greater_than_or_equal_to: 1, message: "at least one rep!"
+  validates_numericality_of :sets, greater_than_or_equal_to: 1, message: "at least one set!"
+  validates_numericality_of :weight, greater_than_or_equal_to: 1, message: "at least one pound!"
+
 end
