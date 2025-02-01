@@ -1,3 +1,4 @@
+<%= turbo_page_requires_reload %>
 <%= render partial: "helper_javascript" %>
 <section class="hero">
   <div class="hero-body">
@@ -13,8 +14,9 @@
   <br>
 </div>
 <div class="section">
-  <div class="grid">
-    <div class="cell">
+  <div class="columns">
+    <div class="column is-one-quarter"></div>
+    <div class="column is-half">
       <div class="box">
         <h3 class="title is-size-5">Current Reps:</h3>
         <div class="is-flex is-flex-direction-column">
@@ -24,20 +26,11 @@
         </div>
       </div>
     </div>
-    <div class="cell">
-      <div class="box">
-        <h3 class="title is-size-5">Diet:</h3>
-        <div class="is-flex is-flex-direction-column">
-          <span>Lorem ipsum...</span>
-          <span>To be</span>
-          <span>Implemented in the future</span>
-        </div>
-      </div>
-    </div>
+    <div class="column is-one-quarter"></div>
   </div>
 </div>
 
 <div class="section">
   <%= link_to "Add a workout", new_workout_path, class: "button is-primary" %>
-  <%= link_to "Log Food", "#", class: "button is-light" %>
+  <%#= link_to "Log Food", "#", class: "button is-light" %>
 </div>

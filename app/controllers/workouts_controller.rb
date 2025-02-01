@@ -38,6 +38,7 @@ class WorkoutsController < ApplicationController
     end
     workout.gym_lifts = gym_lifts
     workout.save!
+    redirect_to workouts_path
   rescue
     messages = workout.errors.full_messages
     render turbo_stream: turbo_stream.replace("err_messages", partial: "error_messages", locals: { messages: messages })
