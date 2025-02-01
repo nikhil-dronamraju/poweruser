@@ -3,6 +3,12 @@
 </div>
 
 <div class="section">
-  <h2 class="is-size-3 has-text-weight-medium">Log in</h2>
-  <%= render partial: "login_form", locals: { page_type: :log_in, user: @user } %>
+  <div class="columns">
+    <div class="column is-one-quarter"></div>
+    <div class="column is-half">
+      <h2 class="is-size-2 title">Log in</h2>
+      <%= render partial: "login_form", locals: { page_type: :log_in, user: @user } %>
+    </div>
+    <div class="column is-one-quarter"></div>
+  </div>
 </div>

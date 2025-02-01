@@ -22,13 +22,14 @@
       <%= f.password_field :password, class: "input" %>
     </div>
   </div>
-  <% if page_type == :sign_up %>
-    <%= link_to "Log in", root_path, class: "button is-warning" %>
-  <% else %>
-    <%= link_to "Sign up", auth_sign_up_path, class: "button is-warning" %>
-  <% end %>
-
-  <%= f.submit "Continue", class: "button is-primary" %>
+  <div class="field mt-4">
+    <% if page_type == :sign_up %>
+      <%= link_to "Log in", root_path, class: "button is-warning" %>
+    <% else %>
+      <%= link_to "Sign up", auth_sign_up_path, class: "button is-warning" %>
+    <% end %>
+    <%= f.submit "Continue", class: "button is-primary" %>
+  </div>
 <% end %>
 <hr>
 <div>
