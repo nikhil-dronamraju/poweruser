@@ -9,7 +9,11 @@ module Authentication
     if user.nil?
       user = User.create(username: username, password: password)
       if user.errors.present?
-        flash[:messages] = user.errors.full_messages
+        flash[:messages] = []
+        user.errors.full_messages.each do |err_msg|
+          flash[:messages] << err_msg unless err_msg == "can't be blank"
+          flash[:messages] << "ERROR: Password is blank." if err_msg == "can't be blank"
+        end
         redirect_to auth_sign_up_path
       else
         session[:user_id] = user.id
