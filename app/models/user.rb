@@ -4,5 +4,4 @@ class User < ApplicationRecord
   validates :username, presence: { message: "ERROR: Username is blank." }
   validates :username, uniqueness: { message: "ERROR: Username is already taken." }
   validates :name, presence: { message: "ERROR. Name is blank." }
-
 end

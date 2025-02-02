@@ -25,19 +25,16 @@ class WorkoutsController < ApplicationController
     @frame_id = params[:frame_id]
   end
 
-  def edit; end
-  def create
+  def edit
+    @workout = Workout.find(params[:id])
     @user = User.find(session[:user_id])
-    gym_lifts = []
-    workout = Workout.new(workout_type: Workout.workout_types[params[:workout][:workout_type]], user: @user)
-    params[:workout][:gym_lifts_attributes].each do |attribute|
-      exercise_id = attribute[1][:exercise_id]
-      reps = attribute[1][:reps]
-      weight = attribute[1][:weight]
-      sets = attribute[1][:sets]
-      gym_lifts << GymLift.new(exercise_id: exercise_id, reps: reps, sets: sets, weight: weight)
-    end
-    workout.gym_lifts = gym_lifts
+    @last_two_weeks = (Date.today - 14..Date.today).to_a
+    @workout_types = Workout.workout_types
+    @all_exercises = Exercise.all.select(:id, :title).order("title ASC")
+  end
+  def create
+    workout = Workout.new(workout_params)
+    workout.user_id = session[:user_id]
     workout.save!
   rescue
     messages = workout.errors.full_messages
@@ -47,6 +44,22 @@ class WorkoutsController < ApplicationController
     @user = User.find(session[:user_id])
     @workouts = @user.workouts.all
   end
-  def update; end
-  def destroy; end
+  def update
+    @workout = Workout.find(params[:id])
+    @workout.update(workout_params)
+  rescue
+    messages = workout.errors.full_messages
+    render turbo_stream: turbo_stream.replace("err_messages", partial: "error_messages", locals: { messages: messages })
+  end
+  def destroy
+    @user = User.find(session[:user_id])
+    @workout = Workout.find(params[:id])
+    @workout.destroy
+  end
+
+  private
+
+  def workout_params
+    params.require(:workout).permit([ :created_at, :workout_type, gym_lifts_attributes: [ :id, :exercise_id, :reps, :sets, :weight ] ] )
+  end
 end

@@ -2,18 +2,37 @@
     <h1 class="barlow-condensed-bold title is-size-3 has-text-primary">Workouts</h1>
 </section>
 <section class="section">
-  <% @workouts.includes(:gym_lifts).each do |workout| %>
-    <% gym_lifts = workout.gym_lifts %>
-    <h2 class="title is-size-4 barlow-condensed-bold"><%= workout.created_at.strftime("%d/%m/%Y") %></h2>
-    <span class="subtitle has-text-warning">Type: <%= workout.workout_type.humanize %></span>
-    <h3 class="title is-size-5 has-text-danger">Lifts:</h3>
-    <ul>
-      <% gym_lifts.each do |lift| %>
-        <li class="title is-size-6 "><%= lift.exercise.title %></li>
-        <li class="title is-size-6"><%= lift.reps %> reps</li>
-        <li class="title is-size-6"><%= lift.weight %> pounds</li>
-        <li class="title is-size-6"><%= lift.sets %> sets</li>
-      <% end %>
-    </ul>
-<% end %>
+  <%= turbo_frame_tag "list_workouts" do %>
+    <div class="fixed-grid has-3-cols">
+      <div class="grid">
+        <% @workouts.includes(:gym_lifts).each do |workout| %>
+          <% gym_lifts = workout.gym_lifts %>
+          <%= turbo_frame_tag dom_id(workout) do %>
+            <div class="cell">
+              <div class="card">
+                <header class="card-header">
+                  <p class="card-header-title is-size-3 barlow-condensed-bold">
+                    <%= workout.created_at.strftime("%m/%d/%Y") %>
+                  </p>
+                </header>
+                <div class="card-content pt-0">
+                  <div class="is-flex is-flex-direction-column">
+                    <span class="">Type: <span class="has-text-warning"><%= workout.workout_type.humanize %></span></span>
+                    <span class="">Lifts: <span class="has-text-danger"><%= workout.gym_lifts.count %></span></span>
+                  </div>
+                </div>
+                <footer class="card-footer">
+                  <%= link_to "Edit", edit_workout_path(workout.id), class: "card-footer-item" %>
+                  <%= link_to "Delete", workout_path(workout.id), data: { "turbo-method": :delete }, class: "card-footer-item" %>
+                </footer>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+  <% if @user.workouts.count.zero? %>
+    <div>No workouts. Please add more! </div>
+  <% end %>
 </section>

@@ -1,0 +1,6 @@
+<%= turbo_stream.remove dom_id(@workout) %>
+<% if @user.workouts.count.zero? %>
+  <%= turbo_stream.replace "list_workouts" do %>
+    <div>No workouts. Please add more! </div>
+  <% end %>
+<% end %>

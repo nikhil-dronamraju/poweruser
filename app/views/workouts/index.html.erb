@@ -3,17 +3,18 @@
 <section class="hero">
   <div class="hero-body">
     <h1 class="title">Welcome to your fitness dashboard, <span class="has-text-primary"><%= @user.name.split(" ")[0] %>!</span></h1>
+    <span class="subtitle">From here, you can view <span class="has-text-primary">your progress</span>, <span class="has-text-warning">workouts</span>, and <span class="has-text-danger">more!</span></span>
   </div>
 </section>
-<div class="section">
+<section class="section">
   <span class="is-size-4">Progress:</span>
   <progress class="progress is-primary" value="<%= @user.workouts.count %>" max="100"></progress>
   <span class="is-size-4">Total: <span class="has-text-primary has-text-weight-bold"><%= @user.workouts.count %> workouts</span>.</span>
   <br>
   <span class="is-size-4">Current streak: <span class="has-text-weight-bold has-text-warning"><%= @user.workout_streak %> days</span>.</span>
   <br>
-</div>
-<div class="section">
+</section>
+<section class="section">
   <div class="columns">
     <!--<div class="column is-one-third"></div> -->
     <div class="column is-one-half">
@@ -45,11 +46,11 @@
       <% end %>
     </div>
   </div>
-</div>
+</section>
 
-<div class="section">
+<section class="section">
   <%= link_to "Add a workout", new_workout_path, class: "button is-primary" %>
   <% if @user.workouts.present? %>
     <%= link_to "List workouts", list_workouts_path, class: "button is-warning" %>
   <% end %>
-</div>
+</section>

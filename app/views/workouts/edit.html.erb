@@ -1,13 +1,12 @@
+<%= turbo_page_requires_reload %>
 <section class="hero">
   <div class="hero-body">
-    <h1 class="title has-text-primary">Let's add a workout</h1>
-    <h2 class="subtitle has-text-warning">To proceed, fill out the form below</h2>
+    <h1 class="title barlow-condensed-bold">Editing <span class="has-text-primary"><%= @workout.created_at.strftime("%m/%d/%Y") %></span></h1>
   </div>
 </section>
-
 <section class="section">
-  <%= turbo_frame_tag "gym_lift" do %>
-    <%= form_with model: @workout do |f| %>
+  <%= turbo_frame_tag "gym_lifts" do %>
+    <%= form_with model: @workout, method: :patch do |f| %>
       <div class="columns is-vcentered">
         <div class="column is-one-fifth is-flex">
           <%= f.label "Date:", class: "label my-auto" %>
@@ -63,13 +62,3 @@
     <% end %>
   <% end %>
 </section>
-<%= turbo_frame_tag "err_messages" do %>
-  <div class="section">
-    <% flash[:messages]&.each do |message| %>
-      <div class="notification is-danger">
-        <button class="delete"></button>
-        <%= message %>
-      </div>
-    <% end %>
-  </div>
-<% end %>
