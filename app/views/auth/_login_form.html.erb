@@ -34,7 +34,7 @@
 <hr>
 <div>
   <% flash[:messages]&.uniq&.each do |message| %>
-    <div class="notification is-danger">
+    <div class="notification animate__animated animate__fadeIn is-danger">
       <button class="delete"></button>
       <%= message %>
     </div>

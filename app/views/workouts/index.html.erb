@@ -15,10 +15,10 @@
 </div>
 <div class="section">
   <div class="columns">
-    <div class="column is-one-quarter"></div>
-    <div class="column is-half">
+    <!--<div class="column is-one-third"></div> -->
+    <div class="column is-one-half">
       <div class="box">
-        <h3 class="title is-size-5">Current Reps:</h3>
+        <h2 class="barlow-condensed-bold is-size-3">Current Reps:</h2>
         <div class="is-flex is-flex-direction-column">
           <span>Dumbbell Bench: 65</span>
           <span>Deadlift: 265</span>
@@ -26,7 +26,22 @@
         </div>
       </div>
     </div>
-    <div class="column is-one-quarter"></div>
+    <div class="column is-one-half">
+      <div class="box">
+        <!-- We can come back to this -->
+        <h2 class="is-size-3 barlow-condensed-bold">Last workout:</h2>
+        <div class="is-flex is-flex-direction-column">
+            <span>Date: <%= @workout.created_at.strftime("%m/%d/%Y") %></span>
+            <span>Type: <%= @workout.workout_type.humanize %></span>
+            <% @workout.gym_lifts.each do |gym_lift| %>
+              <span>Lift: <%= gym_lift.exercise.title %></span>
+              <span>Weight: <%= gym_lift.weight %></span>
+              <span>Reps: <%= gym_lift.reps %></span>
+              <span>Sets: <%= gym_lift.sets %></span>
+            <% end %>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
