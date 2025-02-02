@@ -25,10 +25,9 @@
           <%= f.submit "Continue", class: "button is-primary ml-2" %>
         </div>
       </div>
-
-      <div class="field">
-        <%= f.fields_for :gym_lifts do |ff| %>
-          <%= turbo_frame_tag ff.object.id do %>
+      <% @workout.gym_lifts.each do |lift| %>
+        <%= turbo_frame_tag lift.id do %>
+          <%= f.fields_for lift do |ff| %>
             <div class="block">
               <div class="columns">
                 <div class="column is-one-fifth">
@@ -54,28 +53,14 @@
                 </div>
               </div>
             </div>
-            <div class="block">
-              <%= link_to "Remove", delete_lift_form_workouts_path(frame_id: ff.object.id), data: { "turbo-method": :delete }, class: "button is-danger" %>
-            </div>
           <% end %>
+          <%= link_to "Delete", delete_lift_form_workouts_path(frame_id: lift.id), data: { "turbo_method": :delete }, class: "button is-danger" %>
         <% end %>
-
-      </div>
-
-      <%= turbo_frame_tag "workout_lifts" do %>
-
       <% end %>
     <% end %>
   <% end %>
-</section>
 
-<%= turbo_frame_tag "err_messages" do %>
-  <div class="section">
-    <% flash[:messages]&.each do |message| %>
-      <div class="notification is-danger">
-        <button class="delete"></button>
-        <%= message %>
-      </div>
-    <% end %>
-  </div>
-<% end %>
+  <%= turbo_frame_tag "workout_lifts" do %>
+
+  <% end %>
+</section>

@@ -21,8 +21,18 @@ class WorkoutsController < ApplicationController
 
   def delete_lift_form
     @frame_id = params[:frame_id]
-    gym_lift = GymLift.find_by(id: @frame_id)
-    gym_lift.destroy if gym_lift.present?
+    @workout = Workout.find_by(id: params[:workout_id])
+    @gym_lift = GymLift.find_by(id: @frame_id)
+    if @workout.present?
+      if @workout.gym_lifts.count > 1
+        @gym_lift.destroy
+        render turbo_stream: turbo_stream.remove(@frame_id)
+      else
+        render turbo_stream: turbo_stream.replace("err_messages", partial: "error_messages", locals: { messages: ["ERROR: A workout must have at least one lift"] })
+      end
+    else
+      render turbo_stream: turbo_stream.remove(@frame_id)
+    end
   end
 
   def edit
@@ -40,17 +50,22 @@ class WorkoutsController < ApplicationController
       render turbo_stream: turbo_stream.replace("err_messages", partial: "error_messages", locals: { messages: workout.errors.full_messages })
     end
     workout.save!
+  rescue
+    render turbo_stream: turbo_stream.replace("err_messages", partial: "error_messages", locals: { messages: [ "There's been an error. Please try again." ] })
   end
   def list
     @user = User.find(session[:user_id])
     @workouts = @user.workouts.all
   end
   def update
+    p params
     @workout = Workout.find(params[:id])
     @workout.update(workout_params)
-  rescue
-    messages = workout.errors.full_messages
-    render turbo_stream: turbo_stream.replace("err_messages", partial: "error_messages", locals: { messages: messages })
+    if @workout.errors.any?
+      render turbo_stream: turbo_stream.replace("err_messages", partial: "error_messages", locals: { messages: @workout.errors.full_messages })
+    end
+  # rescue
+  #   render turbo_stream: turbo_stream.replace("err_messages", partial: "error_messages", locals: { messages: [ "There's been an error. Please try again." ] })
   end
   def destroy
     @user = User.find(session[:user_id])

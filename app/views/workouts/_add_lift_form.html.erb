@@ -1,7 +1,6 @@
-<!-- Needs a unique identifier -->
 <%= turbo_frame_tag @frame_id do %>
   <%= fields_for "workout[gym_lifts_attributes][]", GymLift.new, index: Time.current.to_i do |ff| %>
-    <%= hidden_field_tag value: @frame_id %>
+    <%= hidden_field_tag "frame_id", @frame_id %>
     <div class="block">
       <div class="columns">
         <div class="column is-one-fifth">
