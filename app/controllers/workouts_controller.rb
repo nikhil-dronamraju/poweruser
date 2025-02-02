@@ -21,6 +21,8 @@ class WorkoutsController < ApplicationController
 
   def delete_lift_form
     @frame_id = params[:frame_id]
+    gym_lift = GymLift.find_by(id: @frame_id)
+    gym_lift.destroy if gym_lift.present?
   end
 
   def edit
@@ -30,6 +32,7 @@ class WorkoutsController < ApplicationController
     @workout_types = Workout.workout_types
     @all_exercises = Exercise.all.select(:id, :title).order("title ASC")
   end
+
   def create
     workout = Workout.new(workout_params)
     workout.user_id = session[:user_id]

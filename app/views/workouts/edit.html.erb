@@ -28,32 +28,38 @@
 
       <div class="field">
         <%= f.fields_for :gym_lifts do |ff| %>
-          <div class="block">
-            <div class="columns">
-              <div class="column is-one-fifth">
-                <%= ff.label "Lift:", class: "label"  %>
-                <div class="select">
-                  <%= ff.select :exercise_id, options_from_collection_for_select(@all_exercises, :id, :title) %>
+          <%= turbo_frame_tag ff.object.id do %>
+            <div class="block">
+              <div class="columns">
+                <div class="column is-one-fifth">
+                  <%= ff.label "Lift:", class: "label"  %>
+                  <div class="select">
+                    <%= ff.select :exercise_id, options_from_collection_for_select(@all_exercises, :id, :title) %>
+                  </div>
+                </div>
+
+                <div class="column is-one-fifth">
+                  <%= ff.label "Reps:", class: "label" %>
+                  <%= ff.number_field :reps, class: "input" %>
+                </div>
+
+                <div class="column is-one-fifth">
+                  <%= ff.label "Sets:", class: "label" %>
+                  <%= ff.number_field :sets, class: "input" %>
+                </div>
+
+                <div class="column is-one-fifth">
+                  <%= ff.label "Weight:", class: "label" %>
+                  <%= ff.number_field :weight, class: "input" %>
                 </div>
               </div>
-
-              <div class="column is-one-fifth">
-                <%= ff.label "Reps:", class: "label" %>
-                <%= ff.number_field :reps, class: "input" %>
-              </div>
-
-              <div class="column is-one-fifth">
-                <%= ff.label "Sets:", class: "label" %>
-                <%= ff.number_field :sets, class: "input" %>
-              </div>
-
-              <div class="column is-one-fifth">
-                <%= ff.label "Weight:", class: "label" %>
-                <%= ff.number_field :weight, class: "input" %>
-              </div>
             </div>
-          </div>
+            <div class="block">
+              <%= link_to "Remove", delete_lift_form_workouts_path(frame_id: ff.object.id), data: { "turbo-method": :delete }, class: "button is-danger" %>
+            </div>
+          <% end %>
         <% end %>
+
       </div>
 
       <%= turbo_frame_tag "workout_lifts" do %>
