@@ -17,5 +17,6 @@ Rails.application.routes.draw do
   resources :workouts do
     post "add_lift_form", on: :collection, as: :add_lift_form
     delete "delete_lift_form", on: :collection, as: :delete_lift_form
+    get "list", on: :collection
   end
 end

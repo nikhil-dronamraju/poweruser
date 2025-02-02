@@ -1,0 +1,19 @@
+<section class="section">
+    <h1 class="barlow-condensed-bold title is-size-3 has-text-primary">Workouts</h1>
+</section>
+<section class="section">
+  <% @workouts.includes(:gym_lifts).each do |workout| %>
+    <% gym_lifts = workout.gym_lifts %>
+    <h2 class="title is-size-4 barlow-condensed-bold"><%= workout.created_at.strftime("%d/%m/%Y") %></h2>
+    <span class="subtitle has-text-warning">Type: <%= workout.workout_type.humanize %></span>
+    <h3 class="title is-size-5 has-text-danger">Lifts:</h3>
+    <ul>
+      <% gym_lifts.each do |lift| %>
+        <li class="title is-size-6 "><%= lift.exercise.title %></li>
+        <li class="title is-size-6"><%= lift.reps %> reps</li>
+        <li class="title is-size-6"><%= lift.weight %> pounds</li>
+        <li class="title is-size-6"><%= lift.sets %> sets</li>
+      <% end %>
+    </ul>
+<% end %>
+</section>
