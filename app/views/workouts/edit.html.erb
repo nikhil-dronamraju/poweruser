@@ -1,7 +1,7 @@
 <%= turbo_page_requires_reload %>
 <section class="hero">
   <div class="hero-body">
-    <h1 class="title barlow-condensed-bold">Editing <span class="has-text-primary"><%= @workout.created_at.strftime("%m/%d/%Y") %></span></h1>
+    <h1 class="title barlow-condensed-bold is-size-2">Editing <span class="has-text-warning"><%= @workout.created_at.strftime("%m/%d/%Y") %></span></h1>
   </div>
 </section>
 <section class="section">
@@ -62,3 +62,14 @@
     <% end %>
   <% end %>
 </section>
+
+<%= turbo_frame_tag "err_messages" do %>
+  <div class="section">
+    <% flash[:messages]&.each do |message| %>
+      <div class="notification is-danger">
+        <button class="delete"></button>
+        <%= message %>
+      </div>
+    <% end %>
+  </div>
+<% end %>

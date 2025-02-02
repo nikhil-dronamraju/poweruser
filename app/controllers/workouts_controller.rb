@@ -15,10 +15,8 @@ class WorkoutsController < ApplicationController
   end
 
   def add_lift_form
-    @frame_id = DateTime.now
     @all_exercises = Exercise.all.select(:id, :title).order("title ASC")
-    @workout = Workout.new
-    @gym_lift = GymLift.new
+    @frame_id = SecureRandom.uuid
   end
 
   def delete_lift_form
@@ -35,10 +33,10 @@ class WorkoutsController < ApplicationController
   def create
     workout = Workout.new(workout_params)
     workout.user_id = session[:user_id]
+    if workout.errors.any?
+      render turbo_stream: turbo_stream.replace("err_messages", partial: "error_messages", locals: { messages: workout.errors.full_messages })
+    end
     workout.save!
-  rescue
-    messages = workout.errors.full_messages
-    render turbo_stream: turbo_stream.replace("err_messages", partial: "error_messages", locals: { messages: messages })
   end
   def list
     @user = User.find(session[:user_id])
@@ -60,6 +58,6 @@ class WorkoutsController < ApplicationController
   private
 
   def workout_params
-    params.require(:workout).permit([ :created_at, :workout_type, gym_lifts_attributes: [ :id, :exercise_id, :reps, :sets, :weight ] ] )
+    params.require(:workout).permit([ :created_at, :workout_type, gym_lifts_attributes: [ :id, :exercise_id, :reps, :sets, :weight ] ])
   end
 end

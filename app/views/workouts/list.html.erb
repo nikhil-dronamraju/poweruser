@@ -1,5 +1,9 @@
-<section class="section">
-    <h1 class="barlow-condensed-bold title is-size-3 has-text-primary">Workouts</h1>
+<section class="hero">
+  <div class="hero-body">
+    <h1 class="title barlow-condensed-bold is-size-2">
+      Here's all your workouts, <span class="has-text-warning"><%= @user.name %></span>.
+    </h1>
+  </div>
 </section>
 <section class="section">
   <%= turbo_frame_tag "list_workouts" do %>
@@ -15,7 +19,7 @@
                     <%= workout.created_at.strftime("%m/%d/%Y") %>
                   </p>
                 </header>
-                <div class="card-content pt-0">
+                <div class="card-content">
                   <div class="is-flex is-flex-direction-column">
                     <span class="">Type: <span class="has-text-warning"><%= workout.workout_type.humanize %></span></span>
                     <span class="">Lifts: <span class="has-text-danger"><%= workout.gym_lifts.count %></span></span>
