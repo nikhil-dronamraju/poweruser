@@ -21,10 +21,11 @@
           </div>
         </div>
         <div class="column is-flex">
-          <%= button_tag "Add Lift", formaction: add_lift_form_workouts_path, formmethod: :post, data: { turbo_stream: true }, class: "button is-warning my-auto ml-auto" %>
+          <%= button_tag "Add Lift", formaction: add_lift_to_workout_workout_path, formmethod: :post, data: { turbo_stream: true }, class: "button is-warning my-auto ml-auto" %>
           <%= f.submit "Continue", class: "button is-primary ml-2" %>
         </div>
       </div>
+
       <% @workout.gym_lifts.each do |lift| %>
         <%= turbo_frame_tag lift.id do %>
           <%= f.fields_for lift do |ff| %>
@@ -66,13 +67,4 @@
 
 </section>
 
-<%= turbo_frame_tag "err_messages" do %>
-  <div class="section">
-    <% flash[:messages]&.each do |message| %>
-      <div class="notification is-danger">
-        <button class="delete"></button>
-        <%= message %>
-      </div>
-    <% end %>
-  </div>
-<% end %>
+<%= render partial: "error_messages", locals: { messages: [] } %>

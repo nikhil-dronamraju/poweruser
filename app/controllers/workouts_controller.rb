@@ -57,7 +57,6 @@ class WorkoutsController < ApplicationController
     @workouts = @user.workouts.all
   end
   def update
-    p params
     @workout = Workout.find(params[:id])
     @workout.update(workout_params)
     if @workout.errors.any?
@@ -72,9 +71,21 @@ class WorkoutsController < ApplicationController
     @workout.destroy
   end
 
+  def add_lift_to_workout
+    @workout = Workout.find(params[:id])
+    @all_exercises = Exercise.all.select(:id, :title).order("title ASC")
+    gym_lift = GymLift.create(workout: @workout, exercise: Exercise.first)
+    if gym_lift.errors.any?
+      render turbo_stream: turbo_stream.replace("err_messages", partial: "err_messages", locals: { messages: gym_lift.errors.full_messages })
+    end
+    @frame_id = gym_lift.id
+  rescue
+    render turbo_stream: turbo_stream.replace("err_messages", partial: "err_messages", locals: { messages: [ "There's been an error." ] })
+  end
+
   private
 
   def workout_params
-    params.require(:workout).permit([ :created_at, :workout_type, gym_lifts_attributes: [ :exercise_id, :reps, :sets, :weight ] ])
+    params.require(:workout).permit([ :created_at, :workout_type, gym_lifts_attributes: [ :id, :exercise_id, :reps, :sets, :weight ] ])
   end
 end
