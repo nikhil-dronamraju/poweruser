@@ -5,4 +5,6 @@ class DashboardController < ApplicationController
     session[:page_type] = "Dashboard"
     @user = User.find(session[:user_id])
   end
+
+  def pomodoro ; end
 end

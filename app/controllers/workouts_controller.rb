@@ -62,8 +62,8 @@ class WorkoutsController < ApplicationController
     if @workout.errors.any?
       render turbo_stream: turbo_stream.replace("err_messages", partial: "error_messages", locals: { messages: @workout.errors.full_messages })
     end
-  # rescue
-  #   render turbo_stream: turbo_stream.replace("err_messages", partial: "error_messages", locals: { messages: [ "There's been an error. Please try again." ] })
+  rescue
+    render turbo_stream: turbo_stream.replace("err_messages", partial: "error_messages", locals: { messages: [ "There's been an error. Please try again." ] })
   end
   def destroy
     @user = User.find(session[:user_id])
