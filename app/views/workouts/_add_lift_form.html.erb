@@ -1,6 +1,6 @@
-<%= turbo_frame_tag @frame_id do %>
-  <%= fields_for "workout[gym_lifts_attributes][]", GymLift.new, index: Time.current.to_i do |ff| %>
-    <%= hidden_field_tag "frame_id", @frame_id %>
+<%= turbo_frame_tag @frame_id, class: "my-4" do %>
+  <%= fields_for "workout[gym_lifts_attributes][]", GymLift.new, index: SecureRandom.random_number(100) do |ff| %>
+    <%= hidden_field_tag "frame_id_#{@frame_id}", @frame_id %>
     <div class="block">
       <div class="columns">
         <div class="column is-one-fifth">
@@ -28,6 +28,6 @@
     </div>
   <% end %>
   <div class="block">
-    <%= link_to "Remove", delete_lift_form_workouts_path(frame_id: @frame_id), data: { "turbo-method": :delete }, class: "button is-danger" %>
+    <%= link_to "Delete", delete_lift_form_workouts_path(frame_id: @frame_id), data: { "turbo-method": :delete }, class: "button is-danger" %>
   </div>
 <% end %>

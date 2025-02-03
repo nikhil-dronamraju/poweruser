@@ -18,7 +18,6 @@ class WorkoutsController < ApplicationController
     @all_exercises = Exercise.all.select(:id, :title).order("title ASC")
     @frame_id = SecureRandom.uuid
   end
-
   def delete_lift_form
     @frame_id = params[:frame_id]
     @workout = Workout.find_by(id: params[:workout_id])
@@ -28,7 +27,7 @@ class WorkoutsController < ApplicationController
         @gym_lift.destroy
         render turbo_stream: turbo_stream.remove(@frame_id)
       else
-        render turbo_stream: turbo_stream.replace("err_messages", partial: "error_messages", locals: { messages: ["ERROR: A workout must have at least one lift"] })
+        render turbo_stream: turbo_stream.replace("err_messages", partial: "error_messages", locals: { messages: [ "ERROR: A workout must have at least one lift" ] })
       end
     else
       render turbo_stream: turbo_stream.remove(@frame_id)
@@ -76,6 +75,6 @@ class WorkoutsController < ApplicationController
   private
 
   def workout_params
-    params.require(:workout).permit([ :created_at, :workout_type, gym_lifts_attributes: [ :id, :exercise_id, :reps, :sets, :weight ] ])
+    params.require(:workout).permit([ :created_at, :workout_type, gym_lifts_attributes: [ :exercise_id, :reps, :sets, :weight ] ])
   end
 end

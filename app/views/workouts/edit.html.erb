@@ -54,7 +54,7 @@
               </div>
             </div>
           <% end %>
-          <%= link_to "Delete", delete_lift_form_workouts_path(frame_id: lift.id), data: { "turbo_method": :delete }, class: "button is-danger" %>
+          <%= link_to "Delete", delete_lift_form_workouts_path(frame_id: lift.id, workout_id: @workout.id), data: { "turbo_method": :delete }, class: "button is-danger" %>
         <% end %>
       <% end %>
     <% end %>
@@ -63,4 +63,16 @@
   <%= turbo_frame_tag "workout_lifts" do %>
 
   <% end %>
+
 </section>
+
+<%= turbo_frame_tag "err_messages" do %>
+  <div class="section">
+    <% flash[:messages]&.each do |message| %>
+      <div class="notification is-danger">
+        <button class="delete"></button>
+        <%= message %>
+      </div>
+    <% end %>
+  </div>
+<% end %>
