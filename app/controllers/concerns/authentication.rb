@@ -7,7 +7,7 @@ module Authentication
     name = user_params[:name]
     user = User.find_by(username: username)
     if user.nil?
-      user = User.create(username: username, password: password)
+      user = User.create(username: username, name: name, password: password)
       if user.errors.present?
         flash[:messages] = []
         user.errors.full_messages.each do |err_msg|
