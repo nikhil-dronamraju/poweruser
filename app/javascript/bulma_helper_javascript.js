@@ -8,3 +8,10 @@ function deleteMessageComponent(elementId) {
     messageElement.classList.remove("animate__fadeIn");
     messageElement.classList.add("animate__fadeOut");
 }
+
+function selectTag( elementId ) {
+    let child = document.getElementById(`user_tracks_${elementId}`);
+    let parent = child.parentElement;
+    parent.classList.toggle('is-primary');
+    parent.classList.toggle('is-warning');
+}

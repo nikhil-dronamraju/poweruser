@@ -24,11 +24,32 @@
   </div>
   <div class="field mt-4">
     <% if page_type == :sign_up %>
-      <%= link_to "Log in", root_path, class: "button is-warning" %>
-    <% else %>
-      <%= link_to "Sign up", auth_sign_up_path, class: "button is-warning" %>
+      <div class="field mt-4">
+        <h2 class="is-size-4 barlow-condensed-semibold">Add some tracks:</h2>
+        <div class="fixed-grid has-2-cols">
+          <div class="grid">
+            <% Track.all.each do |track| %>
+              <div class="cell">
+                <span class="tag is-warning is-large is-flex is-align-items-center">
+                  <%#= f.check_box track.id, name: "tracks[#{track.id}]", id: track.id, class: "checkbox tag_checkbox", onclick: "selectTag(#{track.id});" %>
+                  <%= f.check_box :tracks, { multiple: true, class: "checkbox tag_checkbox", onclick: "selectTag(#{track.id});" }, track.id, nil %>
+                  <span class="mx-2 text is-size-6"><%= track.title %></span>
+                  <%= track.icon_class.html_safe  %>
+                </span>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
     <% end %>
-    <%= f.submit "Continue", class: "button is-primary" %>
+    <div class="buttons mt-4">
+      <% if page_type == :sign_up %>
+        <%= link_to "Log in", root_path, class: "button is-warning" %>
+      <% else %>
+        <%= link_to "Sign up", auth_sign_up_path, class: "button is-warning" %>
+      <% end %>
+      <%= f.submit "Continue", class: "button is-primary" %>
+    </div>
   </div>
 <% end %>
 <hr>

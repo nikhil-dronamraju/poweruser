@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_02_04_225241) do
+ActiveRecord::Schema[7.2].define(version: 2025_02_05_014512) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -83,6 +83,41 @@ ActiveRecord::Schema[7.2].define(version: 2025_02_04_225241) do
     t.index ["user_id"], name: "index_journal_entries_on_user_id"
   end
 
+  create_table "sagas", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "title"
+    t.date "start_date"
+    t.date "end_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_sagas_on_user_id"
+  end
+
+  create_table "tracks", force: :cascade do |t|
+    t.string "title"
+    t.string "icon_class"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "tracks_users", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "track_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["track_id"], name: "index_tracks_users_on_track_id"
+    t.index ["user_id"], name: "index_tracks_users_on_user_id"
+  end
+
+  create_table "user_tracks", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "track_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["track_id"], name: "index_user_tracks_on_track_id"
+    t.index ["user_id"], name: "index_user_tracks_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.text "name", null: false
     t.text "username", null: false
@@ -107,5 +142,10 @@ ActiveRecord::Schema[7.2].define(version: 2025_02_04_225241) do
   add_foreign_key "gym_lifts", "exercises"
   add_foreign_key "gym_lifts", "workouts"
   add_foreign_key "journal_entries", "users"
+  add_foreign_key "sagas", "users"
+  add_foreign_key "tracks_users", "tracks"
+  add_foreign_key "tracks_users", "users"
+  add_foreign_key "user_tracks", "tracks"
+  add_foreign_key "user_tracks", "users"
   add_foreign_key "workouts", "users"
 end

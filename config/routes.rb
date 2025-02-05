@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   root "auth#log_in"
   get "auth/sign_up"
   post "auth/create_or_login_user", as: :create_or_login_user
+  post "auth/create_user_track"
   get "dashboard/home"
   get "dashboard/pomodoro"
   resources :workouts do
