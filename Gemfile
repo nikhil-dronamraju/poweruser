@@ -69,3 +69,7 @@ gem "faker", "~> 3.5"
 gem "shoulda-matchers", "~> 6.4"
 
 gem "csv", "~> 3.3"
+
+gem "sassc-rails", "~> 2.1"
+
+gem "font-awesome-sass", "~> 6.7"
