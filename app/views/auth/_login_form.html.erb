@@ -1,56 +1,58 @@
-<%= form_with model: user, url: :create_or_login_user do |f| %>
-  <div class="field">
-    <%= f.label :username, class: "label has-text-weight-normal" %>
-    <div class="control">
-      <%= f.text_field :username, class: "input" %>
-    </div>
-    <% if flash[:notice] %>
-      <span class="has-text-danger"><%= notice %></span>
-    <% end %>
-  </div>
-  <% if page_type == :sign_up %>
+<%= turbo_frame_tag "login_form_frame" do %>
+  <%= form_with model: user, url: :create_or_login_user do |f| %>
     <div class="field">
-      <%= f.label :name, class: "label has-text-weight-normal" %>
+      <%= f.label :username, class: "label has-text-weight-normal" %>
       <div class="control">
-        <%= f.text_field :name, class: "input" %>
+        <%= f.text_field :username, class: "input" %>
       </div>
+      <% if flash[:notice] %>
+        <span class="has-text-danger"><%= notice %></span>
+      <% end %>
     </div>
-  <% end %>
-  <div class="field">
-    <%= f.label :password, class: "label has-text-weight-normal" %>
-    <div class="control">
-      <%= f.password_field :password, class: "input" %>
-    </div>
-  </div>
-  <div class="field mt-4">
     <% if page_type == :sign_up %>
-      <div class="field mt-4">
-        <h2 class="is-size-4 barlow-condensed-semibold">Add some tracks:</h2>
-        <div class="fixed-grid has-2-cols">
-          <div class="grid">
-            <% Track.all.each do |track| %>
-              <div class="cell">
-                <span class="tag is-warning is-large is-flex is-align-items-center">
-                  <%#= f.check_box track.id, name: "tracks[#{track.id}]", id: track.id, class: "checkbox tag_checkbox", onclick: "selectTag(#{track.id});" %>
-                  <%= f.check_box :tracks, { multiple: true, class: "checkbox tag_checkbox", onclick: "selectTag(#{track.id});" }, track.id, nil %>
-                  <span class="mx-2 text is-size-6"><%= track.title %></span>
-                  <%= track.icon_class.html_safe  %>
-                </span>
-              </div>
-            <% end %>
-          </div>
+      <div class="field">
+        <%= f.label :name, class: "label has-text-weight-normal" %>
+        <div class="control">
+          <%= f.text_field :name, class: "input" %>
         </div>
       </div>
     <% end %>
-    <div class="buttons mt-4">
-      <% if page_type == :sign_up %>
-        <%= link_to "Log in", root_path, class: "button is-warning" %>
-      <% else %>
-        <%= link_to "Sign up", auth_sign_up_path, class: "button is-warning" %>
-      <% end %>
-      <%= f.submit "Continue", class: "button is-primary" %>
+    <div class="field">
+      <%= f.label :password, class: "label has-text-weight-normal" %>
+      <div class="control">
+        <%= f.password_field :password, class: "input" %>
+      </div>
     </div>
-  </div>
+    <div class="field mt-4">
+      <% if page_type == :sign_up %>
+        <div class="field mt-4">
+          <h2 class="is-size-4 barlow-condensed-semibold">Add some tracks:</h2>
+          <div class="fixed-grid has-2-cols">
+            <div class="grid">
+              <% Track.all.each do |track| %>
+                <div class="cell">
+                  <span class="tag is-warning is-large is-flex is-align-items-center">
+                    <%#= f.check_box track.id, name: "tracks[#{track.id}]", id: track.id, class: "checkbox tag_checkbox", onclick: "selectTag(#{track.id});" %>
+                    <%= f.check_box :tracks, { multiple: true, class: "checkbox tag_checkbox", onclick: "selectTag(#{track.id});" }, track.id, nil %>
+                    <span class="mx-2 text is-size-6"><%= track.title %></span>
+                    <%= track.icon.html_safe  %>
+                  </span>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+      <div class="buttons mt-4">
+        <% if page_type == :sign_up %>
+          <%= link_to "Log in", root_path, class: "button is-warning" %>
+        <% else %>
+          <%= link_to "Sign up", auth_sign_up_path, class: "button is-warning" %>
+        <% end %>
+        <%= f.submit "Continue", class: "button is-primary" %>
+      </div>
+    </div>
+  <% end %>
+  <hr>
+  <%= render partial: "workouts/error_messages", locals: { messages: flash[:messages] }  %>
 <% end %>
-<hr>
-<%= render partial: "workouts/error_messages", locals: { messages: flash[:messages] }  %>

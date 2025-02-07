@@ -14,8 +14,12 @@ class AuthController < ApplicationController
   end
 
   def create_or_login_user
-    user = log_user_in(params[:user])
-    p user
+    handle_authentication
+    # p user
+  end
+
+  def create_saga
+
   end
 
   def create_user_track

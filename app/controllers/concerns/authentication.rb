@@ -1,39 +1,46 @@
 module Authentication
   extend ActiveSupport::Concern
 
-  def log_user_in(user_params)
+  def handle_authentication
+    user_params = params[:user]
     username = user_params[:username]
     password = user_params[:password]
     name = user_params[:name]
     tracks = user_params[:tracks]
     user = User.find_by(username: username)
     if user.nil?
-      user = User.new(username: username, name: name, password: password)
-      tracks&.each do |track_id|
-        user.tracks << Track.find(track_id)
-      end
-      user.save!
-      if user.errors.present?
-        flash[:messages] = []
-        user.errors.full_messages.each do |err_msg|
-          flash[:messages] << err_msg unless err_msg == "can't be blank"
-          flash[:messages] << "ERROR: Password is blank." if err_msg == "can't be blank"
-        end
-        redirect_to auth_sign_up_path
-      else
-        session[:user_id] = user.id
-        redirect_to dashboard_home_path
-      end
+      user = sign_user_up(username, password, name, tracks)
     else
-      authentication = user.authenticate(password)
-      if authentication == false
-        flash[:messages] = [ "Wrong password. Please try again." ]
-        log_user_out
-      else
-        session[:user_id] = user.id
-        redirect_to dashboard_home_path
-      end
+      user = log_user_in(username, password)
     end
+
+
+  end
+  def sign_user_up(username, password, name, tracks)
+    user = User.new(username: username, name: name, password: password)
+    tracks&.each do |track_id|
+      user.tracks << Track.find(track_id)
+    end
+    user.save
+    if user.errors.any?
+      flash[:errors] = user.errors.full_messages
+      return nil
+    end
+    session[:user_id] = user.id
+
+    user
+  end
+
+  def log_user_in(username, password)
+    user = User.find_by(username: username)
+    if user.authenticate(password)
+      session[:user_id] = user.id
+      return user
+    else
+      flash[:errors] = ["ERROR. Invalid password"]
+    end
+
+    nil
   end
 
   def check_logged_in
@@ -56,4 +63,5 @@ module Authentication
       redirect_to auth_onboarding_path if user.tracks.count.zero?
     end
   end
+
 end

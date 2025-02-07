@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   post "auth/create_user_track"
   get "dashboard/home"
   get "dashboard/pomodoro"
+  post "auth/create_saga", as: :create_saga
   resources :workouts do
     post "add_lift_form", on: :collection, as: :add_lift_form
     delete "delete_lift_form", on: :collection, as: :delete_lift_form

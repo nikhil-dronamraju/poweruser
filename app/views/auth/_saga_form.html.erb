@@ -1,0 +1,12 @@
+<%= form_with model: Saga.new, url: :create_saga do |f| %>
+  <%= f.label :title, class: "label" %>
+  <%= f.text_field :title, class: "input" %>
+  <%= f.label :content, class: "label" %>
+  <div id="editor"></div>
+<% end %>
+
+<script>
+    const quill = new Quill('#editor', {
+        theme: 'snow'
+    });
+</script>
