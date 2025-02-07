@@ -14,7 +14,7 @@ module Authentication
       user = log_user_in(username, password)
     end
 
-
+    user
   end
   def sign_user_up(username, password, name, tracks)
     user = User.new(username: username, name: name, password: password)

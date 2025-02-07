@@ -29,11 +29,13 @@ csv.each do |row|
   puts "#{t.title} saved"
 end
 password_digest = BCrypt::Password.create('password')
-User.create(name: "Test User", password_digest: password_digest, username: "testu1")
+
 Track.create(title: "Physical Health", icon: '<i class="fa-solid fa-dumbbell"></i>')
 Track.create(title: "Social Life", icon: '<i class="fa-solid fa-person"></i>')
 Track.create(title: "Mental Health", icon: '<i class="fa-solid fa-face-smile"></i>')
 Track.create(title: "Professional", icon: '<i class="fa-solid fa-user-tie"></i>')
 Track.create(title: "Creative", icon: '<i class="fa-solid fa-paintbrush"></i>')
 Track.create(title: "Quitting bad habits", icon: '<i class="fa-solid fa-syringe"></i>')
+
+User.create!(name: "Test User", password_digest: password_digest, username: "testu1", tracks: [ Track.first ])
 

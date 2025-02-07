@@ -14,8 +14,10 @@ class AuthController < ApplicationController
   end
 
   def create_or_login_user
-    handle_authentication
-    # p user
+    @user = handle_authentication
+    if @user&.sagas&.present?
+      redirect_to dashboard_home_path
+    end
   end
 
   def create_saga
