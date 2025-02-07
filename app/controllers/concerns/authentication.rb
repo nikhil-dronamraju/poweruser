@@ -1,5 +1,6 @@
 module Authentication
   extend ActiveSupport::Concern
+  include ErrorHandling
 
   def handle_authentication
     user_params = params[:user]
@@ -23,7 +24,7 @@ module Authentication
     end
     user.save
     if user.errors.any?
-      flash[:errors] = user.errors.full_messages
+      flash[:errors] = format_errors(user.errors)
       return nil
     end
     session[:user_id] = user.id

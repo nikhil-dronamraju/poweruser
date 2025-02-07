@@ -28,6 +28,4 @@
 #       enabled: "ON"
 
 en:
-  errors:
-    format:
-      "%{message}"
+

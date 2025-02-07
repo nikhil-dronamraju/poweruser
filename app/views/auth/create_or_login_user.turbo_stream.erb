@@ -1,3 +1,9 @@
-<%= turbo_stream.replace("login_form_frame") do %>
-  <%= render partial: "saga_form" %>
+<% if @errors.any? %>
+  <%= turbo_stream.replace("err_messages") do %>
+    <%= render partial: "layouts/error_messages", locals: { messages: @errors } %>
+  <% end %>
+<% else %>
+  <%= turbo_stream.replace("login_form_frame") do %>
+    <%= render partial: "saga_form" %>
+  <% end %>
 <% end %>

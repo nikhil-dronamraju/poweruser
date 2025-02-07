@@ -15,6 +15,7 @@ class AuthController < ApplicationController
 
   def create_or_login_user
     @user = handle_authentication
+    @errors = flash[:errors]
     if @user&.sagas&.present?
       redirect_to dashboard_home_path
     end
