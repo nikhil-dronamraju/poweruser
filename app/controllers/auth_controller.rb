@@ -22,6 +22,13 @@ class AuthController < ApplicationController
   end
 
   def create_saga
+    @saga = Saga.create(saga_params)
+    @errors = format_errors(@saga.errors)
+    p @errors
+    if @errors.present?
+      return render turbo_stream: turbo_stream.replace("err_messages", partial: "layouts/error_messages", locals: { messages: @errors } )
+    end
+    redirect_to dashboard_home_path
   end
 
   def create_user_track
@@ -36,5 +43,9 @@ class AuthController < ApplicationController
 
   def user_track_params
     params.require(:user_track)
+  end
+
+  def saga_params
+    params.require(:saga).permit(:title, :content, :start_date, :end_date, :user_id)
   end
 end

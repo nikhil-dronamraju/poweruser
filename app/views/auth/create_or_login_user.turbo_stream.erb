@@ -4,6 +4,6 @@
   <% end %>
 <% else %>
   <%= turbo_stream.replace("login_form_frame") do %>
-    <%= render partial: "saga_form" %>
+    <%= render partial: "saga_form", locals: { user: @user } %>
   <% end %>
 <% end %>

@@ -1,7 +1,19 @@
 <%= form_with model: Saga.new, url: :create_saga, class: "form" do |f| %>
+  <%= f.hidden_field :user_id, value: user.id %>
+  <%= f.hidden_field :content, value: nil %>
   <div class="my-4">
     <%= f.label :title, class: "label" %>
     <%= f.text_field :title, class: "input" %>
+  </div>
+  <div class="my-4 is-flex">
+    <div class="is-flex is-flex-direction-column">
+      <%= f.label :start_date, class: "label" %>
+      <%= f.date_field :start_date, value: Date.today, class: "input", style: "width: inherit;" %>
+    </div>
+    <div class="is-flex is-flex-direction-column mx-4">
+      <%= f.label :end_date, class: "label" %>
+      <%= f.date_field :end_date, value: Date.today + 30.days, class: "input", style: "width: inherit;" %>
+    </div>
   </div>
   <div class="my-4">
     <%= f.label :content, class: "label" %>
@@ -13,8 +25,4 @@
 
 <% end %>
 
-<script>
-    const quill = new Quill('#editor', {
-        theme: 'snow'
-    });
-</script>
+<%= javascript_include_tag 'quill_form' %>
