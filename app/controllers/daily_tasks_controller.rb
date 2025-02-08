@@ -15,7 +15,13 @@ class DailyTasksController < ApplicationController
   end
 
   def create
-    DailyTask.create(daily_task_params)
+    @daily_task = DailyTask.create(daily_task_params)
+    @errors = format_errors(@daily_task.errors)
+  end
+
+  def destroy
+    @daily_task = DailyTask.find(params[:id])
+    @daily_task.destroy
   end
 
   def add_task

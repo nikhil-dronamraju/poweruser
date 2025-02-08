@@ -1,3 +1,10 @@
-<%= turbo_stream.replace("add_daily_task") do %>
-  <%= render partial: "layouts/success_message", locals: { message: 'Task(s) created!' } %>
+<% if @errors.present? %>
+  <%= turbo_stream.replace("err_messages") do %>
+    <%= render partial: "layouts/error_messages", locals: { messages: @errors } %>
+  <% end %>
+<% else %>
+  <%= turbo_stream.remove "err_messages" %>
+  <%= turbo_stream.append "user_tasks" do %>
+    <%= render partial: 'daily_tasks/single_task_view', locals: { daily_task: @daily_task } %>
+  <% end %>
 <% end %>
