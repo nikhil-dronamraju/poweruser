@@ -38,7 +38,7 @@ module Authentication
       session[:user_id] = user.id
       return user
     else
-      flash[:errors] = ["ERROR. Invalid password"]
+      flash[:errors] = [ "ERROR. Invalid password" ]
     end
 
     nil
@@ -64,5 +64,4 @@ module Authentication
       redirect_to auth_onboarding_path if user.tracks.count.zero?
     end
   end
-
 end

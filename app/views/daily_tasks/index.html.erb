@@ -1,0 +1,22 @@
+<section class="hero">
+  <div class="hero-body">
+    <h1 class="barlow-condensed-bold is-size-2 has-text-primary">Daily Tasks:</h1>
+    <span class="subtitle barlow-condensed-medium has-text-danger">From here, you will manage your daily tasks.</span>
+  </div>
+</section>
+
+<section class="section">
+  <% if @tasks.present? %>
+    <% @tasks.each do |task| %>
+      <div class="content">
+        <%= task.title %>
+      </div>
+    <% end %>
+  <% end %>
+</section>
+
+<section class="section">
+  <div class="buttons">
+    <%= link_to "Add new task", new_daily_task_path, class: "button is-primary" %>
+  </div>
+</section>

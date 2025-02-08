@@ -1,0 +1,39 @@
+<section class="hero">
+  <div class="hero-body">
+    <h1 class="barlow-condensed-bold is-size-2 title">Add <span class="has-text-primary">Daily Task(s):</span></h1>
+  </div>
+</section>
+
+
+<% if @smart_goals.present? %>
+  <%= turbo_frame_tag "user_tasks" do %>
+    <% if @tasks.present? %>
+      <% @tasks.each do |task| %>
+        <%= render partial: "single_task_view", locals: { daily_task: task } %>
+      <% end %>
+    <% end %>
+  <% end %>
+  <%= turbo_frame_tag "add_daily_task" do %>
+      <section class="section">
+      <%= form_with model: @daily_task, class: "is-flex is-align-items-center" do |f| %>
+        <%= f.hidden_field :user_id, value: @user.id %>
+        <div class="is-flex is-align-items-center">
+          <%= f.label :title, class: "mx-4" %>
+          <%= f.text_field :title, class: "input" %>
+        </div>
+        <div class="is-flex is-align-items-center">
+          <%= f.label :smart_goal, class: "mx-4" %>
+          <div class="select">
+            <%= f.select :smart_goal_id, options_from_collection_for_select(@smart_goals, :id, :measurable_goal) %>
+          </div>
+        </div>
+        <div class="mx-4">
+            <%= link_to add_task_daily_tasks_path, class: "button is-danger" do %>
+              <i class="fa-solid fa-trash"></i>
+            <% end %>
+          <button type=submit class="button is-primary"><i class="fa-solid fa-plus my-auto"></i></button>
+        </div>
+      <% end %>
+    </section>
+  <% end %>
+<% end %>

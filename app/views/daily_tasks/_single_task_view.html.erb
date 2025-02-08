@@ -1,0 +1,16 @@
+<%#= form_for model: daily_task do |form| %>
+  <div class="is-flex is-align-items-center">
+    <%= label_tag :title, class: "mx-4" %>
+    <span class=""><%= daily_task.title %></span>
+  </div>
+  <div class="is-flex is-align-items-center">
+    <%= label_tag :smart_goal, class: "mx-4" %>
+    <span><%= daily_task.smart_goal.measurable_goal %></span>
+  </div>
+  <div class="mx-4">
+    <%= link_to add_task_daily_tasks_path, class: "button is-danger" do %>
+      <i class="fa-solid fa-trash"></i>
+    <% end %>
+    <button type=submit class="button is-primary"><i class="fa-solid fa-plus my-auto"></i></button>
+  </div>
+<%# end %>

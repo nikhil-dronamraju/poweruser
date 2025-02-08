@@ -10,9 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_02_07_223806) do
+ActiveRecord::Schema[7.2].define(version: 2025_02_07_233032) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "daily_tasks", force: :cascade do |t|
+    t.string "title"
+    t.bigint "user_id", null: false
+    t.bigint "smart_goal_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["smart_goal_id"], name: "index_daily_tasks_on_smart_goal_id"
+    t.index ["user_id"], name: "index_daily_tasks_on_user_id"
+  end
 
   create_table "exercises", force: :cascade do |t|
     t.text "title"
@@ -95,6 +105,8 @@ ActiveRecord::Schema[7.2].define(version: 2025_02_07_223806) do
     t.index ["user_id"], name: "index_workouts_on_user_id"
   end
 
+  add_foreign_key "daily_tasks", "smart_goals"
+  add_foreign_key "daily_tasks", "users"
   add_foreign_key "gym_lifts", "exercises"
   add_foreign_key "gym_lifts", "workouts"
   add_foreign_key "sagas", "users"

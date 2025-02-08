@@ -22,7 +22,6 @@ class AuthController < ApplicationController
   end
 
   def create_saga
-
   end
 
   def create_user_track

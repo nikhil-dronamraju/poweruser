@@ -14,7 +14,7 @@ User.destroy_all
 
 require 'csv'
 csv_text = File.read(Rails.root.join('lib', 'seeds', 'megaGymDataset.csv'))
-csv = CSV.parse(csv_text, :headers => true, :encoding => 'ISO-8859-1')
+csv = CSV.parse(csv_text, headers: true, encoding: 'ISO-8859-1')
 csv.each do |row|
   t = Exercise.new
   t.title = row['Title']
@@ -37,4 +37,3 @@ Track.create(title: "Creative", icon: '<i class="fa-solid fa-paintbrush"></i>')
 Track.create(title: "Quitting bad habits", icon: '<i class="fa-solid fa-syringe"></i>')
 
 User.create!(name: "Test User", password: "password", username: "testu1", tracks: [ Track.first ])
-

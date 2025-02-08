@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get "daily_tasks/index"
   resources :journal_entries
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
@@ -25,5 +26,8 @@ Rails.application.routes.draw do
     delete "delete_lift_form", on: :collection, as: :delete_lift_form
     get "list", on: :collection
     post "add_lift_to_workout", on: :member
+  end
+  resources :daily_tasks do
+    post "add_task", on: :collection, as: :add_task
   end
 end
