@@ -1,20 +1,23 @@
 <%= turbo_frame_tag "#{daily_task.id}" do %>
-  <div class="section py-1">
-    <div class="is-flex">
-      <div class="is-flex is-align-items-center">
-        <%= label_tag :title, "Title:", class: "mx-4" %>
-        <span class=""><%= daily_task.title %></span>
+  <section class="section py-1">
+    <div class="grid">
+      <div class="cell">
+        <span><%= daily_task.title %></span>
       </div>
-      <div class="is-flex is-align-items-center">
-        <%= label_tag :smart_goal, "Goal:",  class: "mx-4" %>
+      <div class="cell">
         <span><%= daily_task.smart_goal.measurable_goal %></span>
       </div>
-      <div class="mx-4">
+      <div class="cell">
+        <span><%= daily_task.priority.humanize %></span>
+      </div>
+      <div class="cell">
         <%= link_to daily_task_path(daily_task.id), data: { turbo_method: :delete }, class: "button is-danger" do %>
           <i class="fa-solid fa-trash"></i>
         <% end %>
-        <button type=submit class="button is-primary"><i class="fa-solid fa-plus my-auto"></i></button>
+        <%= link_to root_path, class: "button is-warning" do %>
+          <i class="fa-solid fa-pencil"></i>
+        <% end %>
       </div>
     </div>
-  </div>
+  </section>
 <% end %>

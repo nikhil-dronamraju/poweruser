@@ -28,9 +28,11 @@
           </div>
         </div>
 
-        <div class="mx-4 is-align-items-center">
+        <div class="mx-4 is-flex is-align-items-center">
           <%= f.label :priority %>
-          <%= f.select :priority, options_from_collection_for_selection(DailyTask.priorities) %>
+          <div class="select mx-4">
+            <%= f.select :priority, options_for_select(@priorities) %>
+          </div>
         </div>
         <div class="mx-4">
             <%= link_to add_task_daily_tasks_path, class: "button is-danger" do %>

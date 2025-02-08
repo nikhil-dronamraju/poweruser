@@ -1,5 +1,6 @@
 class DailyTasksController < ApplicationController
   include Authentication
+  include DailyTasksHelper
   before_action :check_logged_in
 
   def index
@@ -12,6 +13,7 @@ class DailyTasksController < ApplicationController
     @tasks = @user.daily_tasks
     @daily_task = DailyTask.new
     @smart_goals = @user.smart_goals
+    @priorities = humanize_priorities
   end
 
   def create
@@ -31,6 +33,6 @@ class DailyTasksController < ApplicationController
   private
 
   def daily_task_params
-    params.require(:daily_task).permit(:user_id, :title, :smart_goal_id)
+    params.require(:daily_task).permit(:user_id, :title, :smart_goal_id, :priority)
   end
 end
