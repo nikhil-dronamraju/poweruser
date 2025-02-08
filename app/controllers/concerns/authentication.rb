@@ -24,7 +24,7 @@ module Authentication
     end
     user.save
     if user.errors.any?
-      flash[:errors] = format_errors(user.errors)
+      flash.now[:errors] = format_errors(user.errors)
       return nil
     end
     session[:user_id] = user.id

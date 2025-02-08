@@ -1,9 +1,16 @@
-<%= form_with model: Saga.new, url: :create_saga do |f| %>
-  <%= f.label :title, class: "label" %>
-  <%= f.text_field :title, class: "input" %>
-  <%= f.label :content, class: "label" %>
-  <div id="editor"></div>
-  <%= f.submit %>
+<%= form_with model: Saga.new, url: :create_saga, class: "form" do |f| %>
+  <div class="my-4">
+    <%= f.label :title, class: "label" %>
+    <%= f.text_field :title, class: "input" %>
+  </div>
+  <div class="my-4">
+    <%= f.label :content, class: "label" %>
+    <div id="editor" class="quill-custom-height"></div>
+  </div>
+  <div class="my-4">
+    <%= f.submit "Save", class: "button is-primary" %>
+  </div>
+
 <% end %>
 
 <script>
