@@ -7,6 +7,12 @@ class DashboardController < ApplicationController
     session[:page_type] = "Dashboard"
     @user = User.find(session[:user_id])
     @tasks = @user.daily_tasks
+    @smart_goals = @user.smart_goals
+    @saga = @user.sagas.last
+  end
+
+  def saga
+    @saga = Saga.find(params[:id])
   end
 
   def new_goal
