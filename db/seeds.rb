@@ -37,3 +37,4 @@ Track.create(title: "Creative", icon: '<i class="fa-solid fa-paintbrush"></i>')
 Track.create(title: "Quitting bad habits", icon: '<i class="fa-solid fa-syringe"></i>')
 
 User.create!(name: "Test User", password: "password", username: "testu1", tracks: [ Track.first ])
+Saga.create(title: "Sample saga", start_date: Date.today, end_date: Date.tomorrow, content: "<div>Lorem ipsum...</div>", user: User.first)
