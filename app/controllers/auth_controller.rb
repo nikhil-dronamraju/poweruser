@@ -5,6 +5,7 @@ class AuthController < ApplicationController
     session[:user_id] = nil
     session[:page_type] = :auth
     @user = User.new
+    @saga = Saga.new
   end
 
   def log_in
@@ -19,16 +20,6 @@ class AuthController < ApplicationController
     if @user&.sagas&.present?
       redirect_to dashboard_home_path
     end
-  end
-
-  def create_saga
-    @saga = Saga.create(saga_params)
-    @errors = format_errors(@saga.errors)
-    p @errors
-    if @errors.present?
-      return render turbo_stream: turbo_stream.replace("err_messages", partial: "layouts/error_messages", locals: { messages: @errors } )
-    end
-    redirect_to dashboard_home_path
   end
 
   def create_user_track

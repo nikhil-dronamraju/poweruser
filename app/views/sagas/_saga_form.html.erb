@@ -1,4 +1,4 @@
-<%= form_with model: Saga.new, url: :create_saga, class: "form" do |f| %>
+<%= form_with model: saga, class: "form" do |f| %>
   <%= f.hidden_field :user_id, value: user.id %>
   <%= f.hidden_field :content, value: nil %>
   <div class="my-4">
@@ -17,12 +17,13 @@
   </div>
   <div class="my-4">
     <%= f.label :content, class: "label" %>
-    <div id="editor" class="quill-custom-height"></div>
+    <div id="editor" class="quill-custom-height">
+      <%= saga&.content&.html_safe %>
+    </div>
   </div>
   <div class="my-4">
     <%= f.submit "Save", class: "button is-primary" %>
   </div>
-
 <% end %>
 
 <%= javascript_include_tag 'quill_form' %>

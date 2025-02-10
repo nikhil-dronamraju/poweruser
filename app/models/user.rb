@@ -6,6 +6,7 @@ class User < ApplicationRecord
   has_many :sagas, dependent: :destroy
   has_many :daily_tasks, dependent: :destroy
   has_many :smart_goals, dependent: :destroy
+  validates :sagas, length: { minimum: 1, message: "Must have at least one saga" }
   validates :username, presence: { message: "Must enter a username" }
   validates :username, uniqueness: { message: "Username already taken" }
   validates :name, presence: { message: "Must enter a name" }

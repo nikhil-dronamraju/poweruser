@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= content_for(:title) || "Poweruser" %></title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+
+  <%= yield :head %>
+
+  <link rel="manifest" href="/manifest.json">
+  <link rel="icon" href="/icon.png" type="image/png">
+  <link rel="icon" href="/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/icon.png">
+  <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+  <%= javascript_importmap_tags %>
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css"
+  >
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  <%= javascript_include_tag "bulma_helper_javascript" %>
+  <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet">
+</head>
+
+<body class="montserrat-400">
+<% if session[:page_type] == "Dashboard" %>
+  <header class="container is-fluid p-5">
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+      <div class="navbar-brand">
+        <div class="navbar-item">
+          <span class="title barlow-condensed-bold has-text-primary">PowerUser</span>
+        </div>
+        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="poweruser_navbar">
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
+      </div>
+
+      <div id="poweruser_navbar" class="navbar-menu">
+        <div class="navbar-start">
+          <%= link_to "Dashboard", dashboard_home_path, class: "navbar-item" %>
+          <%= link_to "Sagas", sagas_path, class: "navbar-item" %>
+          <%= link_to "Journaling", journal_entries_path, class: "navbar-item" %>
+          <%= link_to "Pomodoro", dashboard_pomodoro_path, class: "navbar-item" %>
+        </div>
+
+        <div class="navbar-end">
+          <div class="navbar-item">
+            <%= link_to "Log out", root_path, class: "button is-light" %>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+<% else %>
+  <header class="container is-fluid p-5">
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+      <div class="navbar-brand">
+        <div class="navbar-item">
+          <h1 class="title barlow-condensed-bold">Welcome to <span class="has-text-primary">PowerUser</span></h1>
+        </div>
+        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="poweruser_navbar">
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
+      </div>
+    </nav>
+  </header>
+<% end %>
+<section class="">
+  <%= yield %>
+</section>
+
+<nav class="navbar is-fixed-bottom" role="navigation" aria-label="main navigation">
+  <div class="navbar-menu">
+    <div class="navbar-end">
+      <div class="navbar-item">
+        <%= link_to "New saga", new_saga_path, class: "button is-primary" %>
+      </div>
+    </div>
+  </div>
+</nav>
+
+</body>
+</html>

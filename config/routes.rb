@@ -31,4 +31,5 @@ Rails.application.routes.draw do
   resources :daily_tasks do
     post "add_task", on: :collection, as: :add_task
   end
+  resources :sagas
 end
