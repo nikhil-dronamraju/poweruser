@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_02_08_160911) do
+ActiveRecord::Schema[7.2].define(version: 2025_02_10_011916) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -67,6 +67,8 @@ ActiveRecord::Schema[7.2].define(version: 2025_02_08_160911) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
+    t.bigint "saga_id", null: false
+    t.index ["saga_id"], name: "index_smart_goals_on_saga_id"
     t.index ["user_id"], name: "index_smart_goals_on_user_id"
     t.index ["user_track_id"], name: "index_smart_goals_on_user_track_id"
   end
@@ -111,6 +113,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_02_08_160911) do
   add_foreign_key "gym_lifts", "exercises"
   add_foreign_key "gym_lifts", "workouts"
   add_foreign_key "sagas", "users"
+  add_foreign_key "smart_goals", "sagas"
   add_foreign_key "smart_goals", "user_tracks"
   add_foreign_key "smart_goals", "users"
   add_foreign_key "user_tracks", "tracks"

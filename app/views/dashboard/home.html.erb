@@ -1,69 +1,56 @@
-<div class="hero is-small">
+<section class="hero is-small">
   <div class="hero-body">
     <h1 class="is-size-2 barlow-condensed-bold">Welcome, <span class="has-text-primary"><%= @user.first_name %>!</span></h1>
     <span class="subtitle">This is your personal page. From here, you can monitor <span class="has-text-primary has-text-weight-bold">sagas</span>, <span class="has-text-danger has-text-weight-bold">goals</span>, and <span class="has-text-warning has-text-weight-bold">tasks.</span></span>
   </div>
-</div>
-<div class="section">
-  <div class="grid">
-    <div class="cell">
-      <div class="box h-100">
-        <h2 class="is-size-4 barlow-condensed-semibold">Current saga: <span class="has-text-danger"><%= @saga.title %></span></h2>
-        <div class="is-flex is-flex-direction-column">
-          <span class="barlow-condensed-medium">Start date: <%= format_date(@saga.start_date) %></span>
-          <span class="barlow-condensed-medium">End date: <%= format_date(@saga.end_date) %></span>
-          <span class="barlow-condensed-medium">Remaining days: <%= days_remaining(@saga.start_date, @saga.end_date) %></span>
-        </div>
-        <%= link_to "Open", dashboard_saga_path(@saga.id), class: "button is-primary is-small" %>
-      </div>
-    </div>
+</section>
 
-    <div class="cell">
-      <div class="box h-100">
-        <h2 class="is-size-4 barlow-condensed-semibold">Goals:</h2>
-        <% if @smart_goals.present? %>
-          <% @smart_goals.each do |goal| %>
-            <div class="is-flex is-flex-direction-column">
-              <span class="barlow-condensed-medium"><%= goal.measurable_goal %></span>
-              <span class="barlow-condensed-medium">Start date: <%= format_date(goal.start_date) %></span>
-              <span class="barlow-condensed-medium">End date: <%= format_date(goal.end_date) %></span>
-              <span class="barlow-condensed-medium">Remaining days: <%= days_remaining(goal.start_date, goal.end_date) %></span>
-            </div>
+<% if @saga.present? %>
+  <div class="section">
+    <div class="grid">
+      <div class="cell">
+        <div class="box h-100">
+          <h2 class="is-size-4 barlow-condensed-semibold">Current saga: <span class="has-text-danger"><%= @saga.title %></span></h2>
+          <div class="is-flex is-flex-direction-column block">
+            <span>Start date: <span class="has-text-weight-bold"><%= format_date(@saga.start_date) %></span></span>
+            <span>End date: <span class="has-text-weight-bold"><%= format_date(@saga.end_date) %></span></span>
+            <span>Remaining days: <span class="has-text-weight-bold"><%= days_remaining(@saga.start_date, @saga.end_date) %></span></span>
+          </div>
+          <div class="buttons">
+            <%= link_to "Open", dashboard_saga_path(@saga.id), class: "button is-primary" %>
+          </div>
+        </div>
+      </div>
+
+      <div class="cell">
+        <div class="box h-100">
+          <h2 class="is-size-4 barlow-condensed-semibold">Goals:</h2>
+          <% if @smart_goals.present? %>
+            <% @smart_goals.each do |goal| %>
+              <div class="is-flex is-flex-direction-column">
+                <span class="barlow-condensed-medium"><%= goal.measurable_goal %></span>
+                <span class="barlow-condensed-medium">Start date: <%= format_date(goal.start_date) %></span>
+                <span class="barlow-condensed-medium">End date: <%= format_date(goal.end_date) %></span>
+                <span class="barlow-condensed-medium">Remaining days: <%= days_remaining(goal.start_date, goal.end_date) %></span>
+              </div>
+            <% end %>
+          <% else %>
+            <p>No goals found. Please create one!</p>
+            <%= link_to "Create", dashboard_new_goal_path, class: "button is-primary is-small" %>
           <% end %>
-        <% else %>
-          <p>No goals found. Please create one!</p>
-          <%= link_to "Create", dashboard_new_goal_path, class: "button is-primary is-small" %>
-        <% end %>
-        <%= link_to "Open", dashboard_saga_path(@saga.id), class: "button is-primary is-small" %>
+          <%#= link_to "Open", dashboard_saga_path(@saga.id), class: "button is-primary is-small" %>
+        </div>
       </div>
     </div>
   </div>
-</div>
-
-<% if @smart_goals.present? %>
-  <section class="section">
-    <h3 class="barlow-condensed-semibold is-size-4">Current goals:</h3>
-    <div class="content">
-      <ul>
-        <% @smart_goals.each do |goal| %>
-          <li><%= goal.measurable_goal %></li>
-        <% end %>
-      </ul>
+<% else %>
+  <section class="hero is-danger">
+    <div class="hero-body">
+      <h3 class="barlow-condensed-semibold is-size-3 has-text-weight-bold">Whoa, there! You have no sagas.</h3>
+      <span class="subtitle">The first step to setting goals and creating tasks is to create a saga.</span>
+      <div class="mt-4">
+        <%= link_to "Create a saga", new_saga_path, class: "button is-primary" %>
+      </div>
     </div>
   </section>
 <% end %>
-
-<section class="section">
-  <div class="">
-    <h2 class="is-size-3 barlow-condensed-semibold">Today's tasks:</h2>
-    <% if @tasks.present? %>
-      <% @tasks.each do |task| %>
-        <h3><%= task.title %></h3>
-        <span><%= task.smart_goal.measurable_goal %></span>
-      <% end %>
-    <% else %>
-      <p>No tasks found. Please add some!</p>
-      <%= link_to "Add task", new_daily_task_path, class: "button is-primary" %>
-    <% end %>
-  </div>
-</section>
