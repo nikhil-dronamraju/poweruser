@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_02_10_011916) do
+ActiveRecord::Schema[7.2].define(version: 2025_02_11_083941) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -68,6 +68,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_02_10_011916) do
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
     t.bigint "saga_id", null: false
+    t.integer "progress", default: 0
     t.index ["saga_id"], name: "index_smart_goals_on_saga_id"
     t.index ["user_id"], name: "index_smart_goals_on_user_id"
     t.index ["user_track_id"], name: "index_smart_goals_on_user_track_id"

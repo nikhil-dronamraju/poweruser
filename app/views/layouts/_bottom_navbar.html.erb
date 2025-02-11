@@ -1,0 +1,15 @@
+<nav class="navbar is-fixed-bottom" role="navigation" aria-label="main navigation">
+  <div class="navbar-menu">
+    <div class="navbar-end">
+      <% if session[:page_type] == :saga %>
+        <div class="navbar-item">
+          <%= link_to "New saga", new_saga_path, class: "button is-primary" %>
+        </div>
+      <% else %>
+        <div class="navbar-item">
+          <%= link_to "New goal", new_smart_goal_path, class: "button is-primary" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</nav>

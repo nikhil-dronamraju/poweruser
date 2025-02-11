@@ -1,3 +1,4 @@
+<%= turbo_page_requires_reload %>
 <section class="hero is-small">
   <div class="hero-body">
     <h1 class="is-size-2 barlow-condensed-bold">Welcome, <span class="has-text-primary"><%= @user.first_name %>!</span></h1>
@@ -24,21 +25,24 @@
 
       <div class="cell">
         <div class="box h-100">
-          <h2 class="is-size-4 barlow-condensed-semibold">Goals:</h2>
-          <% if @smart_goals.present? %>
-            <% @smart_goals.each do |goal| %>
-              <div class="is-flex is-flex-direction-column">
-                <span class="barlow-condensed-medium"><%= goal.measurable_goal %></span>
-                <span class="barlow-condensed-medium">Start date: <%= format_date(goal.start_date) %></span>
-                <span class="barlow-condensed-medium">End date: <%= format_date(goal.end_date) %></span>
-                <span class="barlow-condensed-medium">Remaining days: <%= days_remaining(goal.start_date, goal.end_date) %></span>
-              </div>
-            <% end %>
-          <% else %>
-            <p>No goals found. Please create one!</p>
-            <%= link_to "Create", dashboard_new_goal_path, class: "button is-primary is-small" %>
-          <% end %>
-          <%#= link_to "Open", dashboard_saga_path(@saga.id), class: "button is-primary is-small" %>
+          <div class="is-flex is-flex-direction-column h-100">
+            <h2 class="is-size-4 barlow-condensed-semibold">Goals:</h2>
+              <% if @smart_goals.present? %>
+                <% @smart_goals.each do |goal| %>
+                  <div class="is-flex is-flex-direction-column">
+                    <span class="barlow-condensed-medium"><%= goal.measurable_goal %></span>
+                    <span class="barlow-condensed-medium">Start date: <%= format_date(goal.start_date) %></span>
+                    <span class="barlow-condensed-medium">End date: <%= format_date(goal.end_date) %></span>
+                    <span class="barlow-condensed-medium">Remaining days: <%= days_remaining(goal.start_date, goal.end_date) %></span>
+                  </div>
+                <% end %>
+              <% else %>
+                <p>No goals found. Please create one!</p>
+                <div class="buttons mt-auto">
+                  <%= link_to "Create", dashboard_new_goal_path, class: "button is-primary" %>
+                </div>
+              <% end %>
+          </div>
         </div>
       </div>
     </div>

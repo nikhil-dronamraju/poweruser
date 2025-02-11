@@ -1,12 +1,19 @@
 <%= turbo_frame_tag "new_goal_frame" do %>
   <section class="section">
-    <%= form_with model: @smart_goal, url: :dashboard_create_goal, class: "form" do |f| %>
+    <%= form_with model: @smart_goal, class: "form" do |f| %>
 
       <div class="is-flex">
         <div class="field mr-4">
           <%= f.label :track, class: "label" %>
           <div class="select">
             <%= f.select :user_track_id, options_for_select(@tracks) %>
+          </div>
+        </div>
+
+        <div class="field mr-4">
+          <%= f.label :saga, class: "label" %>
+          <div class="select">
+            <%= f.select :saga_id, options_from_collection_for_select(@user.sagas, :id, :title) %>
           </div>
         </div>
 

@@ -12,7 +12,7 @@ class SagasController < ApplicationController
     @saga = Saga.create(saga_params)
     @errors = format_errors(@saga.errors)
     if @errors.present?
-      return render turbo_stream: turbo_stream.replace("err_messages", partial: "layouts/error_messages", locals: { messages: @errors } )
+      return render turbo_stream: turbo_stream.replace("err_messages", partial: "layouts/error_messages", locals: { messages: @errors })
     end
     redirect_to dashboard_home_path
   end
@@ -31,7 +31,7 @@ class SagasController < ApplicationController
     @saga = Saga.find(params[:id])
     @saga.update(saga_params)
     if @saga.errors.present?
-      return render turbo_stream: turbo_stream.replace("err_messages", partial: "layouts/error_messages", locals: { messages: format_errors(@saga.errors) } )
+      return render turbo_stream: turbo_stream.replace("err_messages", partial: "layouts/error_messages", locals: { messages: format_errors(@saga.errors) })
     end
     redirect_to sagas_path
   end

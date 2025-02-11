@@ -1,0 +1,47 @@
+<section class="hero is-small">
+  <div class="hero-body">
+    <h1 class="barlow-condensed-bold is-size-2">Let's check your goals, <span class="has-text-primary"><%= @user.first_name %></span>.</h1>
+  </div>
+</section>
+
+<% if @goals.present? %>
+  <section class="section">
+    <div class="block">
+      <h2 class="barlow-condensed-semibold is-size-3">Your goals:</h2>
+    </div>
+    <div class="block">
+      <div class="fixed-grid">
+      <div class="grid">
+        <% @goals.each do |goal| %>
+          <div class="cell">
+            <div class="box">
+              <h3 class="barlow-condensed-semibold is-size-4"><%= goal.measurable_goal %></h3>
+              <div class="is-flex is-align-items-center">
+                <span class="has-text-weight-bold has-text-warning">Progress:</span> <progress class="ml-2 progress is-primary" value="<%= goal.progress %>"></progress>
+              </div>
+              <div class="is-flex">
+                <span>Start: <span class="has-text-weight-bold has-text-warning"><%= format_date(goal.start_date) %></span></span>
+                <span class="ml-4">End: <span class="has-text-weight-bold has-text-warning"><%= format_date(goal.end_date) %></span></span>
+              </div>
+
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+    </div>
+  </section>
+<% else %>
+  <section class="hero is-danger">
+    <div class="hero-body">
+      <div class="block">
+        <h2 class="barlow-condensed-semibold is-size-3">Whoa, there!</h2>
+        <span class="subtitle">You have no goals.</span>
+      </div>
+      <div class="block">
+        <%= link_to "New goal", new_smart_goal_path, class: "button is-primary" %>
+      </div>
+    </div>
+
+  </section>
+<% end %>

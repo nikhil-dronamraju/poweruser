@@ -1,50 +1,53 @@
+let pomodoroTimes = [ 1500, 300, 1500, 300, 1500, 300, 1500, 300, 1800 ];
+let selectedIndex = 0;
 let timeElapsed = 0;
-let secs = 1500;
-let pomoInterval;
+let seconds = pomodoroTimes[ selectedIndex ];
+let pomodoroInterval;
+
+/**
+ * We need an accurate pomodoro timer - The first thing is to have it go from 25:00 to 0:00
+ * In seconds that's 1500 to 0.
+ * Done - We also need to do some code cleanup.
+ * Yo, this IDE is in my way. Basically - format seconds
+ * So - We can just use this array indefinitely
+ * Anyways, we start off at arr[0]
+ *
+ */
 
 
-function formatSeconds() {
-    const pad = (n) => n < 10 ? `0${n}` : n;
 
-    const m = Math.floor(secs / 60);
-    const s = Math.floor(secs - m * 60);
-
-    document.getElementById("pomodoro_time").textContent = `${pad(m)}:${pad(s)}`;
-
-    secs -= 1;
-    timeElapsed += 1;
-
-    if (timeElapsed === 1500 || timeElapsed === 3300 || timeElapsed === 5100 || timeElapsed === 5700  ) {
+function windClock(){
+    seconds -= 1;
+    const timerElement = document.getElementById("pomodoro_time");
+    if ( seconds === 0 ) {
+        timerElement.classList.remove("has-text-primary");
+        timerElement.classList.add("has-text-danger");
+        selectedIndex += 1;
         stopPomodoroTimer();
-        secs = 300;
-        document.getElementById("pomodoro_status").textContent = "Break";
-        document.getElementById("pomodoro_time").textContent = `${pad(m)}:${pad(s)}`;
+    } else {
+        timerElement.classList.remove("has-text-danger");
+        timerElement.classList.add("has-text-primary");
     }
 
-    if ( timeElapsed === 1800 || timeElapsed === 3600 || timeElapsed === 5400 || timeElapsed === 6500 ) {
-        secs = 2500;
-        document.getElementById("pomodoro_status").textContent = "Active";
-        document.getElementById("pomodoro_time").textContent = `${pad(m)}:${pad(s)}`;
+    if ( selectedIndex >= pomodoroTimes.length ) {
+        selectedIndex = 0;
     }
 
-    if (timeElapsed > 6500) {
-        document.getElementById("pomodoro_status").textContent = "Long break";
-        secs = 900;
-        document.getElementById("pomodoro_time").textContent = `${pad(m)}:${pad(s)}`;
-    }
-
-    if ( timeElapsed >= 7400 ) {
-        document.getElementById("pomodoro_status").textContent = "Active";
-        secs = 1500;
-        timeElapsed = 0;
-        document.getElementById("pomodoro_time").textContent = `${pad(m)}:${pad(s)}`;
-    }
+    // UI logic:
+    timerElement.innerText = formatSeconds(seconds);
 }
 
-function startPomodoroTimer() {
-    pomoInterval = setInterval(formatSeconds, 1500,  1000);
+function formatSeconds( numberOfSeconds ) {
+    let minutes = parseInt(numberOfSeconds / 60);
+    let seconds = numberOfSeconds % 60;
+    return `${minutes}:${seconds}`;
+}
+
+function startPomodoroTimer(){
+    pomoInterval = setInterval(windClock, 1000);
 }
 
 function stopPomodoroTimer() {
     clearInterval(pomoInterval);
 }
+

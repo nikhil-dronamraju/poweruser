@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
   get "daily_tasks/index"
-  resources :journal_entries
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
@@ -17,7 +16,6 @@ Rails.application.routes.draw do
   post "auth/create_or_login_user", as: :create_or_login_user
   post "auth/create_user_track"
   get "dashboard/home"
-  get "dashboard/pomodoro"
   get "dashboard/new_goal"
   get "dashboard/saga/:id", to: "dashboard#saga", as: :dashboard_saga
   post "dashboard/create_goal"
@@ -32,4 +30,5 @@ Rails.application.routes.draw do
     post "add_task", on: :collection, as: :add_task
   end
   resources :sagas
+  resources :smart_goals
 end
