@@ -17,7 +17,6 @@ Rails.application.routes.draw do
   post "auth/create_user_track"
   get "dashboard/home"
   get "dashboard/new_goal"
-  get "dashboard/saga/:id", to: "dashboard#saga", as: :dashboard_saga
   post "dashboard/create_goal"
   post "auth/create_saga", as: :create_saga
   resources :workouts do

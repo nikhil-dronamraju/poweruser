@@ -15,4 +15,8 @@ class User < ApplicationRecord
   def first_name
     self.name.split(" ")[0]
   end
+
+  def sorted_tasks
+    self.daily_tasks.order(:priority)
+  end
 end

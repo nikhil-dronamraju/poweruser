@@ -1,13 +1,15 @@
 <nav class="navbar is-fixed-bottom" role="navigation" aria-label="main navigation">
   <div class="navbar-menu">
     <div class="navbar-end">
-      <% if session[:page_type] == :saga %>
+      <% if session[:page_type] == :dashboard %>
         <div class="navbar-item">
           <%= link_to "New saga", new_saga_path, class: "button is-primary" %>
         </div>
-      <% else %>
         <div class="navbar-item">
-          <%= link_to "New goal", new_smart_goal_path, class: "button is-primary" %>
+          <%= link_to "New goal", new_smart_goal_path, class: "button is-danger" %>
+        </div>
+        <div class="navbar-item">
+          <%= link_to "New task", new_daily_task_path, class: "button is-warning" %>
         </div>
       <% end %>
     </div>

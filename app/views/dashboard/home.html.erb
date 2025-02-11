@@ -12,13 +12,16 @@
       <div class="cell">
         <div class="box h-100">
           <h2 class="is-size-4 barlow-condensed-semibold">Current saga: <span class="has-text-danger"><%= @saga.title %></span></h2>
+          <div class="block">
+            <progress class="progress is-danger" value="<%= @saga.progress %>" max="<%= @saga.len %>"></progress>
+          </div>
           <div class="is-flex is-flex-direction-column block">
             <span>Start date: <span class="has-text-weight-bold"><%= format_date(@saga.start_date) %></span></span>
             <span>End date: <span class="has-text-weight-bold"><%= format_date(@saga.end_date) %></span></span>
             <span>Remaining days: <span class="has-text-weight-bold"><%= days_remaining(@saga.start_date, @saga.end_date) %></span></span>
           </div>
           <div class="buttons">
-            <%= link_to "Open", dashboard_saga_path(@saga.id), class: "button is-primary" %>
+            <%= link_to "Edit", edit_saga_path(@saga.id), class: "button is-primary" %>
           </div>
         </div>
       </div>
@@ -26,14 +29,33 @@
       <div class="cell">
         <div class="box h-100">
           <div class="is-flex is-flex-direction-column h-100">
-            <h2 class="is-size-4 barlow-condensed-semibold">Goals:</h2>
+            <div class="block">
+              <h2 class="is-size-4 barlow-condensed-semibold">Goals:</h2>
+            </div>
               <% if @smart_goals.present? %>
                 <% @smart_goals.each do |goal| %>
-                  <div class="is-flex is-flex-direction-column">
-                    <span class="barlow-condensed-medium"><%= goal.measurable_goal %></span>
-                    <span class="barlow-condensed-medium">Start date: <%= format_date(goal.start_date) %></span>
-                    <span class="barlow-condensed-medium">End date: <%= format_date(goal.end_date) %></span>
-                    <span class="barlow-condensed-medium">Remaining days: <%= days_remaining(goal.start_date, goal.end_date) %></span>
+                  <div class="block">
+                    <div class="is-flex is-flex-direction-column">
+                      <div class="content">
+                        <ul>
+                          <li>
+                            <div class="grid my-1">
+                              <div class="cell">
+                                <span class="has-text-weight-bold"><%= goal.measurable_goal %></span>
+                              </div>
+                              <div class="cell is-flex is-align-items-center">
+                                <span class="has-text-weight-bold">Progress: </span>
+                                <progress class="progress is-danger ml-4" max=100 value=0></progress>
+                              </div>
+                            </div>
+                            <div class="is-flex is-flex-direction-column">
+                              <span class="">Start date: <span class="has-text-weight-bold"><%= format_date(goal.start_date) %></span></span>
+                              <span>End date: <span class="has-text-weight-bold"><%= format_date(goal.end_date) %></span></span>
+                            </div>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
                   </div>
                 <% end %>
               <% else %>
@@ -47,6 +69,33 @@
       </div>
     </div>
   </div>
+  <section class="section">
+    <div class="block">
+      <h3 class="barlow-condensed-semibold is-size-3">Daily tasks:</h3>
+    </div>
+
+    <div class="box">
+      <% @tasks.each do |task| %>
+        <div class="grid">
+          <div class="cell">
+            <span class="has-text-weight-bold"><%= task.title %></span>
+          </div>
+          <div class="cell">
+            <span class="has-text-weight-bold"><%= task.priority.humanize %></span>
+          </div>
+          <div class="cell">
+            <span class="has-text-weight-bold"><%= task.goal_title %></span>
+          </div>
+          <div class="cell">
+            <%= link_to "Edit", edit_daily_task_path(task.id), class: "button is-primary" %>
+            <%= link_to "Delete", daily_task_path(task.id), data: { turbo_method: :delete }, class: "button is-danger" %>
+          </div>
+
+
+        </div>
+      <% end %>
+    </div>
+  </section>
 <% else %>
   <section class="hero is-danger">
     <div class="hero-body">

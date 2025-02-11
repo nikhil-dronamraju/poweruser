@@ -5,14 +5,10 @@ class DashboardController < ApplicationController
   include GeneralViewHelper
   before_action :check_logged_in, :check_onboarded
   def home
-    session[:page_type] = "Dashboard"
+    session[:page_type] = :dashboard
     @user = User.find(session[:user_id])
-    @tasks = @user.daily_tasks
-    @smart_goals = @user.smart_goals
     @saga = @user.sagas.last
-  end
-
-  def saga
-    @saga = Saga.find(params[:id])
+    @tasks = @user.sorted_tasks
+    @smart_goals = @saga.smart_goals
   end
 end

@@ -5,4 +5,8 @@ class DailyTask < ApplicationRecord
   validates :title, length: { minimum: 1, message: "Title must have at least one char" }
   validates :priority, presence: { message: "Must have a priority" }
   validates :smart_goal, presence: { message: "Must have a smart goal" }
+
+  def goal_title
+    smart_goal.measurable_goal
+  end
 end
