@@ -1,40 +1,6 @@
 <%= turbo_frame_tag "new_goal_frame" do %>
   <section class="section">
-    <%= form_with model: @smart_goal, class: "form" do |f| %>
-
-      <div class="is-flex">
-        <div class="field mr-4">
-          <%= f.label :track, class: "label" %>
-          <div class="select">
-            <%= f.select :user_track_id, options_for_select(@tracks) %>
-          </div>
-        </div>
-
-        <div class="field mr-4">
-          <%= f.label :saga, class: "label" %>
-          <div class="select">
-            <%= f.select :saga_id, options_from_collection_for_select(@user.sagas, :id, :title) %>
-          </div>
-        </div>
-
-        <div class="field mr-4">
-          <%= f.label :start_date, class: "label" %>
-          <%= f.date_field :start_date, value: Date.today, class: "input" %>
-        </div>
-
-        <div class="field mr-4">
-          <%= f.label :end_date, class: "label" %>
-          <%= f.date_field :end_date, value: Date.today + 30.days, class: "input" %>
-        </div>
-      </div>
-
-      <div class="field">
-        <%= f.label "Measurable goal:", class: "label" %>
-        <%= f.text_field :measurable_goal, class: "input" %>
-      </div>
-
-      <%= f.submit "Save", class: "button is-primary" %>
-    <% end %>
+    <%= render partial: "smart_goal_form", locals: { smart_goal: @smart_goal, tracks: @tracks, sagas: @sagas } %>
   </section>
 <% end %>
 
