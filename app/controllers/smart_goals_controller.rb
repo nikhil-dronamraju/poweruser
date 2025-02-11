@@ -28,12 +28,17 @@ class SmartGoalsController < ApplicationController
     @smart_goal = SmartGoal.find(params[:id])
     @smart_goal.update(goal_params)
   end
-  
+
   def create
     smart_goal = SmartGoal.new(goal_params)
     smart_goal.user = User.find(session[:user_id])
     smart_goal.save
     @errors = format_errors(smart_goal.errors)
+  end
+
+  def destroy
+    @smart_goal = SmartGoal.find(params[:id])
+    @smart_goal.destroy
   end
 
   private
