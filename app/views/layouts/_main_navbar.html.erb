@@ -1,4 +1,4 @@
-<% if session[:page_type] == :dashboard %>
+<% if session[:page_type] == "dashboard" %>
   <header class="container is-fluid p-5">
     <nav class="navbar" role="navigation" aria-label="main navigation">
       <div class="navbar-brand">
@@ -35,19 +35,7 @@
     </nav>
   </header>
 <% else %>
-  <header class="container is-fluid p-5">
-    <nav class="navbar" role="navigation" aria-label="main navigation">
-      <div class="navbar-brand">
-        <div class="navbar-item">
-          <h1 class="title barlow-condensed-bold">Welcome to <span class="has-text-primary">PowerUser</span></h1>
-        </div>
-        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="poweruser_navbar">
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-        </a>
-      </div>
-    </nav>
+  <header class="p-4">
+    <h1 class="barlow-condensed-bold is-size-2 has-text-primary">Welcome to PowerUser</h1>
   </header>
 <% end %>

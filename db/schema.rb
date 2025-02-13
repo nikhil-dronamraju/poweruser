@@ -10,21 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_02_11_214315) do
+ActiveRecord::Schema[7.2].define(version: 2025_02_13_101922) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "daily_tasks", force: :cascade do |t|
     t.string "title"
-    t.bigint "user_id", null: false
     t.bigint "smart_goal_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "priority"
-    t.bigint "track_id", default: 1, null: false
     t.index ["smart_goal_id"], name: "index_daily_tasks_on_smart_goal_id"
-    t.index ["track_id"], name: "index_daily_tasks_on_track_id"
-    t.index ["user_id"], name: "index_daily_tasks_on_user_id"
   end
 
   create_table "exercises", force: :cascade do |t|
@@ -68,11 +64,9 @@ ActiveRecord::Schema[7.2].define(version: 2025_02_11_214315) do
     t.date "end_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "user_id", null: false
     t.bigint "saga_id", null: false
     t.integer "progress", default: 0
     t.index ["saga_id"], name: "index_smart_goals_on_saga_id"
-    t.index ["user_id"], name: "index_smart_goals_on_user_id"
     t.index ["user_track_id"], name: "index_smart_goals_on_user_track_id"
   end
 
@@ -98,7 +92,6 @@ ActiveRecord::Schema[7.2].define(version: 2025_02_11_214315) do
     t.text "password_digest", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "workout_streak", default: 0
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
@@ -112,14 +105,11 @@ ActiveRecord::Schema[7.2].define(version: 2025_02_11_214315) do
   end
 
   add_foreign_key "daily_tasks", "smart_goals"
-  add_foreign_key "daily_tasks", "tracks"
-  add_foreign_key "daily_tasks", "users"
   add_foreign_key "gym_lifts", "exercises"
   add_foreign_key "gym_lifts", "workouts"
   add_foreign_key "sagas", "users"
   add_foreign_key "smart_goals", "sagas"
   add_foreign_key "smart_goals", "user_tracks"
-  add_foreign_key "smart_goals", "users"
   add_foreign_key "user_tracks", "tracks"
   add_foreign_key "user_tracks", "users"
   add_foreign_key "workouts", "users"

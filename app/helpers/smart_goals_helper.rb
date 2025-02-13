@@ -10,6 +10,8 @@ module SmartGoalsHelper
       selection << element
     end
 
+    p "Starting debugging here: \n"
+    pp selection
     selection
   end
 end

@@ -2,7 +2,6 @@ class SagasController < ApplicationController
   include Authentication
   include ErrorHandling
   before_action :check_logged_in
-  layout "sagas"
   def index
     @user = User.find(session[:user_id])
     @sagas = @user.sagas
