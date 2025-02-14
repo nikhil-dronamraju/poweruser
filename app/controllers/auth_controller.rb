@@ -22,6 +22,14 @@ class AuthController < ApplicationController
     end
   end
 
+  def tracks
+
+  end
+
+  def users
+    @user = User.new(user_params)
+  end
+
   private
 
   def user_params

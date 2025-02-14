@@ -13,8 +13,8 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   root "auth#log_in"
   get "auth/sign_up"
-  post "auth/create_or_login_user", as: :create_or_login_user
-  post "auth/create_user_track"
+  post "auth/users", as: "users"
+  post "auth/tracks", as: "tracks"
   get "dashboard/home"
   get "dashboard/new_goal"
   post "dashboard/create_goal"

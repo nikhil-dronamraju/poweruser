@@ -1,0 +1,20 @@
+<%= turbo_frame_tag "onboarding_track_frame" do %>
+  <%= form_with model: user, class: "form" do |form| %>
+    <%= form.hidden_field :username %>
+    <%= form.hidden_field :name %>
+    <%= form.hidden_field :password %>
+    <%= form.fields_for :track do |field| %>
+      <div class="field">
+        <%= field.label :title, class: "label" %>
+        <%= field.text_field :title, class: "input", placeholder: "Leave blank to use default tracks" %>
+      </div>
+    <% end %>
+    <div class="field">
+      <div class="buttons">
+        <%= form.submit "Save", class: "button is-primary" %>
+      </div>
+    </div>
+
+  <% end %>
+
+<% end %>

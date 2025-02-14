@@ -17,6 +17,7 @@ class User < ApplicationRecord
   end
 
   def sorted_tasks
-    self.daily_tasks.order(:priority)
+    user_tracks = self.user_tracks.ids
+
   end
 end
