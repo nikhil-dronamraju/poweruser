@@ -16,11 +16,8 @@ RSpec.describe User, type: :model do
     end
     it { expect(valid_user.name).not_to be_empty }
     it { expect(valid_user.password_digest).not_to be_empty }
-    it { expect(valid_user.tracks.count).to be > 0 }
-    it { expect(valid_user.sagas.count).to be > 0 }
   end
-
-  context "Error messages" do
+  context "error messages" do
     let(:invalid_user) {
       user = FactoryBot.build(:user, name: nil, username: nil, password_digest: nil)
       user.save
@@ -28,5 +25,17 @@ RSpec.describe User, type: :model do
       user
     }
     it { expect(invalid_user.errors.messages.values.flatten).to eq([ "Must enter a username", "Must enter a name", "Must select at least one track.", "Must have at least one saga." ]) }
+  end
+  context "associations" do
+    let(:valid_user) do
+      valid_user = FactoryBot.build(:valid_user)
+      valid_user.save
+
+      valid_user
+    end
+
+    it { expect(valid_user.user_tracks.count).to be > 0 }
+    it { expect(valid_user.tracks.count).to be > 0 }
+    it { expect(valid_user.sagas.count).to be > 0 }
   end
 end
