@@ -1,5 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe Track, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  context "validations" do
+    let(:track) { FactoryBot.create(:track) }
+    it { expect(track.title).not_to be_nil }
+    it { expect(track.icon).not_to be_nil }
+  end
 end
