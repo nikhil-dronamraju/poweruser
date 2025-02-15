@@ -1,0 +1,15 @@
+<%= turbo_frame_tag "sign_up_frame" do %>
+  <%= form_with model: UserTrack.new, url: :auth_create_user_track, class: "form" do |form| %>
+    <%= form.fields_for :user do |field| %>
+      <%= field.hidden_field :username, value: user.username %>
+      <%= field.hidden_field :name, value: user.name %>
+      <%= field.hidden_field :password, value: user.password %>
+    <% end %>
+
+    <%= form.fields_for :track do |field| %>
+      <%= field.text_field :title %>
+    <% end %>
+
+    <%= form.submit %>
+  <% end %>
+<% end %>

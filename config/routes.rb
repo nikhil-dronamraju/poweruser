@@ -18,6 +18,8 @@ Rails.application.routes.draw do
   get "dashboard/home"
   get "dashboard/new_goal"
   post "dashboard/create_goal"
+  post "auth/show_track_form"
+  post "auth/create_user_track"
   post "auth/create_saga", as: :create_saga
   resources :workouts do
     post "add_lift_form", on: :collection, as: :add_lift_form

@@ -30,6 +30,15 @@ class AuthController < ApplicationController
     redirect_to dashboard_home_path if @user.present?
   end
 
+  def show_track_form
+    @user = User.new(user_params)
+  end
+
+  def create_user_track
+    # @user_track = UserTrack.new(user_track_params)
+    @user = User.new(user_track_params[:user])
+  end
+
   private
 
   def user_params
@@ -37,6 +46,6 @@ class AuthController < ApplicationController
   end
 
   def user_track_params
-    params.require(:user_track)
+    params.require(:user_track).permit(user: [:name, :password, :username], track: [:title])
   end
 end

@@ -4,12 +4,15 @@
       <div class="column is-one-quarter"></div>
       <div class="column is-half">
         <h2 class="is-size-2 title">Sign up</h2>
-        <%= form_with model: @user, class: "form" do |form| %>
+        <%= turbo_frame_tag "sign_up_frame" do %>
+          <%= form_with model: @user, url: :auth_show_track_form, class: "form" do |form| %>
           <div class="my-4" data-controller="onboarding">
             <div id="generic_input_fields">
               <div class="field">
                 <%= form.label :username, class: "label" %>
-                <%= form.text_field :username, class: "input" %>
+                <%= form.text_field :username, id: "username_input", class: "input" %>
+                <%# And so on and so forth. %>
+                <span id="username_is_blank" class="display-none has-text-danger">Username is blank.</span>
               </div>
               <div class="field">
                 <%= form.label :password, class: "label" %>
@@ -21,42 +24,43 @@
               </div>
               <div class="field">
                 <%= button_tag "Next", class: "button is-primary", data: { "action": "onboarding#toggle_generic_inputs"} %>
+                <%= form.submit "Next with post", class: "button is-primary" %>
               </div>
             </div>
-            <div class="display-none" id="track_input_fields">
-              <%= form.fields_for :track do |field| %>
-                <div class="field">
-                  <%= field.label :title, class: "label" %>
-                  <%= field.text_field :title, class: "input" %>
-                </div>
-                <div class="field">
-                  <%= button_tag "Back", class: "button is-warning", data: { action: "onboarding#toggle_generic_inputs" } %>
-                  <%= button_tag "Next", class: "button is-primary", data: { action: "onboarding#toggle_saga_inputs" } %>
-                </div>
-              <% end %>
-            </div>
-            <div id="saga_input_fields" class="display-none">
-              <%= form.fields_for :saga do |field| %>
-                <div class="field">
-                  <%= field.label :title, class: "label" %>
-                  <%= field.text_field :title, class: "input" %>
-                </div>
+<!--            <div class="display-none" id="track_input_fields">-->
+              <%#= form.fields_for :track do |field| %>
+<!--                <div class="field">-->
+                  <%#= field.label :title, class: "label" %>
+                  <%#= field.text_field :title, class: "input" %>
+<!--                </div>-->
+<!--                <div class="field">-->
+                  <%#= button_tag "Back", class: "button is-warning", data: { action: "onboarding#toggle_generic_inputs" } %>
+                  <%#= button_tag "Next", class: "button is-primary", data: { action: "onboarding#toggle_saga_inputs" } %>
+<!--                </div>-->
+              <%# end %>
+<!--            </div>-->
+<!--            <div id="saga_input_fields" class="display-none">-->
+              <%#= form.fields_for :saga do |field| %>
+<!--                <div class="field">-->
+                  <%#= field.label :title, class: "label" %>
+                  <%#= field.text_field :title, class: "input" %>
+<!--                </div>-->
 
-                <div class="field">
-                  <%= field.hidden_field :content %>
-                  <div id="editor"></div>
-                </div>
-              <% end %>
-              <div class="field">
-                <%= button_tag "Back", class: "button is-warning", data: { action: "onboarding#toggle_saga_inputs" } %>
-                <%= form.submit "Save", class: "button is-primary" %>
-              </div>
-            </div>
+<!--                <div class="field">-->
+                  <%#= field.hidden_field :content %>
+<!--                  <div id="editor" class="quill-custom-height"></div>-->
+<!--                </div>-->
+              <%# end %>
+<!--              <div class="field">-->
+                <%#= button_tag "Back", class: "button is-warning", data: { action: "onboarding#toggle_saga_inputs" } %>
+                <%#= form.submit "Save", class: "button is-primary" %>
+<!--              </div>-->
+<!--            </div>-->
 
           </div>
+        <% end %>
         <% end %>
       </div>
       <div class="column is-one-quarter"></div>
     </div>
 </div>
-<%= javascript_include_tag "quill_form" %>

@@ -1,14 +1,22 @@
 import { Controller } from "@hotwired/stimulus"
 
 // Connects to data-controller="onboarding"
+// So - Going off of that..We need to somehow handle client side errors.
+// It looks like there's a way to do it using Stimulus events and shit, but it's not pretty.
+// L
 export default class extends Controller {
   toggle_generic_inputs(){
-      const userGenericInputs = document.getElementById("generic_input_fields");
-      const trackInputs = document.getElementById("track_input_fields");
-      userGenericInputs.classList.toggle("animate__animated", "animate__fadeOut");
-      userGenericInputs.classList.toggle("display-none");
-      trackInputs.classList.toggle("display-none");
-      trackInputs.classList.toggle("animate__animated", "animate__fadeIn");
+      if ( document.getElementById("username_input").textContent === "" ) {
+          document.getElementById("username_is_blank").classList.remove("display-none");
+      } else {
+          const userGenericInputs = document.getElementById("generic_input_fields");
+          const trackInputs = document.getElementById("track_input_fields");
+          userGenericInputs.classList.toggle("animate__animated", "animate__fadeOut");
+          userGenericInputs.classList.toggle("display-none");
+          trackInputs.classList.toggle("display-none");
+          trackInputs.classList.toggle("animate__animated", "animate__fadeIn");
+      }
+
   }
 
   toggle_saga_inputs() {
