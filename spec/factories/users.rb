@@ -8,12 +8,8 @@ FactoryBot.define do
     # So setting up the factories is a pain in the ass.
     # This is b/c it attempts to create the
     factory :valid_user do
-      tracks { [association(:track)] }
-      sagas { [association(:saga)] }
+      tracks { [ association(:track) ] }
+      sagas { [ association(:saga) ] }
     end
   end
-
-
 end
-
-

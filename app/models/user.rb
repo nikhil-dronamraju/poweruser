@@ -20,6 +20,5 @@ class User < ApplicationRecord
 
   def sorted_tasks
     user_tracks = self.user_tracks.ids
-
   end
 end

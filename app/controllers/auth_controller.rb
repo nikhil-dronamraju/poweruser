@@ -23,7 +23,6 @@ class AuthController < ApplicationController
   end
 
   def tracks
-
   end
 
   def users
