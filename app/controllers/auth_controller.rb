@@ -27,7 +27,8 @@ class AuthController < ApplicationController
   end
 
   def users
-    @user = User.new(user_params)
+    @user = handle_authentication
+    redirect_to dashboard_home_path if @user.present?
   end
 
   private

@@ -187,3 +187,11 @@
 .bulma-custom-box::-webkit-scrollbar {
   display: none;
 }
+
+.visibility-hidden {
+  visibility: hidden;
+}
+
+.display-none {
+  display: none;
+}
