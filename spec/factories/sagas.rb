@@ -1,8 +1,9 @@
 FactoryBot.define do
   factory :saga do
-    user { nil }
-    title { "MyString" }
-    start_date { "2025-02-04" }
-    end_date { "2025-02-04" }
+    user
+    title { Faker::Lorem.sentence }
+    content { Faker::Lorem.paragraph }
+    start_date { Date.today }
+    end_date { Date.tomorrow }
   end
 end

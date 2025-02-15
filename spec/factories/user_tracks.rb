@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :user_track do
-    user { nil }
-    track { nil }
+    user
+    track
   end
 end

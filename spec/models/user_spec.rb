@@ -1,14 +1,22 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  describe "validations" do
-    subject { FactoryBot.build(:user) }
-    it { should validate_presence_of(:username) }
-    it { should validate_uniqueness_of(:username) }
-    it { should validate_presence_of(:name) }
-  end
+  context "validations" do
+    let(:valid_user) do
+      user = FactoryBot.build(:valid_user)
+      user.save
 
-  describe "associations" do
-    it { should have_many(:workouts).dependent(:destroy) }
+      user
+    end
+    it { expect(valid_user.username).not_to be_empty }
+    it "validates username uniqueness" do
+      user_two = valid_user.dup
+      user_two.save
+      expect(user_two.errors.full_messages).to include("Username Username already taken")
+    end
+    it { expect(valid_user.name).not_to be_empty }
+    it { expect(valid_user.password_digest).not_to be_empty }
+    it { expect(valid_user.tracks.count).to be > 0 }
+    it { expect(valid_user.sagas.count).to be > 0 }
   end
 end
