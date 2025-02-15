@@ -20,7 +20,7 @@
                 <%= form.password_field :name, class: "input" %>
               </div>
               <div class="field">
-                <%= button_tag "Next", class: "button is-primary", data: { "action": "onboarding#hide_generic_inputs"} %>
+                <%= button_tag "Next", class: "button is-primary", data: { "action": "onboarding#toggle_generic_inputs"} %>
               </div>
             </div>
             <div class="display-none" id="track_input_fields">
@@ -29,9 +29,27 @@
                   <%= field.label :title, class: "label" %>
                   <%= field.text_field :title, class: "input" %>
                 </div>
+                <div class="field">
+                  <%= button_tag "Back", class: "button is-warning", data: { action: "onboarding#toggle_generic_inputs" } %>
+                  <%= button_tag "Next", class: "button is-primary", data: { action: "onboarding#toggle_saga_inputs" } %>
+                </div>
+              <% end %>
+            </div>
+            <div id="saga_input_fields" class="display-none">
+              <%= form.fields_for :saga do |field| %>
+                <div class="field">
+                  <%= field.label :title, class: "label" %>
+                  <%= field.text_field :title, class: "input" %>
+                </div>
+
+                <div class="field">
+                  <%= field.hidden_field :content %>
+                  <div id="editor"></div>
+                </div>
               <% end %>
               <div class="field">
-
+                <%= button_tag "Back", class: "button is-warning", data: { action: "onboarding#toggle_saga_inputs" } %>
+                <%= form.submit "Save", class: "button is-primary" %>
               </div>
             </div>
 
