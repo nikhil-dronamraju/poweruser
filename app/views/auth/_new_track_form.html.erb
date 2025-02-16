@@ -9,16 +9,34 @@
     <% end %>
 
     <%= form.fields_for :track do |field| %>
+      <%= field.hidden_field :icon, value: "" %>
       <div class="field">
         <%= field.label :title, class: "label" %>
         <%= field.text_field :title, class: "input" %>
       </div>
 
+      <div class="field">
+        <h3 class="label">Select an icon:</h3>
+        <div class="">
+          <div class="grid">
+            <% fa_icon_samples.each do |icon| %>
+              <div class="cell is-flex is-align-items-center is-justify-content-center">
+                <button type="button" class="button is-dark">
+                  <i class="<%= icon %>"></i>
+                </button>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
     <% end %>
     <div class="buttons">
-      <%= button_tag "Add default tracks", class: "button is-warning" %>
       <%= form.submit "Next", class: "button is-primary" %>
     </div>
+
+    <hr>
+    <h2 class="barlow-condensed-bold is-size-2">OR:</h2>
+    <button class="button is-primary">Add default tracks</button>
   <% end %>
 <% end %>
 

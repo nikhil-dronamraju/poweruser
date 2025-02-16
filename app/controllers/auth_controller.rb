@@ -50,6 +50,6 @@ class AuthController < ApplicationController
   end
 
   def user_track_params
-    params.require(:user_track).permit(user: [:name, :password, :username], track: [:title])
+    params.require(:user_track).permit(user: [ :name, :password, :username ], track: [ :title ])
   end
 end
