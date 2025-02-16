@@ -28,8 +28,12 @@ export default class extends Controller {
 
   update_icon_input() {
       const buttonElement = this.element;
+      const index = this.data.get("index");
       const icon = buttonElement.children[0];
-      console.log(icon.classList);
+      const inputHiddenField = document.getElementById(`user_track_track_${index}_icon`);
+      const openModalButton = document.getElementById(`open_icon_modal_${index}`);
+      openModalButton.innerHTML = icon.outerHTML;
+      inputHiddenField.value = icon.outerHTML;
   }
 
 

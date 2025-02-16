@@ -13,7 +13,6 @@
         </span>
       </div>
     </div>
-
   </header>
 
 
@@ -36,10 +35,11 @@
 
             </div>
             <div class="cell">
-              <%= button_tag "Add an icon", type: "button", class: "button is-warning", onclick: "openModal(document.getElementById('icon_picker_modal'));" %>
+              <%= button_tag "Add an icon", type: "button", class: "button is-warning", id: "open_icon_modal_#{i}" , onclick: "openModal(document.getElementById('icon_picker_modal_#{i}'));" %>
             </div>
           <% end %>
         </div>
+        <%= render partial: "icon_picker_modal", locals: { index: i } %>
       <% end %>
     </div>
     <div class="buttons">
@@ -51,4 +51,3 @@
   <% end %>
 <% end %>
 
-<%= render partial: "icon_picker_modal" %>
