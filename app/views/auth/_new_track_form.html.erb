@@ -1,6 +1,7 @@
 <%= turbo_frame_tag "sign_up_frame" do %>
-  <div>
-    <h2 class="barlow-condensed-bold is-size-1 title">Add tracks:</h2>
+  <!-- header -->
+  <header class="block">
+    <h2 class="barlow-condensed-bold is-size-1">Add tracks:</h2>
     <div class="is-flex is-align-items-center">
       <h3 class="is-size-4 barlow-condensed-semibold has-text-warning">
         Now, let's add up to <strong class="has-text-weight-bold has-text-danger">six</strong> <span class="has-text-primary">tracks.</span>
@@ -13,7 +14,7 @@
       </div>
     </div>
 
-  </div>
+  </header>
 
 
 
@@ -24,44 +25,29 @@
       <%= field.hidden_field :password, value: user.password %>
     <% end %>
     <div class="block">
-      <%= button_tag "Add track", type: "button", class: "button is-warning" %>
-    </div>
+      <% 6.times do |i| %>
+        <div class="grid">
+          <%= form.fields_for :track, index: i do |field| %>
+            <%= field.hidden_field :icon, value: "" %>
+            <div class="cell">
+              <div class="is-flex">
+                <%= field.text_field :title, class: "input", placeholder: "Enter track title (or leave blank to skip)" %>
+              </div>
 
-    <div class="block">
-      <div class="grid">
-        <%= form.fields_for :track do |field| %>
-          <%= field.hidden_field :icon, value: "" %>
-          <div class="cell">
-            <div class="is-flex">
-              <%= field.text_field :title, class: "input", placeholder: "Enter track title" %>
             </div>
-
-          </div>
-          <div class="cell">
-            <%= button_tag "Add an icon", type: "button", class: "button is-warning", onclick: "openModal(document.getElementById('icon_picker_modal'));" %>
-            <%= button_tag "Delete", type: "button", class: "button is-danger" %>
-          </div>
-        <% end %>
-      </div>
+            <div class="cell">
+              <%= button_tag "Add an icon", type: "button", class: "button is-warning", onclick: "openModal(document.getElementById('icon_picker_modal'));" %>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
     </div>
-
-
-    <div class="grid">
-      <div class="cell">
-        <%=  %>
-      </div>
-
-    </div>
-
-
-
     <div class="buttons">
-      <%= form.submit "Next", class: "button is-primary" %>
+      <%= form.submit "Next", class: "button is-primary montserrat-500" %>
     </div>
-
     <hr>
     <h2 class="barlow-condensed-bold is-size-2">OR:</h2>
-    <%= form.submit "Select default", class: "button is-primary" %>
+    <%= form.submit "Select default", class: "button is-primary montserrat-500" %>
   <% end %>
 <% end %>
 
