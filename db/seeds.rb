@@ -29,12 +29,12 @@ csv.each do |row|
   puts "#{t.title} saved"
 end
 
-Track.create(title: "Physical Health", icon: '<i class="fa-solid fa-dumbbell"></i>')
-Track.create(title: "Social Life", icon: '<i class="fa-solid fa-person"></i>')
-Track.create(title: "Mental Health", icon: '<i class="fa-solid fa-face-smile"></i>')
-Track.create(title: "Professional", icon: '<i class="fa-solid fa-user-tie"></i>')
-Track.create(title: "Creative", icon: '<i class="fa-solid fa-paintbrush"></i>')
-Track.create(title: "Quitting bad habits", icon: '<i class="fa-solid fa-syringe"></i>')
+Track.create(title: "Physical Health", icon: '<i class="fa-solid fa-dumbbell"></i>', is_default: true)
+Track.create(title: "Social Life", icon: '<i class="fa-solid fa-person"></i>', is_default: true)
+Track.create(title: "Mental Health", icon: '<i class="fa-solid fa-face-smile"></i>', is_default: true)
+Track.create(title: "Professional", icon: '<i class="fa-solid fa-user-tie"></i>', is_default: true)
+Track.create(title: "Creative", icon: '<i class="fa-solid fa-paintbrush"></i>', is_default: true)
+Track.create(title: "Quitting bad habits", icon: '<i class="fa-solid fa-syringe"></i>', is_default: true)
 
 User.create!(name: "Test User", password: "password", username: "testu1", tracks: [ Track.first ])
 Saga.create(title: "Sample saga", start_date: Date.today, end_date: Date.tomorrow, content: "<div>Lorem ipsum...</div>", user: User.first)

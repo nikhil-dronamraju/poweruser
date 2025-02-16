@@ -1,6 +1,7 @@
 class AuthController < ApplicationController
   include Authentication
   include ErrorHandling
+  include AuthHelper
 
   def sign_up
     session[:user_id] = nil
@@ -32,6 +33,9 @@ class AuthController < ApplicationController
 
   def show_track_form
     @user = User.new(user_params)
+    @user.save
+    @errors = user_generic_errors(@user.errors.messages) if @user.errors.present?
+    p @errors
   end
 
   def create_user_track
