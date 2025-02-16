@@ -3,31 +3,32 @@
     <div class="columns">
       <div class="column is-one-quarter"></div>
       <div class="column is-half">
-        <%= turbo_frame_tag "sign_up_frame" do %>
-          <h2 class="is-size-1 title barlow-condensed-bold">Sign up:</h2>
-          <h3 class="is-size-4 has-text-warning barlow-condensed-semibold subtitle">First, let's get some basics out of the way.</h3>
-          <%= form_with model: @user, url: :auth_show_track_form, class: "form" do |form| %>
-            <div class="my-4" data-controller="onboarding">
-              <div id="generic_input_fields">
-                <div class="field">
-                  <%= form.label :username, class: "label" %>
-                  <%= form.text_field :username, id: "username_input", class: "input" %>
-                </div>
-                <div class="field">
-                  <%= form.label :name, class: "label" %>
-                  <%= form.text_field :name, class: "input" %>
-                </div>
-                <div class="field">
-                  <%= form.label :password, class: "label" %>
-                  <%= form.password_field :password, data: { "search-target": "password" }, class: "input" %>
-                </div>
-                <div class="field">
-                  <%= form.submit "Next", class: "button is-primary montserrat-500" %>
-                </div>
-              </div>
-            </div>
-          <% end %>
-        <% end %>
+        <%#= turbo_frame_tag "sign_up_frame" do %>
+<!--          <h2 class="is-size-1 title barlow-condensed-bold">Sign up:</h2>-->
+<!--          <h3 class="is-size-4 has-text-warning barlow-condensed-semibold subtitle">First, let's get some basics out of the way.</h3>-->
+          <%#= form_with model: @user, url: :auth_show_track_form, class: "form" do |form| %>
+<!--            <div class="my-4" data-controller="onboarding">-->
+<!--              <div id="generic_input_fields">-->
+<!--                <div class="field">-->
+                  <%#= form.label :username, class: "label" %>
+                  <%#= form.text_field :username, id: "username_input", class: "input" %>
+<!--                </div>-->
+<!--                <div class="field">-->
+                  <%#= form.label :name, class: "label" %>
+                  <%#= form.text_field :name, class: "input" %>
+<!--                </div>-->
+<!--                <div class="field">-->
+                  <%#= form.label :password, class: "label" %>
+                  <%#= form.password_field :password, data: { "search-target": "password" }, class: "input" %>
+<!--                </div>-->
+<!--                <div class="field">-->
+                  <%#= form.submit "Next", class: "button is-primary montserrat-500" %>
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
+          <%# end %>
+        <%# end %>
+        <%= render partial: "new_track_form", locals: { user: @user } %>
       </div>
       <div class="column is-one-quarter"></div>
     </div>
