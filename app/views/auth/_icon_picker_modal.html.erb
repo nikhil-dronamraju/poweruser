@@ -1,9 +1,18 @@
 <div id="icon_picker_modal" class="modal">
   <div class="modal-background"></div>
-
   <div class="modal-content">
-    <div class="box">
-      <p>Modal JS example</p>
+    <div class="box animate__animated animate__fadeIn">
+      <div class="is-flex is-flex-direction-column">
+        <h2 class="barlow-condensed-semibold is-size-4">Add icon:</h2>
+        <div>
+          <% fa_icon_samples.each do |icon_class| %>
+              <button class="button m-4" style="width: 40px;">
+                <i class="<%= icon_class %>"></i>
+              </button>
+          <% end %>
+        </div>
+      </div>
+
       <!-- Your content -->
     </div>
   </div>
