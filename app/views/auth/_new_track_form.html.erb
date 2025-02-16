@@ -49,5 +49,6 @@
     <h2 class="barlow-condensed-bold is-size-2">OR:</h2>
     <%= form.submit "Select default", class: "button is-primary montserrat-500" %>
   <% end %>
+  <%= render partial: "layouts/error_messages", locals: { messages: [] } %>
 <% end %>
 

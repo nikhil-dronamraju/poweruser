@@ -39,8 +39,23 @@ class AuthController < ApplicationController
   end
 
   def create_user_track
-    # @user_track = UserTrack.new(user_track_params)
+    if params[:commit] == "Select default"
+    #   Use the default parameters
+    else
+    # Write a method that:
+    # First, checks the track params
+    # For each track,
+    # If all of the titles are blank/invalid - thow an error
+    # Otherwise, create them only for the ones that are filled out
+    # For the icons, if they are blank, use the default
+    # Otherwise, use the one the user provides
+    # We can store this in the track model
+    tracks = Track.generate_from_onboarding(user_track_params[:track])
+    end
     @user = User.new(user_track_params[:user])
+  rescue
+    # So come up with a better approach for this.
+    render turbo_stream: turbo_stream.replace("err_messages", partial: "layouts/error_messages", locals: { messages: [ "All tracks can't be blank." ] })
   end
 
   private
@@ -50,6 +65,6 @@ class AuthController < ApplicationController
   end
 
   def user_track_params
-    params.require(:user_track).permit(user: [ :name, :password, :username ], track: [ :title ])
+    params.require(:user_track).permit(user: [ :name, :password, :username ], track: [ :title, :icon ])
   end
 end
