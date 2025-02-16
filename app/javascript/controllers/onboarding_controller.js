@@ -26,5 +26,11 @@ export default class extends Controller {
       sagaInputs.classList.toggle("display-none");
   }
 
+  update_icon_input() {
+      const buttonElement = this.element;
+      const icon = buttonElement.children[0];
+      console.log(icon.classList);
+  }
+
 
 }
