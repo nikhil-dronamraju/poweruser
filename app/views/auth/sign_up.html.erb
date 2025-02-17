@@ -3,34 +3,66 @@
     <div class="columns">
       <div class="column is-one-quarter"></div>
       <div class="column is-half">
-        <%#= turbo_frame_tag "sign_up_frame" do %>
-<!--          <h2 class="is-size-1 title barlow-condensed-bold">Sign up:</h2>-->
-<!--          <h3 class="is-size-4 has-text-warning barlow-condensed-semibold subtitle">First, let's get some basics out of the way.</h3>-->
-          <%#= form_with model: @user, url: :auth_show_track_form, class: "form" do |form| %>
-<!--            <div class="my-4" data-controller="onboarding">-->
-<!--              <div id="generic_input_fields">-->
-<!--                <div class="field">-->
-                  <%#= form.label :username, class: "label" %>
-                  <%#= form.text_field :username, id: "username_input", class: "input" %>
-<!--                </div>-->
-<!--                <div class="field">-->
-                  <%#= form.label :name, class: "label" %>
-                  <%#= form.text_field :name, class: "input" %>
-<!--                </div>-->
-<!--                <div class="field">-->
-                  <%#= form.label :password, class: "label" %>
-                  <%#= form.password_field :password, data: { "search-target": "password" }, class: "input" %>
-<!--                </div>-->
-<!--                <div class="field">-->
-                  <%#= form.submit "Next", class: "button is-primary montserrat-500" %>
-<!--                </div>-->
-<!--              </div>-->
-<!--            </div>-->
-          <%# end %>
-        <%# end %>
-        <%= render partial: "new_track_form", locals: { user: @user } %>
+        <%= turbo_frame_tag "sign_up_frame" do %>
+          <!-- So, using stimulus, we need to wrap the elements and set up different functions -->
+          <!-- So, first of all - let's set the whole thing up in a div/turbo frame -->
+          <header id="onboarding_header">
+            <h2 class="is-size-1 title barlow-condensed-bold">Sign up:</h2>
+            <h3 class="is-size-4 has-text-warning barlow-condensed-semibold subtitle">First, let's get some basics out of the way.</h3>
+          </header>
+          <%= form_with model: @user, class: "form", data: { controller: "onboarding" } do |form| %>
+            <div class="my-4" data-controller="onboarding">
+              <div id="generic_input_fields">
+                <div class="field">
+                  <%= form.label :username, class: "label" %>
+                  <%= form.text_field :username, id: "username_input", class: "input" %>
+                </div>
+                <div class="field">
+                  <%= form.label :name, class: "label" %>
+                  <%= form.text_field :name, class: "input" %>
+                </div>
+                <div class="field">
+                  <%= form.label :password, class: "label" %>
+                  <%= form.password_field :password, data: { "search-target": "password" }, class: "input" %>
+                </div>
+                <div class="field">
+                  <%= button_tag "Next", class: "button is-primary", type: "button", data: { action: "onboarding#flip_to_track_inputs" } %>
+                </div>
+              </div>
+              <div id="track_input_fields" class="display-none">
+                <% 6.times do |i| %>
+                  <div class="grid">
+                    <%= form.fields_for :track, index: i do |field| %>
+                      <%= field.hidden_field :icon, value: "" %>
+                      <div class="cell">
+                        <div class="is-flex">
+                          <%= field.text_field :title, class: "input", placeholder: "Enter track title (or leave blank to skip)" %>
+                        </div>
+
+                      </div>
+                      <div class="cell">
+                        <%= button_tag "Add an icon", type: "button", class: "button is-warning", id: "open_icon_modal_#{i}" , onclick: "openModal(document.getElementById('icon_picker_modal_#{i}'));" %>
+                      </div>
+                    <% end %>
+                  </div>
+                  <%= render partial: "icon_picker_modal", locals: { index: i } %>
+                <% end %>
+              </div>
+              <div id="saga_input_fields" class="display-none">
+                <% form.fields_for :saga do |field| %>
+                  <%= field.hidden_field :content, value: "" %>
+                  <%= field.label :title, class: "label" %>
+                  <%= field.text_field :title, class: "input" %>
+                  <div id="editor" class="quill-custom-height"></div>
+                  <%= form.submit "Save", class: "button is-primary montserrat-500" %>
+                <% end %>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
       </div>
       <div class="column is-one-quarter"></div>
     </div>
   <%= render partial: "layouts/error_messages", locals: { messages: [] } %>
 </div>
+<%= javascript_include_tag "quill_form" %>

@@ -1,7 +1,8 @@
 <%= form_with model: user, class: "form" do |form| %>
-  <%= form.hidden_field :username, value: user.username %>
-  <%= form.hidden_field :name, value: user.name %>
-  <%= form.hidden_field :password, value: user.password %>
+  <% pp user.inspect %>
+  <%= form.hidden_field :username, value: session[:username] %>
+  <%= form.hidden_field :name, value: session[:user_name] %>
+  <%= form.hidden_field :password, value: session[:password] %>
   <%= form.fields_for :saga do |field| %>
     <%= field.hidden_field :content, value: nil %>
     <div class="my-4">

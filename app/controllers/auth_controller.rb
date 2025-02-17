@@ -31,28 +31,21 @@ class AuthController < ApplicationController
     redirect_to dashboard_home_path if @user.present?
   end
 
+
   def show_track_form
     @user = User.new(user_params)
-    @user.save
-    @errors = user_generic_errors(@user.errors.messages) if @user.errors.present?
-    p @errors
+    session[:username] = @user.username
+    session[:user_name] = @user.name
+    session[:password] = @user.password
   end
 
   def create_user_track
-    if params[:commit] == "Select default"
-    #   Use the default parameters
-    else
-    # Write a method that:
-    # First, checks the track params
-    # For each track,
-    # If all of the titles are blank/invalid - thow an error
-    # Otherwise, create them only for the ones that are filled out
-    # For the icons, if they are blank, use the default
-    # Otherwise, use the one the user provides
-    # We can store this in the track model
-    tracks = Track.generate_from_onboarding(user_track_params[:track])
+    unless params[:commit] == "Select default"
+      tracks = Track.generate_from_onboarding(user_track_params[:track])
     end
     @user = User.new(user_track_params[:user])
+    p "Inspecting from controller: "
+    pp @user.inspect
   rescue
     # So come up with a better approach for this.
     render turbo_stream: turbo_stream.replace("err_messages", partial: "layouts/error_messages", locals: { messages: [ "All tracks can't be blank." ] })

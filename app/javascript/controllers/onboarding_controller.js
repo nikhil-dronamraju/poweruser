@@ -36,5 +36,13 @@ export default class extends Controller {
       inputHiddenField.value = icon.outerHTML;
   }
 
+  flip_to_track_inputs() {
+      const genericInputs = document.getElementById("generic_input_fields");
+      const trackInputs = document.getElementById("track_input_fields");
+      genericInputs.classList.add("display-none");
+      trackInputs.classList.remove("display-none");
+      trackInputs.classList.add("animate__animated", "animate__fadeIn");
+  }
+
 
 }

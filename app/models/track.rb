@@ -10,8 +10,6 @@ class Track < ApplicationRecord
       title = track_param[1][:title]
       all_titles << title
     end
-    # So here, we would need to throw an ActiveModel error
-    #
     if all_titles.compact_blank.empty?
       raise StandardError.new("No tracks are filled out. Please fill out at least one or use the defaults.")
     else
