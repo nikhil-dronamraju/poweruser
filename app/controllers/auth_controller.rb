@@ -6,7 +6,6 @@ class AuthController < ApplicationController
   def sign_up
     session[:user_id] = nil
     @user = User.new
-    @saga = Saga.new
   end
 
   def log_in
