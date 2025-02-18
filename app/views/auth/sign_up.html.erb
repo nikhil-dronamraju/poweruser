@@ -31,27 +31,24 @@
                 <h2 class="is-size-1 title barlow-condensed-bold">Add tracks</h2>
                 <h3 class="is-size-4 has-text-warning barlow-condensed-semibold subtitle">A track is a category of goals. Something like "Fitness", or "School" would be a good example!</h3>
               </header>
-              <% 6.times do |i| %>
-                <div class="grid">
-                  <%= form.fields_for :track, index: i do |field| %>
-                    <%= field.hidden_field :icon, value: "" %>
+              <%= form.fields_for :tracks, @tracks do |field| %>
+                <%= field.hidden_field :icon, value: "" %>
+                  <div class="grid">
                     <div class="cell">
                       <div class="is-flex">
                         <%= field.text_field :title, class: "input", placeholder: "Enter track title (or leave blank to skip)" %>
                       </div>
-
                     </div>
                     <div class="cell">
-                      <%= button_tag "Add an icon", type: "button", class: "button is-warning", id: "open_icon_modal_#{i}" , onclick: "openModal(document.getElementById('icon_picker_modal_#{i}'));" %>
+                      <%= button_tag "Add an icon", type: "button", class: "button is-warning", id: "open_icon_modal_#{field.index}" , onclick: "openModal(document.getElementById('icon_picker_modal_#{field.index}'));" %>
                     </div>
-                  <% end %>
-                </div>
-                <%= render partial: "icon_picker_modal", locals: { index: i } %>
+                  </div>
+                  <%= render partial: "icon_picker_modal", locals: { index: field.index } %>
               <% end %>
               <hr>
               <div class="is-flex is-align-items-center">
                 <span class="is-size-2 barlow-condensed-semibold">OR:</span>
-                <%= button_tag "Use default tracks", class: "button is-warning mx-4", type: "button" %>
+                <%= button_tag "Use default tracks", class: "button is-warning mx-4", type: "button", data: { action: "onboarding#flip_to_saga" } %>
               </div>
               <hr>
               <%= button_tag "Back", type: "button", class: "button is-warning", data: { action: "onboarding#flip_to_generic" } %>
@@ -62,7 +59,7 @@
                 <h2 class="is-size-1 title barlow-condensed-bold">Add saga</h2>
                 <h3 class="is-size-4 has-text-warning barlow-condensed-semibold subtitle">Finally, a saga is the story behind why these are your goals. Make sure to take your time here!</h3>
               </header>
-              <%= form.fields_for :saga do |field| %>
+              <%= form.fields_for :sagas, @sagas do |field| %>
                 <%= field.hidden_field :content, id: "saga_content", value: "" %>
                 <div class="field">
                   <%= field.label :title, class: "label" %>

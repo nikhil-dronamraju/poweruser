@@ -6,6 +6,8 @@ class AuthController < ApplicationController
   def sign_up
     session[:user_id] = nil
     @user = User.new
+    @user.sagas.build
+    6.times { @user.tracks.build }
   end
 
   def log_in
@@ -22,41 +24,21 @@ class AuthController < ApplicationController
     end
   end
 
-  def tracks
-  end
-
   def users
-    @user = handle_authentication
-    redirect_to dashboard_home_path if @user.present?
-  end
-
-
-  def show_track_form
-    @user = User.new(user_params)
-    session[:username] = @user.username
-    session[:user_name] = @user.name
-    session[:password] = @user.password
-  end
-
-  def create_user_track
-    unless params[:commit] == "Select default"
-      tracks = Track.generate_from_onboarding(user_track_params[:track])
-    end
-    @user = User.new(user_track_params[:user])
-    p "Inspecting from controller: "
-    pp @user.inspect
-  rescue
-    # So come up with a better approach for this.
-    render turbo_stream: turbo_stream.replace("err_messages", partial: "layouts/error_messages", locals: { messages: [ "All tracks can't be blank." ] })
+    user = User.new(user_params)
+    user.save!
+  rescue StandardError => e
+    errors = format_errors(user.errors)
+    render turbo_stream: turbo_stream.replace("err_messages", partial: "layouts/error_messages", locals: { messages: errors })
   end
 
   private
 
   def user_params
-    params.require(:user).permit(:username, :name, :password)
-  end
-
-  def user_track_params
-    params.require(:user_track).permit(user: [ :name, :password, :username ], track: [ :title, :icon ])
+    params.require(:user).permit(
+      :username, :name, :password,
+      tracks_attributes: [:icon, :title],
+      sagas_attributes: [:title, :content, :start_date, :end_date]
+      )
   end
 end
