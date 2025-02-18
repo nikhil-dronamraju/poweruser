@@ -44,5 +44,13 @@ export default class extends Controller {
       trackInputs.classList.add("animate__animated", "animate__fadeIn");
   }
 
+  flip_to_saga_inputs() {
+      const trackInputs = document.getElementById("track_input_fields");
+      const sagaInputs = document.getElementById("saga_input_fields");
+      trackInputs.classList.add("display-none");
+      sagaInputs.classList.remove("display-none");
+      sagaInputs.classList.add("animate__animated", "animate__fadeIn");
+  }
+
 
 }

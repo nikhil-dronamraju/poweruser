@@ -36,5 +36,7 @@ Track.create(title: "Professional", icon: '<i class="fa-solid fa-user-tie"></i>'
 Track.create(title: "Creative", icon: '<i class="fa-solid fa-paintbrush"></i>', is_default: true)
 Track.create(title: "Quitting bad habits", icon: '<i class="fa-solid fa-syringe"></i>', is_default: true)
 
-User.create!(name: "Test User", password: "password", username: "testu1", tracks: [ Track.first ])
-Saga.create(title: "Sample saga", start_date: Date.today, end_date: Date.tomorrow, content: "<div>Lorem ipsum...</div>", user: User.first)
+user = User.new(name: "Test User", password: "password", username: "testu1", tracks: [ Track.first ])
+saga = Saga.new(title: "Sample saga", start_date: Date.today, end_date: Date.tomorrow, content: "<div>Lorem ipsum...</div>", user: User.first)
+user.sagas << saga
+user.save
