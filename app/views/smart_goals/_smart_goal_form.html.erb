@@ -3,7 +3,7 @@
     <div class="field mr-4">
       <%= f.label :track, class: "label" %>
       <div class="select">
-        <%= f.select :user_track_id, options_for_select(tracks) %>
+        <%= f.select :track_id, options_from_collection_for_select(tracks, :id, :title) %>
       </div>
     </div>
 

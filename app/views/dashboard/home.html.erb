@@ -34,37 +34,47 @@
             <div class="block">
               <h2 class="is-size-4 barlow-condensed-semibold">Goals:</h2>
             </div>
-              <% if @smart_goals.present? %>
-                <% @smart_goals.each do |goal| %>
+              <% if @tracks.present? %>
+                <% @tracks.includes(:smart_goals).each do |track| %>
+                  <% goals = track.smart_goals %>
+                  <h5 class="barlow-condensed-semibold is-size-5"><%= track.title %></h5>
+                  <% if goals.present? %>
+                    <% goals.each do |goal| %>
+                      <div class="block">
+                      <div class="is-flex is-flex-direction-column">
+                        <div class="content">
+                          <ul>
+                            <li>
+                              <div class="grid my-1">
+                                <div class="cell">
+                                  <span class="has-text-weight-bold"><%= goal.measurable_goal %></span>
+                                </div>
+                                <div class="cell is-flex is-align-items-center">
+                                  <span class="has-text-weight-bold">Progress: </span>
+                                  <progress class="progress is-danger ml-4" max=100 value=0></progress>
+                                </div>
+                              </div>
+                              <div class="is-flex is-flex-direction-column">
+                                <span class="">Start date: <span class="has-text-weight-bold"><%= format_date(goal.start_date) %></span></span>
+                                <span>End date: <span class="has-text-weight-bold"><%= format_date(goal.end_date) %></span></span>
+                              </div>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                    <% end %>
+                  <% else %>
                   <div class="block">
-                    <div class="is-flex is-flex-direction-column">
-                      <div class="content">
-                        <ul>
-                          <li>
-                            <div class="grid my-1">
-                              <div class="cell">
-                                <span class="has-text-weight-bold"><%= goal.measurable_goal %></span>
-                              </div>
-                              <div class="cell is-flex is-align-items-center">
-                                <span class="has-text-weight-bold">Progress: </span>
-                                <progress class="progress is-danger ml-4" max=100 value=0></progress>
-                              </div>
-                            </div>
-                            <div class="is-flex is-flex-direction-column">
-                              <span class="">Start date: <span class="has-text-weight-bold"><%= format_date(goal.start_date) %></span></span>
-                              <span>End date: <span class="has-text-weight-bold"><%= format_date(goal.end_date) %></span></span>
-                            </div>
-                          </li>
-                        </ul>
+                    <div class="grid">
+                      <p class="cell">No goals found for this track. Please create one!</p>
+                      <div class="cell is-flex is-justify-content-center">
+                        <%= link_to "Create", new_smart_goal_path, class: "button is-primary" %>
                       </div>
                     </div>
                   </div>
+                  <% end %>
                 <% end %>
-              <% else %>
-                <p>No goals found. Please create one!</p>
-                <div class="buttons mt-auto">
-                  <%= link_to "Create", new_smart_goal_path, class: "button is-primary" %>
-                </div>
               <% end %>
           </div>
         </div>

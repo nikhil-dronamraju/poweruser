@@ -1,5 +1,5 @@
 class SmartGoal < ApplicationRecord
-  belongs_to :user_track
+  belongs_to :track
   has_many :daily_tasks, dependent: :destroy
   belongs_to :saga
   validates :measurable_goal, length: { minimum: 1, message: "Must set a goal." }

@@ -62,7 +62,7 @@ module Authentication
   def check_onboarded
     user = check_logged_in
     if user.present?
-      redirect_to auth_onboarding_path if user.tracks.count.zero?
+      redirect_to auth_sign_up_path if user.tracks.count.zero?
     end
   end
 end

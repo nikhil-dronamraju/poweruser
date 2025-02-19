@@ -1,7 +1,6 @@
 class User < ApplicationRecord
   has_secure_password validations: false
-  has_many :user_tracks, dependent: :destroy
-  has_many :tracks, through: :user_tracks, dependent: :destroy
+  has_many :tracks, dependent: :destroy
   has_many :sagas, dependent: :destroy
   has_many :daily_tasks, dependent: :destroy
   has_many :smart_goals, dependent: :destroy
@@ -20,7 +19,21 @@ class User < ApplicationRecord
     self.name.split(" ")[0]
   end
 
-  def sorted_tasks
-    user_tracks = self.user_tracks.ids
+  def smart_goals
+    goal_ids = []
+    self.tracks.each do |track|
+      goal_ids << track.smart_goal_ids
+    end
+
+    SmartGoal.where(id: goal_ids)
+  end
+
+  def daily_tasks
+    task_ids = []
+    smart_goals.each do |smart_goal|
+      task_ids << smart_goal.daily_task_ids
+    end
+
+    DailyTask.where(id: task_ids)
   end
 end

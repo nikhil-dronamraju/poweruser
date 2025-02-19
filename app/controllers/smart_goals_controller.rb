@@ -13,14 +13,14 @@ class SmartGoalsController < ApplicationController
   def new
     @user = User.find(session[:user_id])
     @smart_goal = SmartGoal.new
-    @tracks = select_user_tracks(@user)
+    @tracks = @user.tracks
     @sagas = @user.sagas
   end
 
   def edit
     @user = User.find(session[:user_id])
     @smart_goal = SmartGoal.find(params[:id])
-    @tracks = select_user_tracks(@user)
+    @tracks = @user.tracks
     @sagas = @user.sagas
   end
 
@@ -43,6 +43,6 @@ class SmartGoalsController < ApplicationController
   private
 
   def goal_params
-    params.require(:smart_goal).permit(:user_track_id, :saga_id, :user_id, :start_date, :end_date, :measurable_goal)
+    params.require(:smart_goal).permit(:track_id, :saga_id, :user_id, :start_date, :end_date, :measurable_goal)
   end
 end

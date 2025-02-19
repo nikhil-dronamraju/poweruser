@@ -9,6 +9,6 @@ class DashboardController < ApplicationController
     @user = User.find(session[:user_id])
     @saga = @user.sagas.last
     @tracks = @user.tracks
-    @smart_goals = @saga.smart_goals
+    @smart_goals = SmartGoal.where(track: @tracks)
   end
 end

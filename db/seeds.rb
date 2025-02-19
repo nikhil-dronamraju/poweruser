@@ -29,14 +29,12 @@ csv.each do |row|
   puts "#{t.title} saved"
 end
 
-Track.create(title: "Physical Health", icon: '<i class="fa-solid fa-dumbbell"></i>', is_default: true)
-Track.create(title: "Social Life", icon: '<i class="fa-solid fa-person"></i>', is_default: true)
-Track.create(title: "Mental Health", icon: '<i class="fa-solid fa-face-smile"></i>', is_default: true)
-Track.create(title: "Professional", icon: '<i class="fa-solid fa-user-tie"></i>', is_default: true)
-Track.create(title: "Creative", icon: '<i class="fa-solid fa-paintbrush"></i>', is_default: true)
-Track.create(title: "Quitting bad habits", icon: '<i class="fa-solid fa-syringe"></i>', is_default: true)
-
-user = User.new(name: "Test User", password: "password", username: "testu1", tracks: [ Track.first ])
-saga = Saga.new(title: "Sample saga", start_date: Date.today, end_date: Date.tomorrow, content: "<div>Lorem ipsum...</div>", user: User.first)
-user.sagas << saga
+user = User.new(name: "Nikhil Dronamraju", password: "password", username: "thenik6")
+user.tracks << Track.new(title: "Physical Health", icon: '<i class="fa-solid fa-dumbbell"></i>')
+user.tracks << Track.new(title: "Social Life", icon: '<i class="fa-solid fa-person"></i>')
+user.tracks << Track.new(title: "Mental Health", icon: '<i class="fa-solid fa-face-smile"></i>')
+user.tracks << Track.new(title: "Professional", icon: '<i class="fa-solid fa-user-tie"></i>')
+user.tracks << Track.new(title: "Creative", icon: '<i class="fa-solid fa-paintbrush"></i>')
+user.tracks << Track.new(title: "Quitting bad habits", icon: '<i class="fa-solid fa-syringe"></i>')
+user.sagas << Saga.new(title: "Sample saga", start_date: Date.today, end_date: Date.tomorrow, content: "<div>Lorem ipsum...</div>")
 user.save

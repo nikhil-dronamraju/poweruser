@@ -34,7 +34,7 @@ RSpec.describe User, type: :model do
       valid_user
     end
 
-    it { expect(valid_user.user_tracks.count).to be > 0 }
+    it { expect(valid_user.tracks.count).to be > 0 }
     it { expect(valid_user.tracks.count).to be > 0 }
     it { expect(valid_user.sagas.count).to be > 0 }
   end
