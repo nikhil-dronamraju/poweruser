@@ -27,6 +27,13 @@ class DailyTasksController < ApplicationController
     @daily_task.destroy
   end
 
+  def add_task_to_box
+    user = User.find(session[:user_id])
+    @priority = DailyTask.priorities[params[:priority].to_sym]
+    puts @priority
+    @smart_goals = user.smart_goals
+  end
+
   def add_task
     daily_task = DailyTask.create(daily_task_params)
   end
