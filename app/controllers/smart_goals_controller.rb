@@ -31,7 +31,6 @@ class SmartGoalsController < ApplicationController
 
   def create
     smart_goal = SmartGoal.new(goal_params)
-    smart_goal.user = User.find(session[:user_id])
     smart_goal.save
     @errors = format_errors(smart_goal.errors)
   end

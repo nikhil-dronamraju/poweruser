@@ -40,5 +40,4 @@ export default class extends Controller {
       this.sagaTarget.classList.remove("display-none");
   }
 
-
 }

@@ -10,7 +10,7 @@ class User < ApplicationRecord
   validates :username, uniqueness: { message: "Username already taken" }
   validates :name, presence: { message: "Must enter a name" }
   validates :password, presence: { message: "Must enter a password" }
-  validates :tracks, length: { minimum: 1, message: "Must select at least one track." }
+  validates :tracks, length: { is: 6, message: "Must select at least one track." }
   validates :sagas, length: { minimum: 1, message: "Must have at least one saga." }
   has_many :workouts, dependent: :destroy
   accepts_nested_attributes_for :sagas, allow_destroy: true

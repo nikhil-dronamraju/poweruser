@@ -63,7 +63,7 @@
               <% else %>
                 <p>No goals found. Please create one!</p>
                 <div class="buttons mt-auto">
-                  <%= link_to "Create", dashboard_new_goal_path, class: "button is-primary" %>
+                  <%= link_to "Create", new_smart_goal_path, class: "button is-primary" %>
                 </div>
               <% end %>
           </div>
@@ -75,8 +75,6 @@
     <div class="block">
       <h3 class="barlow-condensed-semibold is-size-3">Daily tasks:</h3>
     </div>
-
-
     <div class="hero is-small is-danger">
       <div class="hero-body">
         <h3 class="barlow-condensed-semibold is-size-4">Whoa, there!</h3>
@@ -84,16 +82,6 @@
         <div class="buttons mt-4">
           <%= link_to "Create a new task", new_daily_task_path, class: "button is-primary" %>
         </div>
-      </div>
-    </div>
-  </section>
-<% else %>
-  <section class="hero is-danger">
-    <div class="hero-body">
-      <h3 class="barlow-condensed-semibold is-size-3 has-text-weight-bold">Whoa, there! You have no sagas.</h3>
-      <span class="subtitle">The first step to setting goals and creating tasks is to create a saga.</span>
-      <div class="mt-4">
-        <%= link_to "Create a saga", new_saga_path, class: "button is-primary" %>
       </div>
     </div>
   </section>

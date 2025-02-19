@@ -1,6 +1,6 @@
 <%= turbo_page_requires_reload %>
 <section class="section">
-  <%= render partial: 'saga_form', locals: { saga: @saga, user: @user } %>
+  <%= render partial: 'saga_form', locals: { saga: @saga } %>
   <%= render partial: "layouts/error_messages", locals: { messages: [] } %>
   <%= javascript_include_tag "quill_form" %>
 </section>

@@ -47,11 +47,6 @@
                   <%= render partial: "icon_picker_modal", locals: { index: field.index } %>
               <% end %>
               <hr>
-              <div class="is-flex is-align-items-center">
-                <span class="is-size-2 barlow-condensed-semibold">OR:</span>
-                <%= button_tag "Use default tracks", class: "button is-warning mx-4", type: "button", data: { action: "onboarding#flip_to_saga" } %>
-              </div>
-              <hr>
               <%= button_tag "Back", type: "button", class: "button is-warning", data: { action: "onboarding#flip_to_generic" } %>
               <%= button_tag "Next", type: "button", class: "button is-primary", data: { action: "onboarding#flip_to_saga" } %>
             </div>

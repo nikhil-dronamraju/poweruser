@@ -1,31 +1,25 @@
-<%= form_with model: user, class: "form" do |form| %>
-  <% pp user.inspect %>
-  <%= form.hidden_field :username, value: session[:username] %>
-  <%= form.hidden_field :name, value: session[:user_name] %>
-  <%= form.hidden_field :password, value: session[:password] %>
-  <%= form.fields_for :saga do |field| %>
-    <%= field.hidden_field :content, value: nil %>
+<%= form_with model: saga, class: "form" do |form| %>
+    <%= form.hidden_field :content, id: "saga_content", value: nil %>
     <div class="my-4">
-      <%= field.label :title, class: "label" %>
-      <%= field.text_field :title, class: "input" %>
+      <%= form.label :title, class: "label" %>
+      <%= form.text_field :title, class: "input" %>
     </div>
     <div class="my-4 is-flex">
       <div class="is-flex is-flex-direction-column">
-        <%= field.label :start_date, class: "label" %>
-        <%= field.date_field :start_date, value: Date.today, class: "input", style: "width: inherit;" %>
+        <%= form.label :start_date, class: "label" %>
+        <%= form.date_field :start_date, value: Date.today, class: "input", style: "width: inherit;" %>
       </div>
       <div class="is-flex is-flex-direction-column mx-4">
-        <%= field.label :end_date, class: "label" %>
-        <%= field.date_field :end_date, value: Date.today + 30.days, class: "input", style: "width: inherit;" %>
+        <%= form.label :end_date, class: "label" %>
+        <%= form.date_field :end_date, value: Date.today + 30.days, class: "input", style: "width: inherit;" %>
       </div>
     </div>
     <div class="my-4">
-      <%= field.label :content, class: "label" %>
+      <%= form.label :content, class: "label" %>
       <div id="editor" class="quill-custom-height">
         <%= saga&.content&.html_safe %>
       </div>
     </div>
-  <% end %>
   <div class="my-4">
     <%= form.submit "Save", class: "button is-primary montserrat-400" %>
   </div>
