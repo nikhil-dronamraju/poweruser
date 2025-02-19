@@ -76,39 +76,16 @@
       <h3 class="barlow-condensed-semibold is-size-3">Daily tasks:</h3>
     </div>
 
-    <% if @tasks.present? %>
-      <div class="box">
-      <% @tasks.each do |task| %>
-        <div class="grid">
-          <div class="cell">
-            <span class="has-text-weight-bold"><%= task.title %></span>
-          </div>
-          <div class="cell">
-            <span class="has-text-weight-bold"><%= task.priority.humanize %></span>
-          </div>
-          <div class="cell">
-            <span class="has-text-weight-bold"><%= task.goal_title %></span>
-          </div>
-          <div class="cell">
-            <%= link_to "Edit", edit_daily_task_path(task.id), class: "button is-primary" %>
-            <%= link_to "Delete", daily_task_path(task.id), data: { turbo_method: :delete }, class: "button is-danger" %>
-          </div>
 
-
-        </div>
-      <% end %>
-    </div>
-    <% else %>
-      <div class="hero is-small is-danger">
-        <div class="hero-body">
-          <h3 class="barlow-condensed-semibold is-size-4">Whoa, there!</h3>
-          <span class="subtitle">You have no tasks for today.</span>
-          <div class="buttons mt-4">
-            <%= link_to "Create a new task", new_daily_task_path, class: "button is-primary" %>
-          </div>
+    <div class="hero is-small is-danger">
+      <div class="hero-body">
+        <h3 class="barlow-condensed-semibold is-size-4">Whoa, there!</h3>
+        <span class="subtitle">You have no tasks for today.</span>
+        <div class="buttons mt-4">
+          <%= link_to "Create a new task", new_daily_task_path, class: "button is-primary" %>
         </div>
       </div>
-    <% end %>
+    </div>
   </section>
 <% else %>
   <section class="hero is-danger">

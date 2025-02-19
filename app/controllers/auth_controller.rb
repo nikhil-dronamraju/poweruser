@@ -5,6 +5,7 @@ class AuthController < ApplicationController
 
   def sign_up
     session[:user_id] = nil
+    session[:page_type] = "sign_up"
     @user = User.new
     @user.sagas.build
     6.times { @user.tracks.build }
@@ -12,7 +13,7 @@ class AuthController < ApplicationController
 
   def log_in
     session[:user_id] = nil
-    session[:page_type] = :auth
+    session[:page_type] = "log_in"
     @user = User.new
   end
 
@@ -25,8 +26,14 @@ class AuthController < ApplicationController
   end
 
   def users
-    user = User.new(user_params)
-    user.save!
+    if session[:page_type] == "sign_up"
+      user = User.new(user_params)
+      user.save!
+      session[:user_id] = user.id
+    else
+      user = handle_authentication
+    end
+    redirect_to dashboard_home_path
   rescue StandardError => e
     errors = format_errors(user.errors)
     render turbo_stream: turbo_stream.replace("err_messages", partial: "layouts/error_messages", locals: { messages: errors })
