@@ -11,16 +11,15 @@ Rails.application.routes.draw do
   get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
 
   # Defines the root path route ("/")
+  # Auth:
   root "auth#log_in"
   get "auth/sign_up"
-  post "auth/users", as: "users"
-  post "auth/tracks", as: "tracks"
+  post "auth/sign_user_up", as: "sign_user_up"
+  post "auth/log_user_in", as: "log_user_in"
   get "dashboard/home"
   get "dashboard/new_goal"
   post "dashboard/create_goal"
-  post "auth/show_track_form"
-  post "auth/create_user_track"
-  post "auth/create_saga", as: :create_saga
+  # Resources:
   resources :workouts do
     post "add_lift_form", on: :collection, as: :add_lift_form
     delete "delete_lift_form", on: :collection, as: :delete_lift_form

@@ -25,6 +25,5 @@ class Track < ApplicationRecord
         end
       end
     end
-
   end
 end

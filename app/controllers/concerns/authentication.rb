@@ -7,7 +7,8 @@ module Authentication
     username = user_params[:username]
     password = user_params[:password]
     name = user_params[:name]
-    tracks = user_params[:tracks]
+    tracks = user_params[:tracks_attributes]
+    sagas = user_params[:sagas_attributes]
     user = User.find_by(username: username)
     if user.nil?
       user = sign_user_up(username, password, name, tracks)
@@ -32,17 +33,17 @@ module Authentication
     user
   end
 
-  def log_user_in(username, password)
-    user = User.find_by(username: username)
-    if user.authenticate(password)
-      session[:user_id] = user.id
-      return user
-    else
-      flash[:errors] = [ "ERROR. Invalid password" ]
-    end
-
-    nil
-  end
+  # def log_user_in(username, password)
+  #   user = User.find_by(username: username)
+  #   if user.authenticate(password)
+  #     session[:user_id] = user.id
+  #     return user
+  #   else
+  #     flash[:errors] = [ "ERROR. Invalid password" ]
+  #   end
+  #
+  #   nil
+  # end
 
   def check_logged_in
     user = User.find_by(id: session[:user_id])

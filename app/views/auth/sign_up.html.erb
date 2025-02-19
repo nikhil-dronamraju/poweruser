@@ -3,7 +3,7 @@
     <div class="columns">
       <div class="column is-one-quarter"></div>
       <div class="column is-half">
-        <%= form_with model: @user, class: "form", data: { controller: "onboarding" } do |form| %>
+        <%= form_with model: @user, url: :sign_user_up, class: "form", data: { controller: "onboarding" } do |form| %>
           <div data-controller="onboarding">
             <div data-onboarding-target="generic" id="generic_input_fields">
               <header class="my-4" id="onboarding_header">
@@ -24,6 +24,7 @@
               </div>
               <div class="field">
                 <%= button_tag "Next", class: "button is-primary", type: "button", data: { action: "onboarding#flip_to_track" } %>
+                <%= link_to "Log in", root_path, class: "button is-warning" %>
               </div>
             </div>
             <div data-onboarding-target="track" id="track_input_fields" class="display-none">

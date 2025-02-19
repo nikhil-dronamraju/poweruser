@@ -4,7 +4,7 @@
     <div class="column is-one-quarter"></div>
     <div class="column is-half">
       <h2 class="is-size-2 title">Log in</h2>
-      <%= form_with model: @user, class: "form" do |form| %>
+      <%= form_with model: @user, url: :log_user_in, class: "form" do |form| %>
         <div class="field">
           <%= form.label :username %>
           <%= form.text_field :username, class: "input" %>
@@ -17,7 +17,8 @@
 
         <div class="field">
           <div class="buttons">
-            <%= form.submit "Log in", class: "button is-primary" %>
+            <%= form.submit "Log in", class: "button is-primary montserrat-500" %>
+            <%= link_to "Sign up", auth_sign_up_path, class: "button is-warning" %>
           </div>
         </div>
       <% end %>
@@ -25,3 +26,4 @@
     <div class="column is-one-quarter"></div>
   </div>
 </div>
+<%= render partial: "layouts/error_messages", locals: { messages: [] } %>
