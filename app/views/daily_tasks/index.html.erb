@@ -1,18 +1,21 @@
 <section class="hero is-small">
   <div class="hero-body">
-    <h1 class="barlow-condensed-bold is-size-2 has-text-primary">Daily Tasks:</h1>
-    <span class="subtitle barlow-condensed-medium has-text-danger">From here, you will manage your daily tasks.</span>
+    <h1 class="barlow-condensed-bold is-size-2">Hey, <span class="has-text-primary"><%= @user.first_name %></span>!</h1>
+    <span class="subtitle">Here's what's due today:</span>
   </div>
-</section>
-
-<section class="section">
-  <% if @tasks.present? %>
-    <% @tasks.each do |task| %>
-      <div class="content">
-        <%= task.title %>
+  <div class="section">
+    <div class="fixed-grid">
+      <div class="grid">
+        <% DailyTask.priorities.each do |priority| %>
+          <%= render partial: "smart_goals/goal_box_cell", locals: { priority: priority[0].to_sym, tasks: @daily_tasks.where(priority: DailyTask.priorities[priority[0]] ) } %>
+        <% end %>
       </div>
-    <% end %>
-  <% end %>
+    </div>
+    <div id="urgent_and_important">
+
+    </div>
+  </div>
+
 </section>
 
 <section class="section">

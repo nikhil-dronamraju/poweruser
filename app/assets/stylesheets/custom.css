@@ -184,7 +184,18 @@
   scrollbar-width: none !important;  /* Firefox */
 }
 
+.bulma-huge-box {
+  height: 65vh !important;
+  overflow-y: scroll !important;
+  -ms-overflow-style: none !important;  /* IE and Edge */
+  scrollbar-width: none !important;  /* Firefox */
+}
+
 .bulma-custom-box::-webkit-scrollbar {
+  display: none !important;
+}
+
+.bulma-huge-box::-webkit-scrollbar {
   display: none !important;
 }
 

@@ -5,7 +5,7 @@ class DailyTasksController < ApplicationController
 
   def index
     @user = User.find(session[:user_id])
-    @tasks = @user.daily_tasks
+    @daily_tasks = @user.daily_tasks
   end
 
   def new
@@ -13,6 +13,7 @@ class DailyTasksController < ApplicationController
     @tasks = @user.daily_tasks
     @daily_task = DailyTask.new
     @smart_goals = @user.smart_goals
+    pp @smart_goals
     @priorities = humanize_priorities
   end
 
@@ -33,6 +34,6 @@ class DailyTasksController < ApplicationController
   private
 
   def daily_task_params
-    params.require(:daily_task).permit(:user_id, :title, :smart_goal_id, :priority)
+    params.require(:daily_task).permit(:smart_goal_id, :title, :priority)
   end
 end

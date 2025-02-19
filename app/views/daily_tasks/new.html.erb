@@ -15,8 +15,7 @@
   <% end %>
 <% end %>
 <section class="section">
-  <%= form_with model: @smart_goal, url: smart_goals_path, data: { turbo_method: :create }, class: "form" do |f| %>
-    <%= f.hidden_field :user_id, value: @user.id %>
+  <%= form_with model: @daily_task, class: "form" do |f| %>
     <div class="block">
       <% if @smart_goals.present? %>
         <div class="select">

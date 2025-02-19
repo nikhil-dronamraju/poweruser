@@ -21,11 +21,11 @@ class User < ApplicationRecord
 
   def smart_goals
     goal_ids = []
-    self.tracks.each do |track|
+    tracks.each do |track|
       goal_ids << track.smart_goal_ids
     end
 
-    SmartGoal.where(id: goal_ids)
+    SmartGoal.where(id: goal_ids.flatten)
   end
 
   def daily_tasks
@@ -34,6 +34,6 @@ class User < ApplicationRecord
       task_ids << smart_goal.daily_task_ids
     end
 
-    DailyTask.where(id: task_ids)
+    DailyTask.where(id: task_ids.flatten)
   end
 end

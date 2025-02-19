@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_02_19_123316) do
+ActiveRecord::Schema[7.2].define(version: 2025_02_19_170837) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -20,6 +20,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_02_19_123316) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "priority"
+    t.boolean "is_completed", default: false
     t.index ["smart_goal_id"], name: "index_daily_tasks_on_smart_goal_id"
   end
 

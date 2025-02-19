@@ -35,10 +35,10 @@
               <h2 class="is-size-4 barlow-condensed-semibold">Goals:</h2>
             </div>
               <% if @tracks.present? %>
-                <% @tracks.includes(:smart_goals).each do |track| %>
+                <% @tracks.each do |track| %>
                   <% goals = track.smart_goals %>
-                  <h5 class="barlow-condensed-semibold is-size-5"><%= track.title %></h5>
                   <% if goals.present? %>
+                    <h5 class="barlow-condensed-semibold is-size-5"><%= track.title %></h5>
                     <% goals.each do |goal| %>
                       <div class="block">
                       <div class="is-flex is-flex-direction-column">
@@ -64,15 +64,6 @@
                       </div>
                     </div>
                     <% end %>
-                  <% else %>
-                  <div class="block">
-                    <div class="grid">
-                      <p class="cell">No goals found for this track. Please create one!</p>
-                      <div class="cell is-flex is-justify-content-center">
-                        <%= link_to "Create", new_smart_goal_path, class: "button is-primary" %>
-                      </div>
-                    </div>
-                  </div>
                   <% end %>
                 <% end %>
               <% end %>
@@ -85,14 +76,24 @@
     <div class="block">
       <h3 class="barlow-condensed-semibold is-size-3">Daily tasks:</h3>
     </div>
-    <div class="hero is-small is-danger">
-      <div class="hero-body">
-        <h3 class="barlow-condensed-semibold is-size-4">Whoa, there!</h3>
-        <span class="subtitle">You have no tasks for today.</span>
-        <div class="buttons mt-4">
-          <%= link_to "Create a new task", new_daily_task_path, class: "button is-primary" %>
+    <% if @user.daily_tasks.present? %>
+      <div>
+        <div class="block">
+          <p class="is-size-4">You have <span class="has-text-weight-bold"><%= @daily_tasks.count %></span> <span class="has-text-weight-bold has-text-warning">tasks</span> due today.</p>
+        </div>
+        <%= link_to "View", daily_tasks_path, class: "button is-primary" %>
+      </div>
+    <% else %>
+      <div class="hero is-small is-danger">
+        <div class="hero-body">
+          <h3 class="barlow-condensed-semibold is-size-4">Whoa, there!</h3>
+          <span class="subtitle">You have no tasks for today.</span>
+          <div class="buttons mt-4">
+            <%= link_to "Create a new task", new_daily_task_path, class: "button is-primary" %>
+          </div>
         </div>
       </div>
-    </div>
+    <% end %>
+
   </section>
 <% end %>
