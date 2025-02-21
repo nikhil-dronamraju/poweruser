@@ -29,6 +29,7 @@ Rails.application.routes.draw do
   resources :daily_tasks do
     post "add_task", on: :collection, as: :add_task
     post "add_task_to_box", on: :collection, as: :add_task_to_box
+    patch "complete", on: :member, as: :complete
   end
   resources :sagas
   resources :smart_goals

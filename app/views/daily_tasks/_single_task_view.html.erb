@@ -1,4 +1,4 @@
-<%#= turbo_frame_tag "#{daily_task.id}" do %>
+<%= turbo_frame_tag dom_id(daily_task) do %>
   <div class="grid">
     <div class="cell">
       <span><%= daily_task.title %></span>
@@ -7,7 +7,7 @@
       <span><%= daily_task.smart_goal.measurable_goal %></span>
     </div>
     <div class="cell">
-      <%= link_to root_path, class: "button is-primary" do %>
+      <%= link_to complete_daily_task_path(daily_task.id), data: { turbo_method: "patch" }, class: "button is-primary" do %>
         <i class="fa-solid fa-check"></i>
       <% end %>
       <%= link_to daily_task_path(daily_task.id), data: { turbo_method: :delete }, class: "button is-danger" do %>
@@ -18,4 +18,4 @@
       <% end %>
     </div>
   </div>
-<%# end %>
+<% end %>

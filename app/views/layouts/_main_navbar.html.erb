@@ -28,7 +28,7 @@
             <button id="stop_pomo" onclick="stopPomodoroTimer();" class="button is-danger">Stop</button>
           </div>
           <div class="navbar-item">
-            <%= link_to "Log out", root_path, class: "button is-light" %>
+            <%= link_to "Log out", root_path, class: "button is-light", data: { turbo_prefetch: false } %>
           </div>
         </div>
       </div>

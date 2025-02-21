@@ -5,16 +5,13 @@ class DailyTasksController < ApplicationController
 
   def index
     @user = User.find(session[:user_id])
-    @daily_tasks = @user.daily_tasks
+    @daily_tasks = @user.daily_tasks.where(is_completed: false)
   end
 
-  def new
-    @user = User.find(session[:user_id])
-    @tasks = @user.daily_tasks
-    @daily_task = DailyTask.new
-    @smart_goals = @user.smart_goals
-    pp @smart_goals
-    @priorities = humanize_priorities
+  def add_task_to_box
+    user = User.find(session[:user_id])
+    @priority = DailyTask.priorities[params[:priority].to_sym]
+    @smart_goals = user.smart_goals
   end
 
   def create
@@ -27,15 +24,13 @@ class DailyTasksController < ApplicationController
     @daily_task.destroy
   end
 
-  def add_task_to_box
-    user = User.find(session[:user_id])
-    @priority = DailyTask.priorities[params[:priority].to_sym]
-    puts @priority
-    @smart_goals = user.smart_goals
-  end
-
   def add_task
     daily_task = DailyTask.create(daily_task_params)
+  end
+
+  def complete
+    @daily_task = DailyTask.find(params[:id])
+    @daily_task.update(is_completed: true)
   end
 
   private

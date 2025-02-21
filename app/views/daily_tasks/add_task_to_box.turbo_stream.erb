@@ -1,21 +1,27 @@
-<%= turbo_stream.append("urgent_and_important_frame") do %>
-  <%= form_with model: DailyTask.new, class: "block" do |form| %>
-    <%= form.hidden_field :priority, value: :is_urgent_and_important %>
-    <div class="grid">
-      <div class="cell">
-        <%= form.text_field :title, class: "input" %>
-      </div>
-      <div class="cell">
-        <div class="select">
-          <%= form.select :smart_goal_id, options_from_collection_for_select(@smart_goals, :id, :measurable_goal) %>
-        </div>
-      </div>
-      <div class="cell">
-        <%= form.submit "Save", class: "button is-warning montserrat-500" %>
-      </div>
-    </div>
-  <% end %>
-  <% if @errors.present? %>
-    <%= render partial: "layouts/error_messages", locals: { messages: @errors } %>
-  <% end %>
+<% case @priority %>
+  <% when DailyTask.priorities[:is_urgent_and_important] %>
+    <%= turbo_stream.remove "is_urgent_and_important_no_tasks" %>
+    <%= turbo_stream.append :is_urgent_and_important do %>
+      <%= turbo_frame_tag dom_id(DailyTask.new) do %>
+        <%= form_with model: DailyTask.new, class: "block" do |form| %>
+          <%= form.hidden_field :priority, value: :is_urgent_and_important %>
+          <div class="grid">
+            <div class="cell">
+              <%= form.text_field :title, class: "input" %>
+            </div>
+            <div class="cell">
+              <div class="select">
+                <%= form.select :smart_goal_id, options_from_collection_for_select(@smart_goals, :id, :measurable_goal) %>
+              </div>
+            </div>
+            <div class="cell">
+              <%= form.submit "Save", class: "button is-warning montserrat-500" %>
+            </div>
+          </div>
+          <%= render partial: "layouts/error_messages", locals: { messages: @errors } %>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% else %>
+  <%= render partial: "layouts/error_messages", locals: { messages: @errors } %>
 <% end %>

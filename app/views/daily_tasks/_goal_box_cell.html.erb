@@ -1,24 +1,29 @@
 <% if priority == :is_urgent_and_important %>
-  <div id="urgent_and_important" class="cell box bulma-huge-box">
-    <%= turbo_frame_tag "urgent_and_important_frame" do  %>
+  <div class="cell box bulma-huge-box">
+    <%= turbo_frame_tag priority.to_s do  %>
       <div class="is-flex">
         <h2 class="barlow-condensed-semibold is-size-3">Urgent/Important:</h2>
         <%= link_to add_task_to_box_daily_tasks_path(priority: priority), data: { "turbo_method": "post" }, class: "button is-primary ml-auto" do %>
             <i class="fa-solid fa-plus"></i>
         <% end %>
-        <%= render partial: "layouts/error_messages", locals: { messages: [] } %>
       </div>
       <% if tasks.present? %>
-        <div class="grid">
-          <div class="cell"><h3>Title:</h3></div>
-          <div class="cell"><h3>Goal:</h3></div>
-          <div class="cell">Action:</div>
-        </div>
-        <% tasks.each do |task| %>
-          <%= render partial: "single_task_view", locals: { daily_task: task } %>
+        <%= turbo_frame_tag "urgent_and_important_tasks_frame" do %>
+          <div class="grid">
+            <div class="cell"><h3>Title:</h3></div>
+            <div class="cell"><h3>Goal:</h3></div>
+            <div class="cell">Action:</div>
+          </div>
+          <% tasks.each do |task| %>
+            <%= render partial: "single_task_view", locals: { daily_task: task } %>
+          <% end %>
         <% end %>
       <% else %>
-        <span>No tasks found.</span>
+        <%= turbo_frame_tag "#{priority}_no_tasks" do %>
+          <div class="is-flex h-100">
+            <span class="mx-auto my-auto is-size-5 montserrat-600">No tasks found.</span>
+          </div>
+        <% end %>
       <% end %>
     <% end %>
   </div>
