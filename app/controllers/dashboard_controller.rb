@@ -10,6 +10,6 @@ class DashboardController < ApplicationController
     @saga = @user.sagas.last
     @tracks = @user.tracks.includes(:smart_goals)
     @smart_goals = SmartGoal.where(track: @tracks)
-    @daily_tasks = @user.daily_tasks
+    @daily_tasks = @user.daily_tasks.where(is_completed: false)
   end
 end

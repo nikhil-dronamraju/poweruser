@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  get "tracks/index"
+  get "tracks/new"
+  get "tracks/create"
+  get "tracks/update"
+  get "tracks/edit"
+  get "tracks/delete"
   get "daily_tasks/index"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
@@ -33,4 +39,5 @@ Rails.application.routes.draw do
   end
   resources :sagas
   resources :smart_goals
+  resources :tracks
 end

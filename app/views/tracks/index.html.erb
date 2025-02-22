@@ -1,0 +1,38 @@
+<section class="hero is-small">
+  <div class="hero-body">
+    <h1 class="barlow-condensed-bold is-size-2">Here are your current <span class="has-text-danger">tracks</span>, <span class="has-text-primary"><%= @user.first_name %></span>:</h1>
+  </div>
+</section>
+
+<section class="section">
+  <div class="fixed-grid has-3-cols">
+    <div class="grid">
+      <% @user.tracks.each do |track| %>
+        <div class="cell">
+          <div class="card">
+            <header class="card-header">
+              <p class="card-header-title is-size-4 barlow-condensed-semibold"><%= track.title %></p>
+              <span class="card-header-icon">
+                <span class="icon"><%= track.icon.html_safe %></span>
+              </span>
+            </header>
+            <div class="card-content">
+              <p>
+                <span>Start: <time><%= track.start_date %></time></span>
+                <br>
+                <span>End: <time><%= track.end_date %></time></span>
+              </p>
+            </div>
+            <footer class="card-footer">
+              <a href="#" class="card-footer-item">Edit</a>
+              <a href="#" class="card-footer-item">Delete</a>
+            </footer>
+          </div>
+        </div>
+
+      <% end %>
+    </div>
+  </div>
+
+
+</section>
