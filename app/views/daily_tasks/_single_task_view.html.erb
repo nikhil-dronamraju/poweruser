@@ -8,10 +8,10 @@
         <span><%= daily_task.smart_goal.measurable_goal %></span>
       </div>
       <div class="cell">
-        <%= link_to complete_daily_task_path(daily_task.id), data: { turbo_method: "patch" }, class: "button is-primary" do %>
+        <%= link_to complete_daily_task_path(daily_task.id, priority: daily_task.priority), data: { turbo_method: "patch" }, class: "button is-primary" do %>
           <i class="fa-solid fa-check"></i>
         <% end %>
-        <%= link_to daily_task_path(daily_task.id), data: { turbo_method: :delete }, class: "button is-danger" do %>
+        <%= link_to daily_task_path(daily_task.id, priority: daily_task.priority), data: { turbo_method: :delete }, class: "button is-danger" do %>
           <i class="fa-solid fa-trash"></i>
         <% end %>
         <%= link_to root_path, class: "button is-warning" do %>

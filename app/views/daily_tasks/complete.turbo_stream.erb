@@ -1,1 +1,8 @@
 <%= turbo_stream.remove @daily_task %>
+<% unless @daily_tasks.count > 0 %>
+  <%= turbo_stream.append("#{@priority}_no_tasks") do %>
+    <div class="is-flex h-100">
+      <span class="mx-auto my-auto is-size-5 montserrat-600">No tasks found.</span>
+    </div>
+  <% end %>
+<% end %>

@@ -17,11 +17,15 @@ class DailyTasksController < ApplicationController
   def create
     @daily_task = DailyTask.create(daily_task_params)
     @errors = format_errors(@daily_task.errors)
+    @priority = daily_task_params[:priority]
   end
 
   def destroy
+    @user = User.find(session[:user_id])
+    @priority = params[:priority]
     @daily_task = DailyTask.find(params[:id])
     @daily_task.destroy
+    @daily_tasks = @user.daily_tasks.where(is_completed: false, priority: DailyTask.priorities[@priority.to_sym])
   end
 
   def add_task
@@ -29,8 +33,11 @@ class DailyTasksController < ApplicationController
   end
 
   def complete
+    user = User.find(session[:user_id])
     @daily_task = DailyTask.find(params[:id])
     @daily_task.update(is_completed: true)
+    @priority = params[:priority]
+    @daily_tasks = user.daily_tasks.where(is_completed: false, priority: DailyTask.priorities[@priority.to_sym])
   end
 
   private
