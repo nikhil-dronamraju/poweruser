@@ -10,7 +10,7 @@ class DailyTasksController < ApplicationController
 
   def add_task_to_box
     user = User.find(session[:user_id])
-    @priority = DailyTask.priorities[params[:priority].to_sym]
+    @priority = params[:priority].to_sym
     @smart_goals = user.smart_goals
   end
 

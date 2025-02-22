@@ -7,7 +7,7 @@
     <div class="fixed-grid">
       <div class="grid">
         <% DailyTask.priorities.each do |priority| %>
-          <%= render partial: "goal_box_cell", locals: { priority: priority[0].to_sym, tasks: @daily_tasks.where(priority: DailyTask.priorities[priority[0]] ) } %>
+          <%= render partial: "task_box", locals: { priority: priority[0].to_sym, tasks: @daily_tasks.where(priority: DailyTask.priorities[priority[0]] ) } %>
         <% end %>
       </div>
     </div>

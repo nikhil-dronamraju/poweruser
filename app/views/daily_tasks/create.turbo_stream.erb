@@ -6,8 +6,8 @@
   <%= turbo_stream.replace("err_messages") do %>
     <%= render partial: "layouts/error_messages", locals: { messages: [] } %>
   <% end %>
-  <%= turbo_stream.append("urgent_and_important_tasks_frame") do %>
+  <%= turbo_stream.append("is_urgent_and_important_tasks_frame") do %>
     <%= render partial: 'daily_tasks/single_task_view', locals: { daily_task: @daily_task } %>
   <% end %>
-  <%= turbo_stream.remove "urgent_and_important_form_frame" %>
+  <%= turbo_stream.remove DailyTask.new %>
 <% end %>

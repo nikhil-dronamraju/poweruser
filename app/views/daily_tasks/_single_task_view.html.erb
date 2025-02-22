@@ -1,21 +1,23 @@
-<%= turbo_frame_tag dom_id(daily_task) do %>
-  <div class="grid">
-    <div class="cell">
-      <span><%= daily_task.title %></span>
+<div class="block">
+  <%= turbo_frame_tag dom_id(daily_task) do %>
+    <div class="grid">
+      <div class="cell">
+        <span><%= daily_task.title %></span>
+      </div>
+      <div class="cell">
+        <span><%= daily_task.smart_goal.measurable_goal %></span>
+      </div>
+      <div class="cell">
+        <%= link_to complete_daily_task_path(daily_task.id), data: { turbo_method: "patch" }, class: "button is-primary" do %>
+          <i class="fa-solid fa-check"></i>
+        <% end %>
+        <%= link_to daily_task_path(daily_task.id), data: { turbo_method: :delete }, class: "button is-danger" do %>
+          <i class="fa-solid fa-trash"></i>
+        <% end %>
+        <%= link_to root_path, class: "button is-warning" do %>
+          <i class="fa-solid fa-pencil"></i>
+        <% end %>
+      </div>
     </div>
-    <div class="cell">
-      <span><%= daily_task.smart_goal.measurable_goal %></span>
-    </div>
-    <div class="cell">
-      <%= link_to complete_daily_task_path(daily_task.id), data: { turbo_method: "patch" }, class: "button is-primary" do %>
-        <i class="fa-solid fa-check"></i>
-      <% end %>
-      <%= link_to daily_task_path(daily_task.id), data: { turbo_method: :delete }, class: "button is-danger" do %>
-        <i class="fa-solid fa-trash"></i>
-      <% end %>
-      <%= link_to root_path, class: "button is-warning" do %>
-        <i class="fa-solid fa-pencil"></i>
-      <% end %>
-    </div>
-  </div>
-<% end %>
+  <% end %>
+</div>

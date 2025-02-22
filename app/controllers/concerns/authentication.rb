@@ -33,20 +33,8 @@ module Authentication
     user
   end
 
-  # def log_user_in(username, password)
-  #   user = User.find_by(username: username)
-  #   if user.authenticate(password)
-  #     session[:user_id] = user.id
-  #     return user
-  #   else
-  #     flash[:errors] = [ "ERROR. Invalid password" ]
-  #   end
-  #
-  #   nil
-  # end
-
   def check_logged_in
-    user = User.find_by(id: session[:user_id])
+    user = User.find(session[:user_id])
     if user.nil?
       redirect_to root_path
     else

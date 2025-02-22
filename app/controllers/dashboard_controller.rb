@@ -3,7 +3,7 @@ class DashboardController < ApplicationController
   include ErrorHandling
   include DashboardHelper
   include GeneralViewHelper
-  before_action :check_logged_in, :check_onboarded
+  before_action :check_logged_in
   def home
     session[:page_type] = "dashboard"
     @user = User.find(session[:user_id])
