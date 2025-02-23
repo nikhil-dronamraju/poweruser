@@ -14,10 +14,12 @@
         <%= link_to daily_task_path(daily_task.id, priority: daily_task.priority), data: { turbo_method: :delete }, class: "button is-danger" do %>
           <i class="fa-solid fa-trash"></i>
         <% end %>
-        <%= link_to root_path, class: "button is-warning" do %>
+        <button type="button" class="button is-warning" onclick="openModal(document.getElementById('<%= dom_id(daily_task) %>_modal'));">
           <i class="fa-solid fa-pencil"></i>
-        <% end %>
+        </button>
       </div>
     </div>
   <% end %>
 </div>
+<%= render partial: "edit_single_task_modal", locals: { daily_task: daily_task, user: user} %>
+

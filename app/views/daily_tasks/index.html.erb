@@ -1,3 +1,4 @@
+<%= turbo_page_requires_reload %>
 <section class="hero is-small">
   <div class="hero-body">
     <h1 class="barlow-condensed-bold is-size-2">Hey, <span class="has-text-primary"><%= @user.first_name %></span>!</h1>
@@ -7,7 +8,7 @@
     <div class="fixed-grid">
       <div class="grid">
         <% DailyTask.priorities.each do |priority| %>
-          <%= render partial: "task_box", locals: { priority: priority[0].to_sym, tasks: @daily_tasks.where(priority: DailyTask.priorities[priority[0]] ) } %>
+          <%= render partial: "task_box", locals: { priority: priority[0].to_sym, tasks: @daily_tasks.where(priority: DailyTask.priorities[priority[0]]), user: @user } %>
         <% end %>
       </div>
     </div>

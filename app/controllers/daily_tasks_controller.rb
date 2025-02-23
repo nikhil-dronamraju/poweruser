@@ -28,6 +28,13 @@ class DailyTasksController < ApplicationController
     @daily_tasks = @user.daily_tasks.where(is_completed: false, priority: DailyTask.priorities[@priority.to_sym])
   end
 
+  def update
+    @user = User.find(session[:user_id])
+    @daily_task = DailyTask.find(params[:id])
+    @daily_task.update(daily_task_params)
+    redirect_to daily_tasks_path
+  end
+
   def add_task
     daily_task = DailyTask.create(daily_task_params)
   end
