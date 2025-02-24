@@ -3,7 +3,9 @@
     <%= render partial: "layouts/error_messages", locals: { messages: @errors } %>
   <% end %>
 <% else %>
-  <%= turbo_stream.remove "err_messages" %>
+  <%= turbo_stream.replace "err_messages" do %>
+    <div></div>
+  <% end %>
   <%= turbo_stream.update("goals") do %>
     <%= render partial: "goal_cards", locals: { goals: @user.smart_goals } %>
   <% end %>

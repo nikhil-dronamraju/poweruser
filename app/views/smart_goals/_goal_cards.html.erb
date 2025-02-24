@@ -1,8 +1,8 @@
-<%= turbo_frame_tag "goals" do %>
-  <div class="block">
-    <div class="fixed-grid">
-      <div class="grid">
-          <% goals.each do |goal| %>
+<div class="block">
+  <div class="fixed-grid">
+    <div class="grid">
+        <% goals.each do |goal| %>
+          <%= turbo_frame_tag dom_id(goal) do %>
             <div class="cell">
               <div class="box">
                 <h3 class="barlow-condensed-semibold is-size-4"><%= goal.measurable_goal %></h3>
@@ -23,7 +23,7 @@
               </div>
             </div>
           <% end %>
-      </div>
+        <% end %>
     </div>
   </div>
-<% end %>
+</div>
