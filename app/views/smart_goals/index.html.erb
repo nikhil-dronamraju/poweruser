@@ -4,6 +4,7 @@
   </div>
 </section>
 
+<!-- begin::form -->
 <section class="section">
   <%= form_with model: @smart_goal, id: "smart_goal_form", class: "form" do |f| %>
     <div class="field">
@@ -13,11 +14,11 @@
     <div class="is-flex">
       <div class="field">
         <%= f.label :start_date, class: "label" %>
-        <%= f.date_field :start_date, class: "input" %>
+        <%= f.date_field :start_date, class: "input", value: Date.today %>
       </div>
       <div class="field ml-2">
         <%= f.label :end_date, class: "label" %>
-        <%= f.date_field :end_date, class: "input" %>
+        <%= f.date_field :end_date, class: "input", value: Date.today + 1.month %>
       </div>
       <div class="field ml-2">
         <%= f.label :saga, class: "label" %>
@@ -40,38 +41,17 @@
     <%= render partial: "layouts/error_messages", locals: { messages: [] } %>
   <% end %>
 </section>
+<!-- end::form -->
 
-<% if @goals.present? %>
-  <section class="section">
-    <%= turbo_frame_tag "goals" do %>
-      <div class="block">
-        <h2 class="barlow-condensed-semibold is-size-3">Your goals:</h2>
-      </div>
-      <div class="block">
-        <div class="fixed-grid">
-          <div class="grid">
-            <% @goals.each do |goal| %>
-              <%= render partial: "goal_card", locals: { goal: goal } %>
-            <% end %>
-          </div>
-        </div>
-      </div>
+<section class="section">
+  <div class="block">
+    <h2 class="barlow-condensed-semibold is-size-3">Your goals:</h2>
+  </div>
+  <%= turbo_frame_tag "goals" do %>
+    <% if @goals.present? %>
+      <%= render partial: "goal_cards", locals: { goals: @goals } %>
+    <% else %>
+      <%= render partial: "no_goals_banner" %>
     <% end %>
-    <%= turbo_frame_tag "no_goals" %>
-  </section>
-<% else %>
-  <%= turbo_frame_tag "no_goals" do %>
-    <section class="hero is-danger">
-      <div class="hero-body">
-        <div class="block">
-          <h2 class="barlow-condensed-semibold is-size-3">Whoa, there!</h2>
-          <span class="subtitle">You have no goals.</span>
-        </div>
-        <div class="block">
-          <%= link_to "New goal", "#smart_goal_form", class: "button is-primary" %>
-        </div>
-      </div>
-    </section>
   <% end %>
-  <%= turbo_frame_tag "goals" %>
-<% end %>
+</section>

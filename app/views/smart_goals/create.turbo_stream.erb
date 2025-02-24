@@ -1,20 +1,10 @@
-<%
-  # It gets weird:
-  # But basically, each time this action is called - Create a new smart goal, add it to the goals turbo frame, and update the
-  # no goals frame
-%>
-
-
 <% if @errors.present? %>
   <%= turbo_stream.replace("err_messages") do %>
     <%= render partial: "layouts/error_messages", locals: { messages: @errors } %>
   <% end %>
 <% else %>
   <%= turbo_stream.remove "err_messages" %>
-  <%= turbo_stream.append("goals") do %>
-    <%= render partial: "goal_card", locals: { goal: @smart_goal } %>
-  <% end %>
-  <%= turbo_stream.update("no_goals") do %>
-    <div></div>
+  <%= turbo_stream.update("goals") do %>
+    <%= render partial: "goal_cards", locals: { goals: @user.smart_goals } %>
   <% end %>
 <% end %>
