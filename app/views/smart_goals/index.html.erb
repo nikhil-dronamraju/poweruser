@@ -43,10 +43,10 @@
 
 <% if @goals.present? %>
   <section class="section">
-    <div class="block">
-      <h2 class="barlow-condensed-semibold is-size-3">Your goals:</h2>
-    </div>
     <%= turbo_frame_tag "goals" do %>
+      <div class="block">
+        <h2 class="barlow-condensed-semibold is-size-3">Your goals:</h2>
+      </div>
       <div class="block">
         <div class="fixed-grid">
           <div class="grid">
@@ -71,7 +71,6 @@
           <%= link_to "New goal", "#smart_goal_form", class: "button is-primary" %>
         </div>
       </div>
-
     </section>
   <% end %>
   <%= turbo_frame_tag "goals" %>

@@ -1,6 +1,14 @@
+<%
+  # And then here
+  # Delete the card
+  # If there are 0 cards, remove the header and show the previous message
+%>
 <%= turbo_stream.remove(dom_id(@smart_goal)) %>
 <% if @smart_goals.count == 0 %>
   <%= turbo_stream.update("goals") do %>
+    <div></div>
+  <% end %>
+  <%= turbo_stream.update("no_goals") do %>
     <section class="hero is-danger">
       <div class="hero-body">
         <div class="block">
