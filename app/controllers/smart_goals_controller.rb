@@ -8,6 +8,7 @@ class SmartGoalsController < ApplicationController
   def index
     @user = User.find(session[:user_id])
     @goals = @user.smart_goals
+    @smart_goal = SmartGoal.new
   end
 
   def new
@@ -30,12 +31,15 @@ class SmartGoalsController < ApplicationController
   end
 
   def create
-    smart_goal = SmartGoal.new(goal_params)
-    smart_goal.save
-    @errors = format_errors(smart_goal.errors)
+    @user = User.find(session[:user_id])
+    @smart_goal = SmartGoal.new(goal_params)
+    @smart_goal.save
+    @errors = format_errors(@smart_goal.errors)
   end
 
   def destroy
+    @user = User.find(session[:user_id])
+    @smart_goals = @user.smart_goals
     @smart_goal = SmartGoal.find(params[:id])
     @smart_goal.destroy
   end

@@ -4,7 +4,12 @@
   <% end %>
 <% else %>
   <%= turbo_stream.remove "err_messages" %>
-  <%= turbo_stream.replace("new_goal_frame") do %>
-    <%= render partial: 'layouts/success_message', locals: { message: "Goal successfully created!" } %>
+  <%= turbo_stream.append("goals") do %>
+    <%= render partial: "goal_card", locals: { goal: @smart_goal } %>
+  <% end %>
+  <% if @user.smart_goals.length > 0 %>
+    <%= turbo_stream.replace("no_goals") do %>
+      <div></div>
+    <% end %>
   <% end %>
 <% end %>

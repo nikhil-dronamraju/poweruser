@@ -1,1 +1,16 @@
-<%= turbo_stream.remove("#{ @smart_goal.id }_frame") %>
+<%= turbo_stream.remove(dom_id(@smart_goal)) %>
+<% if @smart_goals.count == 0 %>
+  <%= turbo_stream.update("goals") do %>
+    <section class="hero is-danger">
+      <div class="hero-body">
+        <div class="block">
+          <h2 class="barlow-condensed-semibold is-size-3">Whoa, there!</h2>
+          <span class="subtitle">You have no goals.</span>
+        </div>
+        <div class="block">
+          <%= link_to "New goal", "#smart_goal_form", class: "button is-primary" %>
+        </div>
+      </div>
+    </section>
+  <% end %>
+<% end %>

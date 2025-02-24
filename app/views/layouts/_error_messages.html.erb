@@ -1,8 +1,8 @@
 <%= turbo_frame_tag "err_messages" do %>
-  <div class="section">
+  <div class="">
     <% messages&.each_with_index do |message, index| %>
       <div id="delete_msg_<%= index %>" class="notification animate__animated animate__fadeIn is-danger">
-        <button class="delete" onclick="deleteMessageComponent('delete_msg_<%= index %>');"></button>
+        <button type=button class="delete" onclick="deleteMessageComponent('delete_msg_<%= index %>');"></button>
         <%= message %>
       </div>
     <% end %>
