@@ -18,9 +18,9 @@
             </header>
             <div class="card-content">
               <p>
-                <span>Start: <time><%= track.start_date %></time></span>
+                <span>Start: <time><%= format_date(track.start_date) %></time></span>
                 <br>
-                <span>End: <time><%= track.end_date %></time></span>
+                <span>End: <time><%= format_date(track.end_date) %></time></span>
               </p>
             </div>
             <footer class="card-footer">

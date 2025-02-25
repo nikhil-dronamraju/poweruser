@@ -10,14 +10,17 @@ class DailyTasksController < ApplicationController
 
   def add_task_to_box
     user = User.find(session[:user_id])
-    @priority = params[:priority].to_sym
+    @priority = params[:priority]
+    @daily_tasks = user.daily_tasks.where(priority: DailyTask.priorities[@priority.to_sym], is_completed: false)
     @smart_goals = user.smart_goals
   end
 
   def create
+    @user = User.find(session[:user_id])
     @daily_task = DailyTask.create(daily_task_params)
     @errors = format_errors(@daily_task.errors)
     @priority = daily_task_params[:priority]
+    @daily_tasks = @user.daily_tasks.where(is_completed: false, priority: DailyTask.priorities[@priority.to_sym])
   end
 
   def destroy
@@ -44,6 +47,7 @@ class DailyTasksController < ApplicationController
     @daily_task = DailyTask.find(params[:id])
     @daily_task.update(is_completed: true)
     @priority = params[:priority]
+    puts @priority
     @daily_tasks = user.daily_tasks.where(is_completed: false, priority: DailyTask.priorities[@priority.to_sym])
   end
 

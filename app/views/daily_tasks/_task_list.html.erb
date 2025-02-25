@@ -1,0 +1,26 @@
+<% tasks.each do |daily_task| %>
+  <div class="block">
+    <%= turbo_frame_tag dom_id(daily_task) do %>
+      <div class="grid">
+        <div class="cell">
+          <span><%= daily_task.title %></span>
+        </div>
+        <div class="cell">
+          <span><%= daily_task.smart_goal.measurable_goal %></span>
+        </div>
+        <div class="cell">
+          <%= link_to complete_daily_task_path(daily_task.id, priority: daily_task.priority), data: { turbo_method: "patch" }, class: "button is-primary" do %>
+            <i class="fa-solid fa-check"></i>
+          <% end %>
+          <%= link_to daily_task_path(daily_task.id, priority: daily_task.priority), data: { turbo_method: :delete }, class: "button is-danger" do %>
+            <i class="fa-solid fa-trash"></i>
+          <% end %>
+          <button type="button" class="button is-warning" onclick="openModal(document.getElementById('<%= dom_id(daily_task) %>_modal'));">
+            <i class="fa-solid fa-pencil"></i>
+          </button>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <%= render partial: "edit_single_task_modal", locals: { daily_task: daily_task, user: user } %>
+<% end %>

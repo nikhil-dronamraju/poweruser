@@ -1,3 +1,6 @@
+<% if @daily_tasks.count.zero? %>
+  <%= turbo_stream.update @priority %>
+<% end %>
 <%= turbo_stream.append @priority do %>
   <%= turbo_frame_tag dom_id(DailyTask.new) do %>
     <%= form_with model: DailyTask.new, class: "mt-5" do |form| %>
@@ -18,7 +21,4 @@
       <%= render partial: "layouts/error_messages", locals: { messages: @errors } %>
     <% end %>
   <% end %>
-<% end %>
-<%= turbo_stream.update "#{@priority}_no_tasks" do %>
-  <div></div>
 <% end %>

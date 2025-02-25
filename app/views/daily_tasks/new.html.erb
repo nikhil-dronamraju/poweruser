@@ -9,7 +9,7 @@
   <%= turbo_frame_tag "user_tasks" do %>
     <% if @tasks.present? %>
       <% @tasks.each do |task| %>
-        <%= render partial: "single_task_view", locals: { daily_task: task, user: @user } %>
+        <%= render partial: "task_list", locals: { daily_task: task, user: @user } %>
       <% end %>
     <% end %>
   <% end %>

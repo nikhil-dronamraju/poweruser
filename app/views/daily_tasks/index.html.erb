@@ -7,9 +7,8 @@
   <div class="section">
     <div class="fixed-grid">
       <div class="grid">
-        <% DailyTask.priorities.each do |priority| %>
-          <%= render partial: "task_box", locals: { priority: priority[0].to_sym, tasks: @daily_tasks.where(priority: DailyTask.priorities[priority[0]]), user: @user } %>
-        <% end %>
+        <!-- Turning this into a partial -->
+        <%= render partial: "task_boxes", locals: { tasks: @daily_tasks, user: @user } %>
       </div>
     </div>
   </div>

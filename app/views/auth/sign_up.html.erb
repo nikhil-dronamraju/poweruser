@@ -34,13 +34,20 @@
               </header>
               <%= form.fields_for :tracks, @tracks do |field| %>
                 <%= field.hidden_field :icon, value: "" %>
-                  <div class="grid">
-                    <div class="cell">
+                  <div class="columns">
+                    <div class="column">
                       <div class="is-flex">
                         <%= field.text_field :title, class: "input", placeholder: "Enter track title (or leave blank to skip)" %>
                       </div>
                     </div>
-                    <div class="cell">
+                    <div class="column">
+                      <div class="is-flex">
+                        <%= field.date_field :start_date, class: "input", value: Date.today %>
+                        <%= field.date_field :start_date, class: "input ml-2", value: Date.today + 1.month %>
+                      </div>
+                    </div>
+
+                    <div class="column">
                       <%= button_tag "Add an icon", type: "button", class: "button is-warning", id: "open_icon_modal_#{field.index}" , onclick: "openModal(document.getElementById('icon_picker_modal_#{field.index}'));" %>
                     </div>
                   </div>

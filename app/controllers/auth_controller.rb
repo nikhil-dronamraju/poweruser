@@ -48,7 +48,7 @@ class AuthController < ApplicationController
   def user_params
     params.require(:user).permit(
       :username, :name, :password,
-      tracks_attributes: [ :icon, :title ],
+      tracks_attributes: [ :icon, :title, :start_date, :end_date ],
       sagas_attributes: [ :title, :content, :start_date, :end_date ]
       )
   end
