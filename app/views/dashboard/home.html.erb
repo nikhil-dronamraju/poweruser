@@ -32,38 +32,38 @@
       <div class="cell">
         <div class="box bulma-custom-box">
           <div class="is-flex is-flex-direction-column h-100">
-            <div class="block">
-              <h2 class="is-size-4 barlow-condensed-semibold">Goals:</h2>
-            </div>
               <% if @tracks.present? %>
+                <div class="block">
+                  <h2 class="is-size-4 barlow-condensed-semibold">Goals:</h2>
+                </div>
                 <% @tracks.each do |track| %>
                   <% goals = track.smart_goals %>
-                  <% if goals.present? %>
+                  <% if goals.count > 0 %>
                     <h5 class="barlow-condensed-semibold is-size-5"><%= track.title %></h5>
                     <% goals.each do |goal| %>
                       <div class="block">
-                      <div class="is-flex is-flex-direction-column">
-                        <div class="content">
-                          <ul>
-                            <li>
-                              <div class="grid my-1">
-                                <div class="cell">
-                                  <span class="has-text-weight-bold"><%= goal.measurable_goal %></span>
+                        <div class="is-flex is-flex-direction-column">
+                          <div class="content">
+                            <ul>
+                              <li>
+                                <div class="grid my-1">
+                                  <div class="cell">
+                                    <span class="has-text-weight-bold"><%= goal.measurable_goal %></span>
+                                  </div>
+                                  <div class="cell is-flex is-align-items-center">
+                                    <span class="has-text-weight-bold">Progress: </span>
+                                    <progress class="progress is-danger ml-4" max=100 value=0></progress>
+                                  </div>
                                 </div>
-                                <div class="cell is-flex is-align-items-center">
-                                  <span class="has-text-weight-bold">Progress: </span>
-                                  <progress class="progress is-danger ml-4" max=100 value=0></progress>
+                                <div class="is-flex is-flex-direction-column">
+                                  <span class="">Start date: <span class="has-text-weight-bold"><%= format_date(goal.start_date) %></span></span>
+                                  <span>End date: <span class="has-text-weight-bold"><%= format_date(goal.end_date) %></span></span>
                                 </div>
-                              </div>
-                              <div class="is-flex is-flex-direction-column">
-                                <span class="">Start date: <span class="has-text-weight-bold"><%= format_date(goal.start_date) %></span></span>
-                                <span>End date: <span class="has-text-weight-bold"><%= format_date(goal.end_date) %></span></span>
-                              </div>
-                            </li>
-                          </ul>
+                              </li>
+                            </ul>
+                          </div>
                         </div>
                       </div>
-                    </div>
                     <% end %>
                   <% end %>
                 <% end %>
