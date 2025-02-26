@@ -24,9 +24,9 @@
 
         <div class="navbar-end">
           <div class="navbar-item">
-            <span id="pomodoro_time" class="has-text-primary has-text-weight-bold">25:00</span>
-            <button id="start_pomo" onclick="startWorker();" class="button is-primary">Start</button>
-            <button id="stop_pomo" onclick="stopWorker();" class="button is-danger">Stop</button>
+            <span id="pomodoro_time" class="has-text-primary has-text-weight-bold"></span>
+            <button id="start_pomo" onclick="startPomodoroTimer();" class="button is-primary">Start</button>
+            <button id="stop_pomo" onclick="stopPomodoroTimer();" class="button is-danger">Stop</button>
           </div>
           <div class="navbar-item">
             <%= link_to "Log out", root_path, class: "button is-light", data: { turbo_prefetch: false } %>
@@ -40,3 +40,4 @@
     <h1 class="barlow-condensed-bold is-size-2 has-text-primary">Welcome to PowerUser</h1>
   </header>
 <% end %>
+<%= javascript_include_tag "pomodoro" %>

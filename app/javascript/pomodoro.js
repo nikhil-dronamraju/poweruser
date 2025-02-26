@@ -1,47 +1,61 @@
-// let pomodoroTimes = [ 1500, 300, 1500, 300, 1500, 300, 1500, 300, 1800 ];
-// let selectedIndex = 0;
-// let timeElapsed = 0;
-// let seconds = pomodoroTimes[ selectedIndex ];
-// let pomodoroInterval;
-// let worker;
-//
-// function windClock(){
-//     seconds -= 1;
-//     const timerElement = document.getElementById("pomodoro_time");
-//     if ( seconds === 0 ) {
-//         timerElement.classList.remove("has-text-primary");
-//         timerElement.classList.add("has-text-danger");
-//         selectedIndex += 1;
-//         stopPomodoroTimer();
-//     } else {
-//         timerElement.classList.remove("has-text-danger");
-//         timerElement.classList.add("has-text-primary");
-//     }
-//
-//     if ( selectedIndex >= pomodoroTimes.length ) {
-//         selectedIndex = 0;
-//     }
-//
-//     // UI logic:
-//     timerElement.innerText = formatSeconds(seconds);
-// }
-//
-
-// Default pomodoro intervals:
 let pomodoroTimes = [ 1500, 300, 1500, 300, 1500, 300, 1500, 300, 1800 ];
-let i = 0;
+let selectedIndex = 0;
+let seconds = pomodoroTimes[ selectedIndex ];
+let pomodoroInterval;
 
 function formatSeconds( numberOfSeconds ) {
     let minutes = parseInt(numberOfSeconds / 60);
     let seconds = numberOfSeconds % 60;
+    if (seconds < 10) {
+        seconds = `0${seconds}`;
+    }
     return `${minutes}:${seconds}`;
 }
 
-function timedCount() {
-    i = i + 1;
-    postMessage(i);
-    setTimeout("timedCount()",1000);
+function initializeTimer(){
+    const timerElement = document.getElementById("pomodoro_time");
+    if (sessionStorage.userTime) {
+        let userTime = sessionStorage.getItem("userTime");
+        timerElement.innerText = formatSeconds(userTime);
+    } else {
+        sessionStorage.setItem("userTime", seconds);
+        timerElement.innerText = formatSeconds(seconds);
+    }
 }
 
-timedCount();
+function windClock(){
+    if (sessionStorage.userTime) {
+        seconds = parseInt(sessionStorage.getItem("userTime"));
+    }
+    seconds -= 1;
+    sessionStorage.setItem("userTime", seconds);
+    initializeTimer();
+    if (seconds === 0) {
+        stopPomodoroTimer();
+        selectedIndex += 1;
+        seconds = pomodoroTimes[selectedIndex];
+        sessionStorage.setItem("userTime", seconds);
+        initializeTimer();
+    }
+    if (selectedIndex === 8) {
+        stopPomodoroTimer();
+        selectedIndex = 0;
+        seconds = pomodoroTimes[selectedIndex];
+        sessionStorage.setItem("userTime", seconds);
+        initializeTimer();
+    }
+}
+
+function startPomodoroTimer(){
+    if (pomodoroInterval) {
+        stopPomodoroTimer();
+    }
+    pomodoroInterval = setInterval(windClock, 1000);
+}
+
+function stopPomodoroTimer() {
+    clearInterval(pomodoroInterval);
+}
+
+initializeTimer();
 
