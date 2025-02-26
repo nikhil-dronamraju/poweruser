@@ -1,6 +1,6 @@
 class Track < ApplicationRecord
   belongs_to :user
-  has_many :smart_goals
+  has_many :smart_goals, dependent: :destroy
   validates :title, presence: { message: "Must have a title." }
   validates :icon, presence: { message: "Must have a icon." }
 

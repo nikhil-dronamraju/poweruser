@@ -1,3 +1,4 @@
+<%= turbo_page_requires_reload %>
 <section class="hero is-small">
   <div class="hero-body">
     <h1 class="barlow-condensed-bold is-size-2">Here are your current <span class="has-text-danger">tracks</span>, <span class="has-text-primary"><%= @user.first_name %></span>:</h1>
@@ -7,29 +8,31 @@
 <section class="section">
   <div class="fixed-grid has-3-cols">
     <div class="grid">
-      <% @user.tracks.each do |track| %>
-        <div class="cell">
-          <div class="card">
-            <header class="card-header">
-              <p class="card-header-title is-size-4 barlow-condensed-semibold"><%= track.title %></p>
-              <span class="card-header-icon">
-                <span class="icon"><%= track.icon.html_safe %></span>
-              </span>
-            </header>
-            <div class="card-content">
-              <p>
-                <span>Start: <time><%= format_date(track.start_date) %></time></span>
-                <br>
-                <span>End: <time><%= format_date(track.end_date) %></time></span>
-              </p>
+      <% @tracks.each do |track| %>
+        <%= turbo_frame_tag dom_id(track) do %>
+          <div class="cell">
+            <div class="card">
+              <header class="card-header">
+                <p class="card-header-title is-size-4 barlow-condensed-semibold"><%= track.title %></p>
+                <span class="card-header-icon">
+                  <span class="icon"><%= track.icon.html_safe %></span>
+                </span>
+              </header>
+              <div class="card-content">
+                <p>
+                  <span>Start: <time><%= format_date(track.start_date) %></time></span>
+                  <br>
+                  <span>End: <time><%= format_date(track.end_date) %></time></span>
+                </p>
+              </div>
+              <footer class="card-footer">
+                <a href="javascript:openModal(document.getElementById('<%= dom_id(track) %>_edit_modal'));" class="card-footer-item">Edit</a>
+                <%= link_to "Delete", track_path(id: track.id), data: { turbo_method: :delete }, class: "card-footer-item" %>
+              </footer>
             </div>
-            <footer class="card-footer">
-              <a href="#" class="card-footer-item">Edit</a>
-              <a href="#" class="card-footer-item">Delete</a>
-            </footer>
           </div>
-        </div>
-
+          <%= render partial: "edit_track_modal", locals: { track: track } %>
+        <% end %>
       <% end %>
     </div>
   </div>
