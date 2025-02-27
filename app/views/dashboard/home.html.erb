@@ -90,15 +90,7 @@
         <%= link_to "View", daily_tasks_path, class: "button is-primary" %>
       </div>
     <% else %>
-      <div class="hero is-small is-danger">
-        <div class="hero-body">
-          <h3 class="barlow-condensed-semibold is-size-4">Whoa, there!</h3>
-          <span class="subtitle">You have no tasks for today.</span>
-          <div class="buttons mt-4">
-            <%= link_to "Create a new task", new_daily_task_path, class: "button is-primary" %>
-          </div>
-        </div>
-      </div>
+      <%= render partial: "daily_tasks/no_tasks"  %>
     <% end %>
 
   </section>
