@@ -5,6 +5,7 @@ class SagasController < ApplicationController
   def index
     @user = User.find(session[:user_id])
     @sagas = @user.sagas
+    @current_saga = @user.sagas.last
   end
 
   def create

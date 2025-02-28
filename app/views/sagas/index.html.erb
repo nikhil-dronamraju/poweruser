@@ -6,6 +6,17 @@
 </section>
 
 <section class="section">
+  <h2 class="is-size-4 barlow-condensed-semibold">Current saga: </h2>
+  <div class="box" style="word-wrap: break-word;">
+    <h3 class="is-size-5 barlow-condensed-semibold"><%= @current_saga.title %></h3>
+    <div class="content">
+      <%= @current_saga.content.html_safe %>
+    </div>
+  </div>
+
+</section>
+
+<section class="section">
   <h2 class="barlow-condensed-semibold is-size-4">Previous sagas:</h2>
   <div class="fixed-grid">
     <div class="grid">
