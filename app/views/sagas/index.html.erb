@@ -8,7 +8,10 @@
 <section class="section">
   <h2 class="is-size-4 barlow-condensed-semibold">Current saga: </h2>
   <div class="box" style="word-wrap: break-word;">
-    <h3 class="is-size-5 barlow-condensed-semibold"><%= @current_saga.title %></h3>
+    <div class="block">
+      <h3 class="title has-text-underline barlow-condensed-bold has-text-primary"><%= @current_saga.title %></h3>
+      <span class="subtitle">Start: <%= format_date(@current_saga.start_date) %> | End: <%= format_date(@current_saga.end_date) %></span>
+    </div>
     <div class="content">
       <%= @current_saga.content.html_safe %>
     </div>

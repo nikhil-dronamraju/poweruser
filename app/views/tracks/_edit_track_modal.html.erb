@@ -20,6 +20,12 @@
             </div>
           </div>
 
+          <div class="field">
+            <%= f.hidden_field :desc, id: "desc_#{dom_id(track)}" %>
+            <%= f.label :description, class: "label" %>
+            <div id="quill_editor_<%= dom_id(track) %>" class="quill-custom-height"></div>
+          </div>
+
           <div class="buttons">
             <%= f.submit "Update", class: "button is-primary montserrat-500" %>
           </div>
@@ -30,3 +36,17 @@
 
   <button type=button class="modal-close is-large" aria-label="close"></button>
 </div>
+<script type=text/javascript>
+  const editor_<%= dom_id(track) %> = new Quill("#quill_editor_<%= dom_id(track) %>", {
+   theme: 'snow'
+});
+  const hiddenField_<%= dom_id(track) %> = document.getElementById("desc_<%= dom_id(track) %>");
+  editor_<%= dom_id(track) %>.on("text-change", () => {
+      hiddenField_<%= dom_id(track) %>.value = editor_<%= dom_id(track) %>.getSemanticHTML();
+  });
+  /**
+   * So, planning this script/feature out. We want to add a "description" field to the text editor, and we plan
+   * on doing so using Quill. We can also confidently say that we'll need an editor per modal (which is fine,
+   * since it will cap out at 6).
+   */
+</script>

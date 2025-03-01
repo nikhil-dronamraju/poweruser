@@ -28,6 +28,6 @@ class TracksController < ApplicationController
 
   private
   def track_params
-    params.require(:track).permit(:title, :start_date, :end_date)
+    params.require(:track).permit(:title, :start_date, :end_date, :desc)
   end
 end
