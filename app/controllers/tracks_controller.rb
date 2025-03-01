@@ -4,12 +4,15 @@ class TracksController < ApplicationController
   def index
     @user = User.find(session[:user_id])
     @tracks = @user.tracks
+    session[:page_type] = "tracks"
   end
 
   def new
   end
 
   def create
+    @track = Track.create(track_params)
+    redirect_to tracks_path
   end
 
   def update

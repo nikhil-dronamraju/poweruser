@@ -9,7 +9,8 @@
   <div class="fixed-grid has-3-cols">
     <div class="grid">
       <% @tracks.each do |track| %>
-        <%= turbo_frame_tag dom_id(track) do %>
+        <%= render partial: "track_modal", locals: { track: track } %>
+        <%= turbo_frame_tag "#{dom_id(track)}_card" do %>
           <div class="cell">
             <div class="card">
               <header class="card-header">
@@ -26,16 +27,16 @@
                 </p>
               </div>
               <footer class="card-footer">
-                <a href="javascript:openModal(document.getElementById('<%= dom_id(track) %>_edit_modal'));" class="card-footer-item">Edit</a>
+                <%= button_tag "Edit", class: "card-footer-item has-text-link", type: "button", data: { controller: "modals", action: "modals#open_modal", modals_modal_id_value: dom_id(track) } %>
                 <%= link_to "Delete", track_path(id: track.id), data: { turbo_method: :delete }, class: "card-footer-item" %>
               </footer>
             </div>
           </div>
-          <%= render partial: "edit_track_modal", locals: { track: track } %>
         <% end %>
       <% end %>
     </div>
   </div>
 
+  <%= render partial: "track_modal", locals: { track: Track.new } %>
 
 </section>

@@ -2,5 +2,14 @@
 <section class="section">
   <%= render partial: 'saga_form', locals: { saga: @saga } %>
   <%= render partial: "layouts/error_messages", locals: { messages: [] } %>
-  <%= javascript_include_tag "quill_form" %>
+  <script type="text/javascript">
+      const quill = new Quill('#editor', {
+         theme: 'snow'
+      });
+
+      const contentInput = document.getElementById("saga_content");
+      quill.on('text-change', () => {
+         contentInput.value = quill.getSemanticHTML();
+      });
+  </script>
 </section>

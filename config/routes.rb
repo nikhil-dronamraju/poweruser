@@ -37,7 +37,7 @@ Rails.application.routes.draw do
     post "add_task_to_box", on: :collection, as: :add_task_to_box
     patch "complete", on: :member, as: :complete
   end
-  resources :sagas
+  resources :sagas, only: [ :index, :show, :edit, :update, :destroy ]
   resources :smart_goals
   resources :tracks
 end

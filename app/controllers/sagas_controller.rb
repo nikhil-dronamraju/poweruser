@@ -4,8 +4,8 @@ class SagasController < ApplicationController
   before_action :check_logged_in
   def index
     @user = User.find(session[:user_id])
-    @sagas = @user.sagas
     @current_saga = @user.sagas.last
+    @sagas = @user.sagas
   end
 
   def create
@@ -20,6 +20,10 @@ class SagasController < ApplicationController
   def new
     @user = User.find(session[:user_id])
     @saga = Saga.new
+  end
+
+  def show
+    @current_saga = Saga.find(params[:id])
   end
 
   def edit

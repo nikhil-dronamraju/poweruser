@@ -1,15 +1,12 @@
 <nav class="navbar is-fixed-bottom" role="navigation" aria-label="main navigation">
   <div class="navbar-menu">
     <div class="navbar-end">
-      <% if session[:page_type] == :dashboard %>
+      <% if session[:page_type] == "tracks" %>
         <div class="navbar-item">
-          <%= link_to "New saga", new_saga_path, class: "button is-primary" %>
-        </div>
-        <div class="navbar-item">
-          <%= link_to "New goal", new_smart_goal_path, class: "button is-danger" %>
-        </div>
-        <div class="navbar-item">
-          <%= link_to "New task", new_daily_task_path, class: "button is-warning" %>
+          <button type="button" data-controller="modals" data-action="modals#open_modal" data-modals-modal-id-value="<%= dom_id(Track.new) %>" class="button is-primary">
+            New track
+            <i class="fa fa-solid fa-plus ml-2"></i>
+          </button>
         </div>
       <% end %>
     </div>

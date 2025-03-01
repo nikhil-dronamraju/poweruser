@@ -23,6 +23,7 @@
               <span>Remaining days: <span class="has-text-weight-bold"><%= days_remaining(@saga.start_date, @saga.end_date) %></span></span>
             </div>
             <div class="buttons mt-auto">
+              <%= link_to "View", saga_path(@saga.id), class: "button is-primary" %>
               <%= link_to "Edit", edit_saga_path(@saga.id), class: "button is-warning" %>
             </div>
           </div>
