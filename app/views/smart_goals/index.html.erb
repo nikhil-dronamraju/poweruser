@@ -1,47 +1,9 @@
+<%= turbo_page_requires_reload %>
 <section class="hero is-small">
   <div class="hero-body">
     <h1 class="barlow-condensed-bold is-size-2">Let's check your <span class="has-text-danger">goals</span>, <%= @user.first_name %>.</h1>
   </div>
 </section>
-
-<!-- begin::form -->
-<section class="section">
-  <%= form_with model: @smart_goal, id: "smart_goal_form", class: "form" do |f| %>
-    <div class="field">
-      <%= f.label :title, class: "label" %>
-      <%= f.text_field :measurable_goal, class: "input" %>
-    </div>
-    <div class="is-flex">
-      <div class="field">
-        <%= f.label :start_date, class: "label" %>
-        <%= f.date_field :start_date, class: "input", value: Date.today %>
-      </div>
-      <div class="field ml-2">
-        <%= f.label :end_date, class: "label" %>
-        <%= f.date_field :end_date, class: "input", value: Date.today + 1.month %>
-      </div>
-      <div class="field ml-2">
-        <%= f.label :saga, class: "label" %>
-        <div class="select">
-          <%= f.select :saga_id, options_from_collection_for_select(@user.sagas, :id, :title) %>
-        </div>
-      </div>
-
-      <div class="field ml-2">
-        <%= f.label :track, class: "label" %>
-        <div class="select">
-          <%= f.select :track_id, options_from_collection_for_select(@user.tracks, :id, :title) %>
-        </div>
-      </div>
-    </div>
-
-    <div class="buttons">
-      <%= f.submit "Add", class: "button is-primary montserrat-500" %>
-    </div>
-    <%= render partial: "layouts/error_messages", locals: { messages: [] } %>
-  <% end %>
-</section>
-<!-- end::form -->
 
 <section class="section">
   <div class="block">
@@ -55,3 +17,7 @@
     <% end %>
   <% end %>
 </section>
+<section class="section">
+  <%= render partial: "layouts/error_messages", locals: { messages: [] } %>
+</section>
+<%= render partial: "goal_modal", locals: { smart_goal: SmartGoal.new, user: @user } %>

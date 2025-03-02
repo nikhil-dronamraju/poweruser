@@ -10,6 +10,7 @@
     <div class="grid">
       <% @tracks.each do |track| %>
         <%= render partial: "track_modal", locals: { track: track } %>
+        <%= render partial: "goals_by_track_modal", locals: { track: track } %>
         <%= turbo_frame_tag "#{dom_id(track)}_card" do %>
           <div class="cell">
             <div class="card">
@@ -27,6 +28,7 @@
                 </p>
               </div>
               <footer class="card-footer">
+                <%= button_tag "View goals", class: "card-footer-item has-text-link", data: { controller: "modals", action: "modals#open_modal", modals_modal_id_value: "goals_#{dom_id(track)}" } %>
                 <%= button_tag "Edit", class: "card-footer-item has-text-link", type: "button", data: { controller: "modals", action: "modals#open_modal", modals_modal_id_value: dom_id(track) } %>
                 <%= link_to "Delete", track_path(id: track.id), data: { turbo_method: :delete }, class: "card-footer-item" %>
               </footer>

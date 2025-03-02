@@ -6,6 +6,7 @@ class SmartGoalsController < ApplicationController
   before_action :check_logged_in
 
   def index
+    session[:page_type] = "smart_goals"
     @user = User.find(session[:user_id])
     @goals = @user.smart_goals
     @smart_goal = SmartGoal.new
@@ -28,6 +29,7 @@ class SmartGoalsController < ApplicationController
   def update
     @smart_goal = SmartGoal.find(params[:id])
     @smart_goal.update(goal_params)
+    redirect_to smart_goals_path
   end
 
   def create
@@ -42,6 +44,11 @@ class SmartGoalsController < ApplicationController
     @smart_goals = @user.smart_goals
     @smart_goal = SmartGoal.find(params[:id])
     @smart_goal.destroy
+  end
+
+  def complete
+    @smart_goal = SmartGoal.find(params[:id])
+    @smart_goal.update(is_complete: true)
   end
 
   private

@@ -15,7 +15,7 @@
             <div class="cell">
               <div class="box <%= saga == @sagas.last ? 'has-background-light has-text-dark' : '' %>">
                 <div class="block is-flex is-flex-direction-column">
-                  <h3 class="barlow-condensed-semibold is-size-4"><%= saga.title %></h3>
+                  <h3 class="barlow-condensed-semibold is-size-4"><%= saga.title %> <%= saga == @sagas.last ? "(Current saga)" : "" %></h3>
                   <span>Start date: <span><%= saga.start_date.strftime("%m/%d/%Y") %></span></span>
                   <span>End date: <span><%= saga.end_date.strftime("%m/%d/%Y") %></span></span>
                 </div>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_02_28_223405) do
+ActiveRecord::Schema[7.2].define(version: 2025_03_02_034924) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -67,6 +67,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_02_28_223405) do
     t.bigint "saga_id", null: false
     t.integer "progress", default: 0
     t.bigint "track_id", null: false
+    t.boolean "is_completed", default: false
     t.index ["saga_id"], name: "index_smart_goals_on_saga_id"
     t.index ["track_id"], name: "index_smart_goals_on_track_id"
   end

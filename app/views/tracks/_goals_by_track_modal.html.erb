@@ -1,0 +1,37 @@
+<div data-controller="modals" id="goals_<%= dom_id(track) %>" class="modal">
+  <div data-action="click->modals#close_modal" class="modal-background"></div>
+  <div class="modal-content">
+    <div class="box animate__animated animate__fadeIn">
+      <h3 class="is-size-4 barlow-condensed-semibold">Goals:</h3>
+      <div>
+        <% if track.smart_goals.present? %>
+          <% track.smart_goals.each do |goal| %>
+            <div class="content">
+              <ul>
+                <li>
+                  <div class="grid my-1">
+                    <div class="cell">
+                      <span class="has-text-weight-bold"><%= goal.measurable_goal %></span>
+                    </div>
+                    <div class="cell is-flex is-align-items-center">
+                      <span class="has-text-weight-bold">Progress: </span>
+                      <progress class="progress is-danger ml-4" max=100 value=0></progress>
+                    </div>
+                  </div>
+                  <div class="is-flex is-flex-direction-column">
+                    <span class="">Start date: <span class="has-text-weight-bold"><%= format_date(goal.start_date) %></span></span>
+                    <span>End date: <span class="has-text-weight-bold"><%= format_date(goal.end_date) %></span></span>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          <% end %>
+        <% else %>
+          <span>No goals found for this track</span>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <button data-action="modals#close_modal" type=button class="modal-close is-large" aria-label="close"></button>
+</div>

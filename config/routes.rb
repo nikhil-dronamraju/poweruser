@@ -38,6 +38,8 @@ Rails.application.routes.draw do
     patch "complete", on: :member, as: :complete
   end
   resources :sagas, only: [ :index, :show, :edit, :update, :destroy ]
-  resources :smart_goals
+  resources :smart_goals do
+    patch "complete", on: :member, as: :complete
+  end
   resources :tracks
 end
