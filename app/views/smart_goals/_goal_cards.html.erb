@@ -23,7 +23,7 @@
                   </div>
                 </div>
                 <div class="buttons">
-                  <%= link_to "Complete", complete_smart_goal_path(goal.id), class: "button is-primary" %>
+                  <%= link_to "Complete", complete_smart_goal_path(goal.id), data: { turbo_method: :patch }, class: "button is-primary" %>
                   <%= button_tag "Edit", type: "button", data: { controller: "modals", action: "modals#open_modal", modals_modal_id_value: dom_id(goal) }, class: "button is-warning" %>
                   <%= link_to "Delete", smart_goal_path(goal.id), data: { turbo_method: :delete }, class: "button is-danger" %>
                 </div>

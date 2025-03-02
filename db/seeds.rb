@@ -29,7 +29,7 @@ csv.each do |row|
   puts "#{t.title} saved"
 end
 
-user = User.new(name: "Nikhil Dronamraju", password: "password", username: "thenik6")
+user = User.new(name: "Nikhil Dronamraju", password: "password", username: "thenik6", email: "nikhil.dronamraju.0917@gmail.com")
 user.tracks << Track.new(title: "Physical Health", icon: '<i class="fa-solid fa-dumbbell"></i>', start_date: Date.today, end_date: Date.today + 1.month)
 user.tracks << Track.new(title: "Social Life", icon: '<i class="fa-solid fa-person"></i>', start_date: Date.today, end_date: Date.today + 1.month)
 user.tracks << Track.new(title: "Mental Health", icon: '<i class="fa-solid fa-face-smile"></i>', start_date: Date.today, end_date: Date.today + 1.month)

@@ -6,6 +6,7 @@ class SagasController < ApplicationController
     @user = User.find(session[:user_id])
     @current_saga = @user.sagas.last
     @sagas = @user.sagas
+    session[:page_type] = "sagas"
   end
 
   def create

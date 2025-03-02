@@ -4,7 +4,7 @@ class AuthController < ApplicationController
   include AuthHelper
 
   def sign_up
-    session[:page_type] = "auth"
+    session[:page_type] = "sign_up"
     session[:user_id] = nil
     @user = User.new
     @user.sagas.build
@@ -22,7 +22,7 @@ class AuthController < ApplicationController
   end
 
   def log_in
-    session[:page_type] = "auth"
+    session[:page_type] = "log_in"
     session[:user_id] = nil
     @user = User.new
   end
@@ -47,7 +47,7 @@ class AuthController < ApplicationController
 
   def user_params
     params.require(:user).permit(
-      :username, :name, :password,
+      :username, :name, :password, :email,
       tracks_attributes: [ :icon, :title, :start_date, :end_date ],
       sagas_attributes: [ :title, :content, :start_date, :end_date ]
       )

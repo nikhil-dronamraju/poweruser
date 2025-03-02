@@ -4,6 +4,7 @@ class DailyTasksController < ApplicationController
   before_action :check_logged_in
 
   def index
+    session[:page_type] = "daily_tasks"
     @user = User.find(session[:user_id])
     @daily_tasks = @user.daily_tasks.where(is_completed: false)
   end

@@ -15,6 +15,12 @@
             <i class="fa fa-solid fa-plus ml-2"></i>
           </button>
         </div>
+      <% elsif session[:page_type] == "sagas" %>
+        <div class="navbar-item">
+          <a href="<%= new_saga_path %>" class="button is-primary">
+            New saga <i class="fa fa-solid fa-plus ml-2"></i>
+          </a>
+        </div>
       <% end %>
     </div>
   </div>

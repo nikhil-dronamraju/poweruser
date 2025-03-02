@@ -4,8 +4,8 @@
       <div class="column is-one-quarter"></div>
       <div class="column is-half">
         <%= form_with model: @user, url: :sign_user_up, class: "form", data: { controller: "onboarding" } do |form| %>
-          <div data-controller="onboarding">
-            <div data-onboarding-target="generic" id="generic_input_fields">
+          <div>
+            <div id="generic">
               <header class="my-4" id="onboarding_header">
                 <h2 class="is-size-1 title barlow-condensed-bold">Sign up:</h2>
                 <h3 class="is-size-4 has-text-warning barlow-condensed-semibold subtitle">First, let's get some basics out of the way.</h3>
@@ -20,14 +20,21 @@
               </div>
               <div class="field">
                 <%= form.label :password, class: "label" %>
-                <%= form.password_field :password, data: { "search-target": "password" }, class: "input" %>
+                <%= form.password_field :password, class: "input" %>
               </div>
               <div class="field">
-                <%= button_tag "Next", class: "button is-primary", type: "button", data: { action: "onboarding#flip_to_track" } %>
-                <%= link_to "Log in", root_path, class: "button is-warning" %>
+                <%= form.label :password_confirmation, class: "label" %>
+                <%= form.password_field :password_confirmation, class: "input" %>
+              </div>
+              <div class="field">
+                <%= form.label :email, class: "label" %>
+                <%= form.email_field :email, class: "input" %>
+              </div>
+              <div class="field">
+                <%= button_tag "Next", class: "button is-primary", type: "button", data: { controller: "onboarding", action: "onboarding#flip_to_page", onboarding_current_page_value: "generic", onboarding_next_page_value: "track" } %>
               </div>
             </div>
-            <div data-onboarding-target="track" id="track_input_fields" class="display-none">
+            <div id="track" class="display-none">
               <header class="my-4">
                 <h2 class="is-size-1 title barlow-condensed-bold">Add tracks</h2>
                 <h3 class="is-size-4 has-text-warning barlow-condensed-semibold subtitle">A track is a category of goals. Something like "Fitness", or "School" would be a good example!</h3>
@@ -54,10 +61,10 @@
                   <%= render partial: "icon_picker_modal", locals: { index: field.index } %>
               <% end %>
               <hr>
-              <%= button_tag "Back", type: "button", class: "button is-warning", data: { action: "onboarding#flip_to_generic" } %>
-              <%= button_tag "Next", type: "button", class: "button is-primary", data: { action: "onboarding#flip_to_saga" } %>
+              <%= button_tag "Back", type: "button", class: "button is-warning", data: { controller: "onboarding", action: "onboarding#flip_to_page", onboarding_current_page_value: "track", onboarding_next_page_value: "generic" } %>
+              <%= button_tag "Next", type: "button", class: "button is-primary", data: { controller: "onboarding", action: "onboarding#flip_to_page", onboarding_current_page_value: "track", onboarding_next_page_value: "saga" } %>
             </div>
-            <div id="saga_input_fields" data-onboarding-target="saga" class="display-none">
+            <div id="saga" class="display-none">
               <header class="my-4">
                 <h2 class="is-size-1 title barlow-condensed-bold">Add saga</h2>
                 <h3 class="is-size-4 has-text-warning barlow-condensed-semibold subtitle">Finally, a saga is the story behind why these are your goals. Make sure to take your time here!</h3>
@@ -88,7 +95,7 @@
                 </div>
 
                 <div class="field">
-                  <%= button_tag "Back", class: "button is-warning", type: "button", data: { action: "onboarding#flip_to_track" } %>
+                  <%= button_tag "Back", class: "button is-warning", type: "button", data: { controller: "onboarding", action: "onboarding#flip_to_page", onboarding_current_page_value: "saga", onboarding_next_page_value: "track" } %>
                   <%= form.submit "Save", class: "button is-primary montserrat-500" %>
                 </div>
               <% end %>

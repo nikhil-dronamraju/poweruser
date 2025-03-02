@@ -1,4 +1,4 @@
-<% if %w(dashboard tracks smart_goals).include?session[:page_type] %>
+<% if %w(dashboard tracks smart_goals sagas daily_tasks).include?session[:page_type] %>
   <header class="container is-fluid p-5">
     <nav class="navbar" role="navigation" aria-label="main navigation">
       <div class="navbar-brand">
@@ -36,8 +36,26 @@
     </nav>
   </header>
 <% else %>
-  <header class="p-4">
-    <h1 class="barlow-condensed-bold is-size-2 has-text-primary">Welcome to PowerUser</h1>
+  <header class="container is-fluid p-5">
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+      <div class="navbar-brand">
+        <div class="navbar-item">
+          <span class="title barlow-condensed-bold">Welcome to <span class="has-text-primary">PowerUser</span></span>
+        </div>
+      </div>
+
+      <div id="poweruser_navbar" class="navbar-menu">
+        <div class="navbar-end">
+          <div class="navbar-item">
+            <% if session[:page_type] == "sign_up" %>
+              <%= link_to "Log in", root_path, class: "button is-warning", data: { turbo_prefetch: false } %>
+            <% else %>
+              <%= link_to "Sign up", auth_sign_up_path, class: "button is-warning", data: { turbo_prefetch: false } %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </nav>
   </header>
 <% end %>
 <%= javascript_include_tag "pomodoro" %>

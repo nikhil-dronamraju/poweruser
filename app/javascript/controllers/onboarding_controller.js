@@ -2,7 +2,10 @@ import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
   static targets = ["generic", "track", "saga"];
-
+  static values = {
+      currentPage: String,
+      nextPage: String
+  }
   update_icon_input() {
       const buttonElement = this.element;
       const index = this.data.get("index");
@@ -13,31 +16,11 @@ export default class extends Controller {
       inputHiddenField.value = icon.outerHTML;
   }
 
-  flip_to_track(){
-      this.genericTarget.classList.add("display-none");
-      this.genericTarget.classList.remove("animate__animated", "animate__fadeIn");
-      this.trackTarget.classList.add("animate__animated", "animate__fadeIn");
-      this.trackTarget.classList.remove("display-none");
-      this.sagaTarget.classList.add("display-none");
-      this.sagaTarget.classList.remove("animate__animated", "animate__fadeIn");
-  }
-
-  flip_to_generic(){
-    this.genericTarget.classList.remove("display-none");
-    this.genericTarget.classList.add("animate__animated", "animate__fadeIn");
-    this.trackTarget.classList.add("display-none");
-    this.trackTarget.classList.remove("animate__animated", "animate__fadeIn");
-    this.sagaTarget.classList.add("display-none");
-    this.sagaTarget.classList.remove("animate__animated", "animate__fadeIn");
-  }
-
-  flip_to_saga() {
-      this.genericTarget.classList.add("display-none");
-      this.genericTarget.classList.remove("animate__animated", "animate__fadeIn");
-      this.trackTarget.classList.add("display-none");
-      this.trackTarget.classList.remove("animate__animated", "animate__fadeIn");
-      this.sagaTarget.classList.add("animate__animated", "animate__fadeIn");
-      this.sagaTarget.classList.remove("display-none");
+  flip_to_page(){
+    let currentPage = document.getElementById(this.currentPageValue);
+    let nextPage = document.getElementById(this.nextPageValue);
+    currentPage.classList.add("display-none");
+    nextPage.classList.remove("display-none");
   }
 
 }

@@ -8,7 +8,7 @@ class SmartGoalsController < ApplicationController
   def index
     session[:page_type] = "smart_goals"
     @user = User.find(session[:user_id])
-    @goals = @user.smart_goals
+    @goals = @user.smart_goals.where(is_completed: false)
     @smart_goal = SmartGoal.new
   end
 
@@ -48,7 +48,7 @@ class SmartGoalsController < ApplicationController
 
   def complete
     @smart_goal = SmartGoal.find(params[:id])
-    @smart_goal.update(is_complete: true)
+    @smart_goal.update(is_completed: true)
   end
 
   private
