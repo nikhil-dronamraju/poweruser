@@ -3,35 +3,75 @@
     <div class="columns">
       <div class="column is-one-quarter"></div>
       <div class="column is-half">
-        <%= form_with model: @user, url: :sign_user_up, class: "form", data: { controller: "onboarding" } do |form| %>
+        <%= form_with model: @user, url: :sign_user_up, class: "form" do |form| %>
           <div>
-            <div id="generic">
+            <div id="generic" data-controller="onboarding" data-onboarding-current-page-value="generic" data-onboarding-next-page-value="track">
               <header class="my-4" id="onboarding_header">
                 <h2 class="is-size-1 title barlow-condensed-bold">Sign up:</h2>
                 <h3 class="is-size-4 has-text-warning barlow-condensed-semibold subtitle">First, let's get some basics out of the way.</h3>
               </header>
               <div class="field">
                 <%= form.label :username, class: "label" %>
-                <%= form.text_field :username, id: "username_input", class: "input" %>
+                  <p class="control has-icons-left has-icons-right">
+                    <%= form.text_field :username, class: "input", data: { onboarding_target: "username" } %>
+                    <span class="icon is-small is-left">
+                      <i class="fa fa-solid fa-user"></i>
+                    </span>
+                    <span data-onboarding-target="usernameError" class="icon is-small is-right display-none has-text-danger">
+                      <i class="fas fa-exclamation-triangle"></i>
+                    </span>
+                  </p>
               </div>
               <div class="field">
                 <%= form.label :name, class: "label" %>
-                <%= form.text_field :name, class: "input" %>
+                <p class="control has-icons-left has-icons-right">
+                  <%= form.text_field :name, class: "input", data: { onboarding_target: "name" } %>
+                  <span class="icon is-small is-left">
+                    <i class="fa-solid fa-signature"></i>
+                  </span>
+                  <span data-onboarding-target="nameError" class="icon is-small is-right display-none has-text-danger">
+                    <i class="fas fa-exclamation-triangle"></i>
+                  </span>
+                </p>
               </div>
               <div class="field">
                 <%= form.label :password, class: "label" %>
-                <%= form.password_field :password, class: "input" %>
+                <p class="control has-icons-left has-icons-right">
+                  <%= form.password_field :password, class: "input", data: { onboarding_target: "password" } %>
+                  <span class="icon is-small is-left">
+                    <i class="fa-solid fa-lock"></i>
+                  </span>
+                  <span data-onboarding-target="passwordError" class="icon is-small is-right has-text-danger display-none">
+                    <i class="fas fa-exclamation-triangle"></i>
+                  </span>
+                </p>
               </div>
               <div class="field">
                 <%= form.label :password_confirmation, class: "label" %>
-                <%= form.password_field :password_confirmation, class: "input" %>
+                <p class="control has-icons-left has-icons-right">
+                  <%= form.password_field :password_confirmation, class: "input", data: { onboarding_target: "passwordConfirmation" } %>
+                  <span class="icon is-small is-left">
+                    <i class="fa-solid fa-lock"></i>
+                  </span>
+                  <span data-onboarding-target="passwordConfirmationError" class="icon is-small is-right has-text-danger display-none">
+                    <i class="fas fa-exclamation-triangle"></i>
+                  </span>
+                </p>
               </div>
               <div class="field">
                 <%= form.label :email, class: "label" %>
-                <%= form.email_field :email, class: "input" %>
+                <p class="control has-icons-left has-icons-right">
+                  <%= form.email_field :email, class: "input", data: { onboarding_target: "email" } %>
+                  <span class="icon is-small is-left">
+                    <i class="fa-solid fa-envelope"></i>
+                  </span>
+                  <span data-onboarding-target="emailError" class="icon is-right is-small display-none has-text-danger">
+                    <i class="fas fa-exclamation-triangle"></i>
+                  </span>
+                </p>
               </div>
               <div class="field">
-                <%= button_tag "Next", class: "button is-primary", type: "button", data: { controller: "onboarding", action: "onboarding#flip_to_page", onboarding_current_page_value: "generic", onboarding_next_page_value: "track" } %>
+                <%= button_tag "Next", class: "button is-primary", type: "button", data: { action: "onboarding#flip_to_page" } %>
               </div>
             </div>
             <div id="track" class="display-none">
@@ -61,8 +101,8 @@
                   <%= render partial: "icon_picker_modal", locals: { index: field.index } %>
               <% end %>
               <hr>
-              <%= button_tag "Back", type: "button", class: "button is-warning", data: { controller: "onboarding", action: "onboarding#flip_to_page", onboarding_current_page_value: "track", onboarding_next_page_value: "generic" } %>
-              <%= button_tag "Next", type: "button", class: "button is-primary", data: { controller: "onboarding", action: "onboarding#flip_to_page", onboarding_current_page_value: "track", onboarding_next_page_value: "saga" } %>
+              <%= button_tag "Back", type: "button", class: "button is-warning", data: { action: "onboarding#flip_to_page" } %>
+              <%= button_tag "Next", type: "button", class: "button is-primary", data: { action: "onboarding#flip_to_page" } %>
             </div>
             <div id="saga" class="display-none">
               <header class="my-4">
