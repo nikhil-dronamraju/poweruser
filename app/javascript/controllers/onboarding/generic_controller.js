@@ -18,35 +18,42 @@ export default class extends Controller {
 
   flip_to_page(){
     let inputsAndErrIcons = new Map();
+    console.log(this.usernameTarget);
     inputsAndErrIcons.set(this.usernameTarget, this.usernameErrorTarget);
     inputsAndErrIcons.set(this.nameTarget, this.nameErrorTarget );
     inputsAndErrIcons.set(this.emailTarget, this.emailErrorTarget);
     inputsAndErrIcons.set(this.passwordTarget, this.passwordErrorTarget);
     inputsAndErrIcons.set(this.passwordConfirmationTarget, this.passwordConfirmationErrorTarget);
     let checkBlankValidations = this.validateBlanks(inputsAndErrIcons);
-    let checkPasswordMatches = this.checkPasswordMatches();
-    let checkIsEmail = this.checkEmailValid();
+    let checkPasswordMatches = false;
+    let checkIsEmail = false;
+    if (checkBlankValidations) {
+      checkPasswordMatches = this.checkPasswordMatches();
+    }
+    if (checkPasswordMatches) {
+      checkIsEmail = this.checkEmailValid();
+    }
     if (checkBlankValidations && checkPasswordMatches && checkIsEmail) {
-        // Flip to the next page?
         if (this.currentPageValue === "generic"){
             this.element.classList.add("display-none");
-
+            let nextPage = document.getElementById(this.nextPageValue);
+            nextPage.classList.remove("display-none");
         }
     }
   }
 
   validateBlanks(fieldMap) {
-      fieldMap.keys().forEach((k) => {
-          let isBlank = this.checkIsBlank(k, fieldMap.get(k));
+      for (const [key, value] of fieldMap.entries()) {
+          let isBlank = this.checkIsBlank(key, value);
           if (isBlank) {
               return false;
           }
-      });
+      }
       return true;
   }
 
   checkIsBlank(field, fieldErrIcon) {
-      let targetName = field.dataset.onboardingTarget;
+      let targetName = field.dataset["onboarding-GenericTarget"];
       let capitalizedTargetName = String(targetName[0]).toUpperCase() + String(targetName).slice(1);
       if (capitalizedTargetName === "PasswordConfirmation") {
           capitalizedTargetName = "Password confirmation"
@@ -63,13 +70,34 @@ export default class extends Controller {
   }
 
   checkPasswordMatches() {
-      return this.passwordTarget.value === this.passwordConfirmationTarget.value;
+      if ( this.passwordTarget.value !== this.passwordConfirmationTarget.value ) {
+          this.passwordTarget.value = "";
+          this.passwordTarget.placeholder = "Passwords must match.";
+          this.passwordErrorTarget.classList.remove("display-none");
+          this.passwordConfirmationTarget.placeholder = "Passwords must match.";
+          this.passwordConfirmationTarget.value = "";
+          this.passwordConfirmationErrorTarget.classList.remove("display-none");
+          return false;
+      } else {
+          this.passwordErrorTarget.classList.add("display-none");
+          this.passwordConfirmationErrorTarget.classList.add("display-none");
+          return true;
+      }
   }
 
   checkEmailValid() {
-      const isEmail = /^.+@.+$/;
-      const regex = new RegExp(isEmail);
-      return regex.test(this.emailTarget.value);
+      const isEmailRegex = /^.+@.+$/;
+      const regex = new RegExp(isEmailRegex);
+      const isEmail = regex.test(this.emailTarget.value);
+      if (isEmail) {
+          this.emailErrorTarget.classList.add("display-none");
+          return true;
+      } else {
+          this.emailTarget.value = "";
+          this.emailTarget.placeholder = "Invalid email.";
+          this.emailErrorTarget.classList.remove("display-none");
+          return false;
+      }
   }
 
 

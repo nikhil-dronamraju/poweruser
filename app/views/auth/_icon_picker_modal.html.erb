@@ -6,7 +6,7 @@
         <h2 class="barlow-condensed-semibold is-size-4">Add icon:</h2>
         <div>
           <% fa_icon_samples.each do |icon_class| %>
-              <button type="button" data-controller="onboarding" data-action="onboarding#update_icon_input" data-onboarding-index="<%= index %>" class="button m-2" style="width: 30px !important;">
+              <button type="button" data-controller="generic" data-action="generic#update_icon_input" data-onboarding-index="<%= index %>" class="button m-2" style="width: 30px !important;">
                 <i class="<%= icon_class %>"></i>
               </button>
           <% end %>
