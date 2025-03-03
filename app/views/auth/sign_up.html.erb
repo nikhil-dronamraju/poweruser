@@ -5,7 +5,7 @@
       <div class="column is-half">
         <%= form_with model: @user, url: :sign_user_up, class: "form" do |form| %>
           <div>
-            <div id="generic" data-controller="onboarding--generic" data-onboarding--generic-current-page-value="generic" data-onboarding--generic-next-page-value="track">
+            <div id="generic" class="display-none" data-controller="onboarding--generic" data-onboarding--generic-current-page-value="generic" data-onboarding--generic-next-page-value="track">
               <header class="my-4" id="onboarding_header">
                 <h2 class="is-size-1 title barlow-condensed-bold">Sign up:</h2>
                 <h3 class="is-size-4 has-text-warning barlow-condensed-semibold subtitle">First, let's get some basics out of the way.</h3>
@@ -74,17 +74,32 @@
                 <%= button_tag "Next", class: "button is-primary", type: "button", data: { action: "onboarding--generic#flip_to_page" } %>
               </div>
             </div>
-            <div id="track" class="display-none">
+            <div id="track"
+                 data-controller="onboarding--track"
+                 data-onboarding--track-current-page-value="track"
+                 data-onboarding--track-previous-page-value="generic"
+                 data-onboarding--track-next-page-value="saga"
+            >
               <header class="my-4">
                 <h2 class="is-size-1 title barlow-condensed-bold">Add tracks</h2>
                 <h3 class="is-size-4 has-text-warning barlow-condensed-semibold subtitle">A track is a category of goals. Something like "Fitness", or "School" would be a good example!</h3>
               </header>
               <%= form.fields_for :tracks, @tracks do |field| %>
-                <%= field.hidden_field :icon, value: "" %>
+                <%= render partial: "icon_picker_modal", locals: { index: field.index } %>
+                <%= field.hidden_field :icon, value: "", data: { onboarding__target: "iconHiddenField" } %>
                   <div class="columns">
                     <div class="column">
                       <div class="is-flex">
-                        <%= field.text_field :title, class: "input", placeholder: "Enter track title (or leave blank to skip)" %>
+                        <p class="control has-icons-left has-icons-right">
+                          <span id="modal_opener_<%= field.index %>" data-controller="modals" data-action="click->modals#open_modal" data-modals-modal-id-value="icon_picker_modal_<%= field.index %>" class="icon is-small is-clickable is-left has-background-primary has-text-dark" style="border-top-left-radius: .375rem; border-bottom-left-radius: .375rem;">
+                            <i class="fa fa-solid fa-fire"></i>
+                          </span>
+                          <%= field.text_field :title, class: "input ml-2", placeholder: "Enter track title (or leave blank to skip)" %>
+                          <span class="icon is-small is-left has-background-primary has-text-danger display-none">
+                            <i class="fa fa-solid fa-fire"></i>
+                          </span>
+                        </p>
+
                       </div>
                     </div>
                     <div class="column">
@@ -93,12 +108,7 @@
                         <%= field.date_field :start_date, class: "input ml-2", value: Date.today + 1.month %>
                       </div>
                     </div>
-
-                    <div class="column">
-                      <%= button_tag "Add an icon", type: "button", class: "button is-warning", id: "open_icon_modal_#{field.index}" , onclick: "openModal(document.getElementById('icon_picker_modal_#{field.index}'));" %>
-                    </div>
                   </div>
-                  <%= render partial: "icon_picker_modal", locals: { index: field.index } %>
               <% end %>
               <hr>
               <%= button_tag "Back", type: "button", class: "button is-warning", data: { action: "onboarding--generic#flip_to_page" } %>
