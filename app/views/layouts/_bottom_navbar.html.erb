@@ -33,12 +33,9 @@
                 <i class="fa fa-solid fa-close"></i>
               </button>
             </div>
-            <button data-action="daily-tasks--sidebar#create_draft_task" type=button id="add_draft_task" class="button button is-primary">
-              Add draft task
-              <span class="icon has-text-dark ml-2">
-                <i class="fa fa-solid fa-plus"></i>
-              </span>
-            </button>
+            <%= form_with url: :create_draft_task_daily_tasks do |f| %>
+              <%= f.submit "Add draft task", class: "button is-primary montserrat-500" %>
+            <% end %>
             <%= turbo_frame_tag "draft_tasks" do %>
               
             <% end %>

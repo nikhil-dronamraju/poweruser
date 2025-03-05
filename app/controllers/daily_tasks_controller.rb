@@ -53,7 +53,7 @@ class DailyTasksController < ApplicationController
   end
 
   def create_draft_task
-
+    @user = User.find(session[:user_id])
   end
 
   private

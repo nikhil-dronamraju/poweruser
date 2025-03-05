@@ -15,8 +15,4 @@ export default class extends Controller {
         document.getElementById("mySidebar").style.width = "0";
         document.getElementById("main").style.marginLeft = "0";
     }
-
-    create_draft_task() {
-        let createDraftTaskPath = `${window.location.href} + "/create_draft_task"`
-    }
 }
