@@ -21,6 +21,29 @@
             New saga <i class="fa fa-solid fa-plus ml-2"></i>
           </a>
         </div>
+      <% elsif session[:page_type] == "daily_tasks" %>
+        <div data-controller="daily-tasks--sidebar">
+          <div id="main">
+            <button data-action="daily-tasks--sidebar#open_nav" class="button is-primary" type="button">View draft tasks</button>
+          </div>
+          <div id="mySidebar" class="sidebar has-background-light">
+            <div class="is-flex is-justify-content-space-between is-align-items-center" style="width: 95%;">
+              <h2 class="barlow-condensed-semibold is-size-4">Draft tasks:</h2>
+              <button class="block" data-action="daily-tasks--sidebar#close_nav">
+                <i class="fa fa-solid fa-close"></i>
+              </button>
+            </div>
+            <button data-action="daily-tasks--sidebar#create_draft_task" type=button id="add_draft_task" class="button button is-primary">
+              Add draft task
+              <span class="icon has-text-dark ml-2">
+                <i class="fa fa-solid fa-plus"></i>
+              </span>
+            </button>
+            <%= turbo_frame_tag "draft_tasks" do %>
+              
+            <% end %>
+          </div>
+        </div>
       <% end %>
     </div>
   </div>

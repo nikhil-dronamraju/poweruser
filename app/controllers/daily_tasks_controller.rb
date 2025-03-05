@@ -52,6 +52,10 @@ class DailyTasksController < ApplicationController
     @daily_tasks = user.daily_tasks.where(is_completed: false, priority: DailyTask.priorities[@priority.to_sym])
   end
 
+  def create_draft_task
+
+  end
+
   private
 
   def daily_task_params
