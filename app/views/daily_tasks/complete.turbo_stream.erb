@@ -1,6 +1,0 @@
-<%= turbo_stream.remove @daily_task %>
-<% unless @daily_tasks.count > 0 %>
-  <%= turbo_stream.update @priority do %>
-    <%= render partial: "no_tasks" %>
-  <% end %>
-<% end %>

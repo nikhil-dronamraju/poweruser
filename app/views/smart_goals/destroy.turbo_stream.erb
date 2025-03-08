@@ -1,6 +1,0 @@
-<%= turbo_stream.remove(dom_id(@smart_goal)) %>
-<% if @smart_goals.count == 0 %>
-  <%= turbo_stream.update("goals") do %>
-    <%= render partial: "no_goals_banner" %>
-  <% end %>
-<% end %>
