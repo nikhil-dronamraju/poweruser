@@ -15,10 +15,9 @@ class AuthController < ApplicationController
     user = User.new(user_params)
     user.save!
     session[:user_id] = user.id
-    redirect_to dashboard_home_path
-  rescue StandardError => e
-    errors = format_errors(user.errors)
-    render turbo_stream: turbo_stream.replace("err_messages", partial: "layouts/error_messages", locals: { messages: errors })
+    render json: { success: true}
+  rescue
+    render json: { success: false }
   end
 
   def log_in
@@ -33,12 +32,10 @@ class AuthController < ApplicationController
     password = user_params[:password]
     @errors << "User not found." if user.nil?
     @errors << "Password not correct." unless user&.authenticate(password)
-    if user&.authenticate(password)
-      session[:user_id] = user.id
-      redirect_to dashboard_home_path
-    end
+    render json: { success: true}
   rescue StandardError => e
-    @errors = [ e.message ]
+    pp e.message
+    render json: { success: false }
   end
 
 

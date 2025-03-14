@@ -5,13 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="eff12a6d-05c8-4ab3-aa9d-8bb3771279a2" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/app/login/page.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/LoginForm.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../server/app/views/auth/sign_user_up.html.erb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/next.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/next.config.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/globals.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/globals.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/layout.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/page.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../server/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../server/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/Gemfile" beforeDir="false" afterPath="$PROJECT_DIR$/../server/Gemfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/Gemfile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../server/Gemfile.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/app/controllers/auth_controller.rb" beforeDir="false" afterPath="$PROJECT_DIR$/../server/app/controllers/auth_controller.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/config/initializers/cors.rb" beforeDir="false" afterPath="$PROJECT_DIR$/../server/config/initializers/cors.rb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,20 +36,20 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;new__env&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/nikhildronamraju/poweruser/client&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;/Users/nikhildronamraju/poweruser/client/node_modules/typescript/lib&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "with-tanstack-query",
+    "last_opened_file_path": "/Users/nikhildronamraju/poweruser/client",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "ts.external.directory.path": "/Users/nikhildronamraju/poweruser/client/node_modules/typescript/lib",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -61,7 +68,7 @@
       <workItem from="1741471643997" duration="3708000" />
       <workItem from="1741659222145" duration="19000" />
       <workItem from="1741668083145" duration="1476000" />
-      <workItem from="1741899374866" duration="2740000" />
+      <workItem from="1741899374866" duration="13288000" />
     </task>
     <servers />
   </component>
