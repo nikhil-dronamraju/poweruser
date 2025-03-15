@@ -1,0 +1,44 @@
+<%= turbo_page_requires_reload %>
+<section class="hero is-small">
+  <div class="hero-body">
+    <h1 class="barlow-condensed-bold is-size-2">Here are your current <span class="has-text-danger">tracks</span>, <span class="has-text-primary"><%= @user.first_name %></span>:</h1>
+  </div>
+</section>
+
+<section class="section">
+  <div class="fixed-grid has-3-cols">
+    <div class="grid">
+      <% @tracks.each do |track| %>
+        <%= render partial: "track_modal", locals: { track: track } %>
+        <%= render partial: "goals_by_track_modal", locals: { track: track } %>
+        <%= turbo_frame_tag "#{dom_id(track)}_card" do %>
+          <div class="cell">
+            <div class="card">
+              <header class="card-header">
+                <p class="card-header-title is-size-4 barlow-condensed-semibold"><%= track.title %></p>
+                <span class="card-header-icon">
+                  <span class="icon"><%= track.icon.html_safe %></span>
+                </span>
+              </header>
+              <div class="card-content">
+                <p>
+                  <span>Start: <time><%= format_date(track.start_date) %></time></span>
+                  <br>
+                  <span>End: <time><%= format_date(track.end_date) %></time></span>
+                </p>
+              </div>
+              <footer class="card-footer">
+                <%= button_tag "View goals", class: "card-footer-item has-text-link", data: { controller: "modals", action: "modals#open_modal", modals_modal_id_value: "goals_#{dom_id(track)}" } %>
+                <%= button_tag "Edit", class: "card-footer-item has-text-link", type: "button", data: { controller: "modals", action: "modals#open_modal", modals_modal_id_value: dom_id(track) } %>
+                <%= link_to "Delete", track_path(id: track.id), data: { turbo_method: :delete }, class: "card-footer-item" %>
+              </footer>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+
+  <%= render partial: "track_modal", locals: { track: Track.new } %>
+
+</section>

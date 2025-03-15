@@ -1,0 +1,11 @@
+<section class="hero is-small">
+  <div class="hero is-small">
+    <div class="hero-body">
+      <h1 class="barlow-condensed-bold is-size-2">Editing goal: <span class="has-text-primary"><%= @smart_goal.measurable_goal %></span></h1>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <%= render partial: "smart_goal_form", locals: { smart_goal: @smart_goal, tracks: @tracks, sagas: @sagas } %>
+</section>

@@ -1,0 +1,27 @@
+<nav class="navbar is-fixed-bottom" role="navigation" aria-label="main navigation">
+  <div class="navbar-menu">
+    <div class="navbar-end">
+      <% if session[:page_type] == "tracks" %>
+        <div class="navbar-item">
+          <button type="button" data-controller="modals" data-action="modals#open_modal" data-modals-modal-id-value="<%= dom_id(Track.new) %>" class="button is-primary">
+            New track
+            <i class="fa fa-solid fa-plus ml-2"></i>
+          </button>
+        </div>
+      <% elsif session[:page_type] == "smart_goals" %>
+        <div class="navbar-item">
+          <button type="button" data-controller="modals" data-action="modals#open_modal" data-modals-modal-id-value="<%= dom_id(SmartGoal.new) %>" class="button is-primary">
+            New goal
+            <i class="fa fa-solid fa-plus ml-2"></i>
+          </button>
+        </div>
+      <% elsif session[:page_type] == "sagas" %>
+        <div class="navbar-item">
+          <a href="<%= new_saga_path %>" class="button is-primary">
+            New saga <i class="fa fa-solid fa-plus ml-2"></i>
+          </a>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</nav>

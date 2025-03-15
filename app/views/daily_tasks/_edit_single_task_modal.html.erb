@@ -1,0 +1,36 @@
+<div id="<%= dom_id(daily_task) %>_modal" class="modal">
+  <div class="modal-background"></div>
+  <div class="modal-content">
+    <div class="box animate__animated animate__fadeIn">
+      <div class="is-flex is-flex-direction-column">
+        <h2 class="barlow-condensed-semibold is-size-4">Edit <%= daily_task.title  %></h2>
+        <div>
+          <%= form_with model: daily_task, data: { turbo_method: :patch }, class: "form" do |form| %>
+            <div class="field">
+              <%= form.label :title %>
+              <%= form.text_field :title, class: "input" %>
+            </div>
+
+            <div class="field">
+              <div class="select">
+                <%= form.select :priority, options_for_select(humanize_priorities) %>
+              </div>
+            </div>
+
+            <div class="field">
+              <div class="select">
+                <%= form.select :smart_goal_id, options_from_collection_for_select(user.smart_goals, :id, :measurable_goal) %>
+              </div>
+            </div>
+
+            <%= form.submit "Update", class: "button is-primary" %>
+          <% end %>
+        </div>
+      </div>
+
+      <!-- Your content -->
+    </div>
+  </div>
+
+  <button class="modal-close is-large" aria-label="close"></button>
+</div>

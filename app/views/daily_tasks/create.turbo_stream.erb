@@ -1,0 +1,13 @@
+<% if @errors.present? %>
+  <%= turbo_stream.replace("err_messages") do %>
+    <%= render partial: "layouts/error_messages", locals: { messages: @errors } %>
+  <% end %>
+<% else %>
+  <%= turbo_stream.replace("err_messages") do %>
+    <%= render partial: "layouts/error_messages", locals: { messages: [] } %>
+  <% end %>
+  <%= turbo_stream.update @priority do %>
+    <%= render partial: 'daily_tasks/task_list', locals: { tasks: @daily_tasks, user: @user } %>
+  <% end %>
+  <%= turbo_stream.remove DailyTask.new %>
+<% end %>

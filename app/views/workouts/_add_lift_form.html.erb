@@ -1,0 +1,35 @@
+<%= turbo_frame_tag @frame_id, class: "my-4" do %>
+  <%= fields_for "workout[gym_lifts_attributes][]", GymLift.new, index: SecureRandom.random_number(100) do |ff| %>
+    <%= hidden_field_tag "frame_id_#{@frame_id}", @frame_id %>
+    <div class="block">
+      <div class="columns">
+        <div class="column is-one-fifth">
+          <%= ff.label "Lift:", class: "label"  %>
+          <div class="select">
+            <%= ff.select :exercise_id, options_from_collection_for_select(@all_exercises, :id, :title) %>
+          </div>
+        </div>
+
+        <div class="column is-one-fifth">
+          <%= ff.label "Reps:", class: "label" %>
+          <%= ff.number_field :reps, class: "input" %>
+        </div>
+
+        <div class="column is-one-fifth">
+          <%= ff.label "Sets:", class: "label" %>
+          <%= ff.number_field :sets, class: "input" %>
+        </div>
+
+
+
+        <div class="column is-one-fifth">
+          <%= ff.label "Weight:", class: "label" %>
+          <%= ff.number_field :weight, class: "input" %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+  <div class="block">
+    <%= link_to "Delete", delete_lift_form_workouts_path(frame_id: @frame_id), data: { "turbo-method": :delete }, class: "button is-danger" %>
+  </div>
+<% end %>

@@ -1,0 +1,7 @@
+<%= turbo_frame_tag "new_goal_frame" do %>
+  <section class="section">
+    <%= render partial: "smart_goal_form", locals: { smart_goal: @smart_goal, tracks: @tracks, sagas: @sagas } %>
+  </section>
+<% end %>
+
+<%= render partial: "layouts/error_messages", locals: { messages: [] } %>

@@ -1,0 +1,17 @@
+<% DailyTask.priorities.keys.each do |priority| %>
+  <div class="cell box bulma-huge-box">
+      <div class="block is-flex">
+        <h2 class="barlow-condensed-semibold is-size-3"><%= priority.to_s.humanize %></h2>
+        <%= link_to add_task_to_box_daily_tasks_path(priority: priority), data: { "turbo_method": "post" }, class: "button is-primary ml-auto" do %>
+            <i class="fa-solid fa-plus"></i>
+        <% end %>
+      </div>
+      <%= turbo_frame_tag priority do %>
+        <% if tasks.present? %>
+            <%= render partial: "task_list", locals: { tasks: DailyTask.where(priority: priority), user: user } %>
+          <% else %>
+            <%= render partial: "no_tasks" %>
+          <% end %>
+      <% end %>
+  </div>
+<% end %>

@@ -1,0 +1,98 @@
+<%= turbo_page_requires_reload %>
+<section class="hero is-small">
+  <div class="hero-body">
+    <h1 class="is-size-2 barlow-condensed-bold">Welcome, <span class="has-text-primary"><%= @user.first_name %>!</span></h1>
+    <span class="subtitle">This is your personal page. From here, you can monitor <span class="has-text-primary has-text-weight-bold">sagas</span>, <span class="has-text-danger has-text-weight-bold">goals</span>, and <span class="has-text-warning has-text-weight-bold">tasks.</span></span>
+  </div>
+</section>
+
+<% if @saga.present? %>
+  <div class="section">
+    <div class="grid">
+      <div class="cell">
+        <div class="box bulma-custom-box">
+          <div class="is-flex is-flex-direction-column h-100">
+            <h2 class="is-size-4 barlow-condensed-semibold">Current saga: <span class="has-text-danger"><%= @saga.title %></span></h2>
+            <div class="block">
+              <span class="is-size-6">Progress:</span>
+              <progress class="progress is-danger" value="<%= @saga.progress %>" max="<%= @saga.len %>"></progress>
+            </div>
+            <div class="is-flex is-flex-direction-column block">
+              <span>Start date: <span class="has-text-weight-bold"><%= format_date(@saga.start_date) %></span></span>
+              <span>End date: <span class="has-text-weight-bold"><%= format_date(@saga.end_date) %></span></span>
+              <span>Remaining days: <span class="has-text-weight-bold"><%= days_remaining(@saga.start_date, @saga.end_date) %></span></span>
+            </div>
+            <div class="buttons mt-auto">
+              <%= link_to "View", saga_path(@saga.id), class: "button is-primary" %>
+              <%= link_to "Edit", edit_saga_path(@saga.id), class: "button is-warning" %>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cell">
+        <div class="box bulma-custom-box">
+          <div class="is-flex is-flex-direction-column h-100">
+              <% if @tracks.present? %>
+                <div class="block">
+                  <h2 class="is-size-4 barlow-condensed-semibold">Goals:</h2>
+                </div>
+              <ul>
+                <% @tracks.each do |track| %>
+                  <li class="is-flex is-flex-direction-column block">
+                    <span class="is-size-5 barlow-condensed-semibold"><%= track.title %></span>
+                    <% if @smart_goals.where(track: track).count > 0 %>
+                      <% @smart_goals.where(track: track).each do |goal| %>
+                        <div class="block">
+                          <div class="is-flex is-flex-direction-column">
+                            <div class="content">
+                              <ul>
+                                <li>
+                                  <div class="grid my-1">
+                                    <div class="cell">
+                                      <span class="has-text-weight-bold"><%= goal.measurable_goal %></span>
+                                    </div>
+                                    <div class="cell is-flex is-align-items-center">
+                                      <span class="has-text-weight-bold">Progress: </span>
+                                      <progress class="progress is-danger ml-4" max=100 value=0></progress>
+                                    </div>
+                                  </div>
+                                  <div class="is-flex is-flex-direction-column">
+                                    <span class="">Start date: <span class="has-text-weight-bold"><%= format_date(goal.start_date) %></span></span>
+                                    <span>End date: <span class="has-text-weight-bold"><%= format_date(goal.end_date) %></span></span>
+                                  </div>
+                                </li>
+                              </ul>
+                            </div>
+                          </div>
+                        </div>
+                      <% end %>
+                    <% else %>
+                      <span class="is-size-6">No goals for this track.</span>
+                    <% end %>
+                  </li>
+                <% end %>
+              </ul>
+              <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <section class="section">
+    <div class="block">
+      <h3 class="barlow-condensed-semibold is-size-3">Daily tasks:</h3>
+    </div>
+    <% if @user.daily_tasks.present? %>
+      <div>
+        <div class="block">
+          <p class="is-size-4">You have <span class="has-text-weight-bold"><%= @daily_tasks.count %></span> <span class="has-text-weight-bold has-text-warning">tasks</span> due today.</p>
+        </div>
+        <%= link_to "View", daily_tasks_path, class: "button is-primary" %>
+      </div>
+    <% else %>
+      <%= render partial: "daily_tasks/no_tasks"  %>
+    <% end %>
+
+  </section>
+<% end %>

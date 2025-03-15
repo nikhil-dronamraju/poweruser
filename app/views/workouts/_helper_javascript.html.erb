@@ -1,0 +1,72 @@
+<script type="text/javascript">
+    let isRequestInProgress = false;
+
+    // Before sending the request, disable the button
+    document.addEventListener('turbo:before-fetch-request', function(event) {
+        const button = event.target.querySelector('button');
+        if (button && !isRequestInProgress) {
+            button.disabled = true;
+            isRequestInProgress = true; // Lock it while the request is in progress
+        }
+    });
+
+    // After the frame updates (append), re-enable the button
+    document.addEventListener('turbo:frame-load', function(event) {
+        const button = event.target.querySelector('button');
+        if (button) {
+            button.disabled = false;
+        }
+        isRequestInProgress = false; // Unlock it when the request completes
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+        // Functions to open and close a modal
+        function openModal($el) {
+            $el.classList.add('is-active');
+        }
+
+        function closeModal($el) {
+            $el.classList.remove('is-active');
+        }
+
+        function closeAllModals() {
+            (document.querySelectorAll('.modal') || []).forEach(($modal) => {
+                closeModal($modal);
+            });
+        }
+
+        // Add a click event on buttons to open a specific modal
+        (document.querySelectorAll('.js-modal-trigger') || []).forEach(($trigger) => {
+            const modal = $trigger.dataset.target;
+            const $target = document.getElementById(modal);
+
+            $trigger.addEventListener('click', () => {
+                openModal($target);
+            });
+        });
+
+        // Add a click event on various child elements to close the parent modal
+        (document.querySelectorAll('.modal-background, .modal-close, .modal-card-head .delete, .modal-card-foot .button') || []).forEach(($close) => {
+            const $target = $close.closest('.modal');
+
+            $close.addEventListener('click', () => {
+                closeModal($target);
+            });
+        });
+
+        // Add a keyboard event to close all modals
+        document.addEventListener('keydown', (event) => {
+            if(event.key === "Escape") {
+                closeAllModals();
+            }
+        });
+    });
+    function openModal(modalId) {
+        let element = document.getElementById(modalId);
+        element.classList.add("is-active");
+    }
+    function addLift(e) {
+        e.preventDefault();
+        openModal("add-lift-modal");
+    }
+</script>

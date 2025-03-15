@@ -1,0 +1,15 @@
+<%= turbo_page_requires_reload %>
+<section class="hero is-small">
+  <div class="hero-body">
+    <h1 class="barlow-condensed-bold is-size-2">Hey, <span class="has-text-primary"><%= @user.first_name %></span>!</h1>
+    <span class="subtitle">Here's your <span class="has-text-warning">tasks</span> for today:</span>
+  </div>
+  <div class="section">
+    <div class="fixed-grid">
+      <div class="grid">
+        <!-- Turning this into a partial -->
+        <%= render partial: "task_boxes", locals: { tasks: @daily_tasks, user: @user } %>
+      </div>
+    </div>
+  </div>
+</section>

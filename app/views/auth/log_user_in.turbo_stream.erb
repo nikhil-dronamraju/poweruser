@@ -1,0 +1,5 @@
+<% if @errors.length > 0 %>
+  <%= turbo_stream.replace("err_messages") do %>
+    <%= render partial: "layouts/error_messages", locals: { messages: @errors } %>
+  <% end %>
+<% end %>
