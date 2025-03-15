@@ -5,12 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="eff12a6d-05c8-4ab3-aa9d-8bb3771279a2" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/app/dashboard/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/login/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/sign_up/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/LoginForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/LoginForm.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../server/app/controllers/auth_controller.rb" beforeDir="false" afterPath="$PROJECT_DIR$/../server/app/controllers/auth_controller.rb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../server/app/models/user.rb" beforeDir="false" afterPath="$PROJECT_DIR$/../server/app/models/user.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,7 +27,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "with-tanstack-query",
+    "git-widget-placeholder": "feature/next-auth",
     "last_opened_file_path": "/Users/nikhildronamraju/poweruser/client",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -60,7 +56,7 @@
       <workItem from="1741471643997" duration="3708000" />
       <workItem from="1741659222145" duration="19000" />
       <workItem from="1741668083145" duration="1476000" />
-      <workItem from="1741899374866" duration="17142000" />
+      <workItem from="1741899374866" duration="18020000" />
     </task>
     <servers />
   </component>
