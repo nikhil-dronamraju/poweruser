@@ -14,9 +14,9 @@ class AuthController < ApplicationController
   def sign_user_up
     user = User.new(user_params)
     user.save!
-    session[:user_id] = user.id
-    render json: { success: true}
-  rescue
+    render json: { success: true }
+  rescue StandardError => e
+    pp e.message
     render json: { success: false }
   end
 
@@ -32,7 +32,7 @@ class AuthController < ApplicationController
     password = user_params[:password]
     @errors << "User not found." if user.nil?
     @errors << "Password not correct." unless user&.authenticate(password)
-    render json: { success: true}
+    render json: { success: true }
   rescue StandardError => e
     pp e.message
     render json: { success: false }
@@ -44,7 +44,7 @@ class AuthController < ApplicationController
 
   def user_params
     params.require(:user).permit(
-      :username, :name, :password, :email,
+      :username, :first_name, :password, :email,
       tracks_attributes: [ :icon, :title, :start_date, :end_date ],
       sagas_attributes: [ :title, :content, :start_date, :end_date ]
       )
