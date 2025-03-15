@@ -5,7 +5,7 @@ import {z} from "zod";
 import {useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
 import axios from "axios";
-import { usePathname } from "next/navigation";
+import {usePathname, useRouter} from "next/navigation";
 
 
 const formSchema = z.object({
@@ -25,6 +25,7 @@ const formSchema = z.object({
 
 export default function LoginForm() {
     const pathName = usePathname()
+    const router = useRouter()
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -37,8 +38,8 @@ export default function LoginForm() {
     });
 
     function onSubmit(values: z.infer<typeof formSchema>) {
-        console.log(pathName)
-        axios.post(`${process.env.NEXT_PUBLIC_RAILS_URL}/auth/sign_user_up`, {
+        const postUrl = pathName === '/' ? `${process.env.NEXT_PUBLIC_RAILS_URL}/auth/log_user_in` : `${process.env.NEXT_PUBLIC_RAILS_URL}/auth/sign_user_up`
+        axios.post(postUrl, {
             "user": {
                 first_name: values.firstName,
                 username: values.username,
@@ -48,11 +49,12 @@ export default function LoginForm() {
         })
         .then(function (response) {
             console.log(response);
-            // This tells us what the server is reponding with
-            // The problem is that it isn't responding with shit other than that??
-            //     So - what's happening RN is we send our call to the Rails API.
-            //     It's looking for an HTML file, and going shit that doesn't exist. Which makes
-            //     zero sense, but let's test it anyways
+            if (response.data.success) {
+                console.log("Shit's working, baby.")
+                router.push("/dashboard")
+            } else {
+                console.log("Bro, what the fuck.");
+            }
         })
         .catch(function (error) {
             console.log(error);
@@ -61,7 +63,8 @@ export default function LoginForm() {
 
     return (
         <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+            <h1 className={"text-4xl mb-8"}>{pathName === '/' ? "Log in" : "Sign up"}</h1>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
                 <FormField
                     control={form.control}
                     name="firstName"
@@ -104,7 +107,6 @@ export default function LoginForm() {
                         </FormItem>
                     )}
                 />
-
                 <FormField
                     control={form.control}
                     name="password"
@@ -112,7 +114,7 @@ export default function LoginForm() {
                         <FormItem>
                             <FormLabel>Password</FormLabel>
                             <FormControl>
-                                <Input type={"password"} placeholder={"Password"} {...field} />
+                                <Input autoComplete={"current-password"} type={"password"} placeholder={"Password"} {...field} />
                             </FormControl>
                             <FormDescription>
                                 6 characters, alphanumeric.
