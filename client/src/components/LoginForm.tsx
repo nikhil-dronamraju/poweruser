@@ -1,6 +1,7 @@
 import {Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage} from "@/components/ui/form";
 import {Input} from "@/components/ui/input";
 import {Button} from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import {z} from "zod";
 import {useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
@@ -63,38 +64,39 @@ export default function LoginForm() {
 
     return (
         <Form {...form}>
-            <h1 className={"text-4xl mb-8"}>{pathName === '/' ? "Log in" : "Sign up"}</h1>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 mx-auto w-2xl border border-solid rounded-md border-gray-200 p-12">
+                <span className={'text-slate-400'}>Please enter your details</span>
+                <h1 className={"text-4xl mb-8"}>{pathName === '/' ? "Log in" : "Sign up"}</h1>
                 <FormField
                     control={form.control}
                     name="firstName"
-                    render={({ field }) => (
+                    render={({field}) => (
                         <FormItem>
                             <FormLabel>First name</FormLabel>
                             <FormControl>
                                 <Input placeholder="John Doe" {...field} />
                             </FormControl>
-                            <FormMessage />
+                            <FormMessage/>
                         </FormItem>
                     )}
                 />
                 <FormField
                     control={form.control}
                     name="email"
-                    render={({ field }) => (
+                    render={({field}) => (
                         <FormItem>
                             <FormLabel>Email</FormLabel>
                             <FormControl>
                                 <Input placeholder="john.doe@email.com" {...field} />
                             </FormControl>
-                            <FormMessage />
+                            <FormMessage/>
                         </FormItem>
                     )}
                 />
                 <FormField
                     control={form.control}
                     name="username"
-                    render={({ field }) => (
+                    render={({field}) => (
                         <FormItem>
                             <FormLabel>Username</FormLabel>
                             <FormControl>
@@ -103,26 +105,37 @@ export default function LoginForm() {
                             <FormDescription>
                                 6 characters, alphanumeric.
                             </FormDescription>
-                            <FormMessage />
+                            <FormMessage/>
                         </FormItem>
                     )}
                 />
                 <FormField
                     control={form.control}
                     name="password"
-                    render={({ field }) => (
+                    render={({field}) => (
                         <FormItem>
                             <FormLabel>Password</FormLabel>
                             <FormControl>
-                                <Input autoComplete={"current-password"} type={"password"} placeholder={"Password"} {...field} />
+                                <Input autoComplete={"current-password"} type={"password"}
+                                       placeholder={"Password"} {...field} />
                             </FormControl>
                             <FormDescription>
                                 6 characters, alphanumeric.
                             </FormDescription>
-                            <FormMessage />
+                            <FormMessage/>
                         </FormItem>
                     )}
                 />
+                <span className={'flex items-center justify-between border border-gray-200'}>
+                    <span className={'flex items-center'}>
+                        Remember me
+                        <Checkbox className={"mx-2"} />
+                    </span>
+                    {/* Replace this with a link once we have a component/auth set up */}
+                    <span>Forgot password</span>
+                </span>
+
+                <br/>
                 <Button type="submit">Submit</Button>
             </form>
         </Form>
