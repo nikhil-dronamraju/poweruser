@@ -7,6 +7,7 @@ import {useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
 import axios from "axios";
 import {usePathname, useRouter} from "next/navigation";
+import { miriamLibre,  } from "@/lib/fonts";
 
 
 const formSchema = z.object({
@@ -66,7 +67,7 @@ export default function LoginForm() {
         <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 mx-auto w-2xl border border-solid rounded-md border-gray-200 p-12">
                 <span className={'text-slate-400'}>Please enter your details</span>
-                <h1 className={"text-4xl mb-8"}>{pathName === '/' ? "Log in" : "Sign up"}</h1>
+                <h1 className={`text-4xl mb-8 ${miriamLibre.className} font-bold`}>{pathName === '/' ? "Sign up" : "Log in"}</h1>
                 <FormField
                     control={form.control}
                     name="firstName"
@@ -126,7 +127,7 @@ export default function LoginForm() {
                         </FormItem>
                     )}
                 />
-                <span className={'flex items-center justify-between border border-gray-200'}>
+                <span className={'flex items-center justify-between'}>
                     <span className={'flex items-center'}>
                         Remember me
                         <Checkbox className={"mx-2"} />
@@ -136,7 +137,10 @@ export default function LoginForm() {
                 </span>
 
                 <br/>
-                <Button type="submit">Submit</Button>
+                <Button className={"w-full p-5"} type="submit">
+                    <span className={"text-lg cursor-pointer"}>Sign up</span>
+                </Button>
+                <span className={"text-slate-400"}>Already have an account? Log in</span>
             </form>
         </Form>
     )
