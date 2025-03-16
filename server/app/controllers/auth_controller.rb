@@ -12,18 +12,20 @@ class AuthController < ApplicationController
   end
 
   def sign_user_up
-    user = User.new(user_params)
-    user.save!
+    # user = User.new(user_params)
+    # user.save!
+    pp session[:user_id]
     render json: { success: true }
-  rescue StandardError => e
-    pp e.message
-    render json: { success: false }
+  # rescue StandardError => e
+  #   pp e.message
+  #   render json: { success: false }
   end
 
   def log_in
     # session[:page_type] = "log_in"
     # session[:user_id] = nil
-    @user = User.new
+    # @user = User.new
+    puts session.inspect
   end
 
   def log_user_in
@@ -32,6 +34,7 @@ class AuthController < ApplicationController
     password = user_params[:password]
     @errors << "User not found." if user.nil?
     @errors << "Password not correct." unless user&.authenticate(password)
+    session[:user_id] = user.id
     render json: { success: true }
   rescue StandardError => e
     pp e.message

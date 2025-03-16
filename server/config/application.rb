@@ -27,6 +27,15 @@ module Server2
     # Only loads a smaller set of middleware suitable for API only apps.
     # Middleware like session, flash, cookies can be added back manually.
     # Skip views, helpers and assets when generating a new resource.
+
+    # This also configures session_options for use below
+    config.session_store :cookie_store, key: "_poweruser_session"
+    # Required for all session management (regardless of session_store)
+    config.middleware.use ActionDispatch::Cookies
+    config.middleware.use config.session_store, config.session_options
+    # There's a pretty clear lack of documentation here. I need to figure out how to get the cookie to persist,
+    # and why the hell it's doing all of this weird shit. The bottom line is figuring out why the set-cookie header is disappearing
+    # every other request
     config.api_only = true
   end
 end
