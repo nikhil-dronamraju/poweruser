@@ -10,7 +10,9 @@ class SagasController < ApplicationController
   end
 
   def create
-    @saga = Saga.create(saga_params)
+    @saga = Saga.new(saga_params)
+    @saga.user_id = session[:user_id]
+    @saga.save
     @errors = format_errors(@saga.errors)
     if @errors.present?
       return render turbo_stream: turbo_stream.replace("err_messages", partial: "layouts/error_messages", locals: { messages: @errors })
