@@ -16,10 +16,6 @@ class User < ApplicationRecord
   accepts_nested_attributes_for :sagas, allow_destroy: true
   accepts_nested_attributes_for :tracks, allow_destroy: true
 
-  def first_name
-    self.name.split(" ")[0]
-  end
-
   def smart_goals
     goal_ids = []
     tracks.each do |track|

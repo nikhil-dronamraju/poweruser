@@ -1,6 +1,6 @@
 <%= turbo_page_requires_reload %>
 <section class="section">
-  <h1 class="title is-size-2 barlow-condensed-bold">Welcome to your fitness dashboard, <span class="has-text-primary"><%= @user.name.split(" ")[0] %>!</span></h1>
+  <h1 class="title is-size-2 barlow-condensed-bold">Welcome to your fitness dashboard, <span class="has-text-primary"><%= @user.first_name.split(" ")[0] %>!</span></h1>
   <span class="subtitle is-size-5">From here, you can view <span class="has-text-primary">your progress</span>, <span class="has-text-warning">workouts</span>, and <span class="has-text-danger">more!</span></span>
 </section>
 <section class="section">

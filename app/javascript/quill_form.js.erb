@@ -1,0 +1,7 @@
+const quill = new Quill('#editor', {theme: 'snow'});
+
+
+quill.on('text-change', () => {
+    let hiddenField = document.getElementById("saga_content");
+    hiddenField.value = quill.getSemanticHTML();
+});
