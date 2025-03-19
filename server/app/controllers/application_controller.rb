@@ -4,6 +4,6 @@ class ApplicationController < ActionController::API
   before_action :set_csrf_cookie
 
   def set_csrf_cookie
-    cookies["CSRF-TOKEN"] = form_authenticity_token
+    cookies["CSRF-TOKEN"] = { value: form_authenticity_token, httponly: true }
   end
 end

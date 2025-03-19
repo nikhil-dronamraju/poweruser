@@ -1,24 +1,28 @@
 class AuthController < ApplicationController
-  # include Authentication
+  include Authentication
   # include ErrorHandling
   # include AuthHelper
+  before_action :check_logged_in, except: [:root, :log_in, :sign_up]
 
-  def sign_up
-    # session[:page_type] = "sign_up"
-    # session[:user_id] = nil
-    @user = User.new
-    @user.sagas.build
-    6.times { @user.tracks.build }
+  def root
+    render json: { success: true, message: 'Welcome!' }, status: :ok
   end
 
-  def sign_user_up
-    # user = User.new(user_params)
-    # user.save!
-    pp session[:user_id]
-    render json: { success: true }
+  # So, there's still a lot of other errors here.
+  # For example, what about dup users?
+  def sign_up
+    user = User.create(user_params)
+    if user.errors.present?
+      error = user.errors.first
+      err_attr = error.attribute
+      err_msg = error.message
+      render json: { success: false, error_attr: err_attr, error_msg: err_msg }
+    end
+    session[:user_id] = user.id
+    # render json: { success: true }
   # rescue StandardError => e
-  #   pp e.message
-  #   render json: { success: false }
+  #   puts e.inspect
+  #   render json: { success: false, error_message: e.message }
   end
 
   def log_in
